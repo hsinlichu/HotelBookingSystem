@@ -2,14 +2,13 @@ package hotel.booking.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class HomePageController {
-	@GetMapping("/")
+	@RequestMapping(value={"", "/", "index.html"})
     public String getIssues(Model model) {
-    	System.out.println("result");
+    	System.out.println("Home Page");
         return "index";
     }
 }
