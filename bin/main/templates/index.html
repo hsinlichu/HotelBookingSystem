@@ -25,6 +25,7 @@
 
     <!-- Theme Style -->
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/login.css">
   </head>
   <body>
     
@@ -32,7 +33,11 @@
       <div class="container-fluid">
         <div class="row align-items-center justify-content-between">
           <div class="col-6 col-lg-4 site-logo" data-aos="fade"><a href="./index.html">ESOE Hotel Booking</a></div>
-          <div class="col-6 col-lg-4 mr d-flex mr-4" data-aos="fade"><button type="button" class="btn btn-primary ml-auto">Sign In</button></div>
+          <div class="col-6 col-lg-4 mr d-flex mr-lg-4" data-aos="fade"><button type="button" class="btn btn-primary ml-auto" data-toggle="modal" data-target="#loginModal">Sign In</button></div>
+          <!-- Button trigger modal -->
+
+
+
           <!-- 
           <div class="col-6 col-lg-8">
             <div class="site-menu-toggle js-site-menu-toggle"  data-aos="fade">
@@ -110,27 +115,21 @@
                 <div class="col-md-6 mb-3 mb-md-0 col-lg-3">
                   <div class="row">
                     <div class="col-md-6 mb-3 mb-md-0">
-                      <label for="adults" class="font-weight-bold text-black">Adults</label>
+                      <label for="adults" class="font-weight-bold text-black">Location</label>
                       <div class="field-icon-wrap">
                         <div class="icon"><span class="ion-ios-arrow-down"></span></div>
                         <select name="" id="adults" class="form-control">
-                          <option value="">1</option>
-                          <option value="">2</option>
-                          <option value="">3</option>
-                          <option value="">4+</option>
+                          <option value="">台北</option>
+                          <option value="">台中</option>
+                          <option value="">高雄</option>
+                          <option value="">其他</option>
                         </select>
                       </div>
                     </div>
                     <div class="col-md-6 mb-3 mb-md-0">
-                      <label for="children" class="font-weight-bold text-black">Children</label>
+                      <label for="children" class="font-weight-bold text-black">Persons</label>
                       <div class="field-icon-wrap">
-                        <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                        <select name="" id="children" class="form-control">
-                          <option value="">1</option>
-                          <option value="">2</option>
-                          <option value="">3</option>
-                          <option value="">4+</option>
-                        </select>
+                        <input type="number" id="person" class="form-control">
                       </div>
                     </div>
                   </div>
@@ -314,5 +313,63 @@
     
 
     <script src="./js/main.js"></script>
+    <script src="./js/login.js"></script>
+    
+    <!-- Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content frame">
+
+      
+        <div class="modal-body">
+    <div class="nav">
+      <ul class="links">
+        <li class="signin-active"><a class="btn">Sign in</a></li>
+        <li class="signup-inactive"><a class="btn">Sign up </a></li>
+      </ul>
+    </div>
+    <div ng-app ng-init="checked = false">
+				        <form class="form-signin mx-auto" action="" method="post" name="form">
+          <label for="username">Username</label>
+          <input class="form-styling" type="text" name="username" placeholder=""/>
+          <label for="password">Password</label>
+          <input class="form-styling" type="text" name="password" placeholder=""/>
+          <input type="checkbox" id="checkbox"/>
+          <div class="btn-animate">
+            <a class="btn-signin">Sign in</a>
+          </div>
+				        </form>
+        
+				        <form class="form-signup" action="" method="post" name="form">
+          <label for="fullname">Full name</label>
+          <input class="form-styling" type="text" name="fullname" placeholder=""/>
+          <label for="email">Email</label>
+          <input class="form-styling" type="text" name="email" placeholder=""/>
+          <label for="password">Password</label>
+          <input class="form-styling" type="text" name="password" placeholder=""/>
+          <a ng-click="checked = !checked" class="btn-signup">Sign Up</a>
+				        </form>
+      
+            <div  class="success">
+                   <p> Thanks for signing up! Check your email for confirmation.</p>
+                </div>
+             </div>
+      </div>
+      
+      <div class="forgot">
+        <p></p>
+      </div>
+      
+      <div>
+        <div class="cover-photo"></div>
+        <div class="profile-photo"></div>
+        <h1 class="welcome">Welcome, Chris</h1>
+        <a class="btn-goback" value="Refresh" onClick="history.go()">Go back</a>
+      </div>
+  </div>
+
+    </div>
+  </div>
+</div>
   </body>
 </html>
