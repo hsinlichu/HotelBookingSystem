@@ -35,6 +35,10 @@ public class Database {
 			System.out.println(e.getMessage());
 		}
 	}
+	
+	public void test() {
+		System.out.println("db is working!");
+	}
 
 	public List<Hotel> getAllHotel(){
 		// Return List of Hotel
