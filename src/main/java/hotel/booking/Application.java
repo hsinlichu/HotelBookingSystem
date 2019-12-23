@@ -12,7 +12,8 @@ public class Application {
 		System.out.println("Init");
 		
 		System.out.println("Working Directory = " + System.getProperty("user.dir"));
-		Database db = new Database("database/hotel.db", "resource/HotelList.json");
+		gobal.db = new Database("database/hotel.db", "resource/HotelList.json");
+		gobal.db.test();
 	}
 
 }
