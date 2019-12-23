@@ -32,4 +32,22 @@ public class HomePageController {
 		return tmp;
 		
 	}
+	public static List<Hotel> sort_star_HtoL(List<Hotel> search) {
+		List<Hotel> tmp = search;
+		Hotel swap =new Hotel();
+		boolean check = true;
+		while (check) {
+			check = false;
+			for (int i = 0; i < tmp.size(); i++) {
+				if (tmp.get(i).getHotelStar() < tmp.get(i+1).getHotelStar()) {
+					swap = tmp.get(i);
+					tmp.set(i, tmp.get(i+1));
+					tmp.set(i+1, swap);
+					check = true;
+				}
+			}
+		}
+		return tmp;
+		
+	}
 }
