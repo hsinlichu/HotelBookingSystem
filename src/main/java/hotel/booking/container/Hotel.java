@@ -37,4 +37,9 @@ public class Hotel {
         		"street: " +  this.street + "\n" ;
 
     }
+
+	public int getHotelStar() {
+		// TODO Auto-generated method stub
+		return star;
+	}
 }

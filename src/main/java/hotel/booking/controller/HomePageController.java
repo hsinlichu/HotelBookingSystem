@@ -1,8 +1,11 @@
 package hotel.booking.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import hotel.booking.container.Hotel;
 
 @Controller
 public class HomePageController {
@@ -11,4 +14,23 @@ public class HomePageController {
     	System.out.println("Home Page");
         return "index";
     }
+	public static List<Hotel> sort_star_LtoH(List<Hotel> search) {
+		List<Hotel> tmp = search;
+		Hotel swap =new Hotel();
+		Hotel swap2 =new Hotel();
+		boolean check = true;
+		while (check) {
+			check = false;
+			for (int i = 0; i < tmp.size(); i++) {
+				if (tmp.get(i).getHotelStar() > tmp.get(i+1).getHotelStar()) {
+					swap = tmp.get(i);
+					swap2 = tmp.get(i+1);
+					swap2 = swap;
+					check = true;
+				}
+			}
+		}
+		return tmp;
+		
+	}
 }
