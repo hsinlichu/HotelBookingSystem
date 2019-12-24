@@ -1,7 +1,6 @@
 package hotel.booking.controller;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,13 +16,7 @@ public class HomePageController {
         return "index";
     }
 	public List<Hotel> FilteredHotel(List<Hotel> search,int Downfloor,int Upfloor){
-		List<Integer> price=new ArrayList<>();
-		for(int i=Downfloor;i<=Upfloor;i++) {
-			price.add(i);
-		}
-		List<Hotel> filterprice = Hotel.stream().filter(user->ages.contains(user.getAge())).collect(Collectors.toList());
-		filterAges.stream().forEach(user -> {
-		    System.out.println(user.getName()+"======"+user.getEmail());
-		});
+		
+		
 	}
 }
