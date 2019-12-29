@@ -1,7 +1,6 @@
 package hotel.booking.container;
 import hotel.booking.container.Room;
 import hotel.booking.container.Hotel;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Order {

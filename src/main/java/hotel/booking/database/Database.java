@@ -61,6 +61,8 @@ public class Database {
 		return hotels;
 	}
 
+	
+
 	public Hotel getHotel(int hotel_id){
 		// Return Hotel of specified hotel id. The returned Hotel will include rooms information.
 		// Return null if no such hotel found. 
@@ -79,6 +81,10 @@ public class Database {
 		}else{
 			return hotels.get(0);
 		}
+	}
+	
+	public List<Room> getRoomsOfHotel(Hotel hotel){
+		return getRoomsOfHotel(hotel.id);
 	}
 
 	public List<Room> getRoomsOfHotel(int hotel_id){
@@ -111,6 +117,10 @@ public class Database {
 		}
 	}
 
+	public Boolean setHotelOwner(Hotel hotel, Account account) {
+		return setHotelOwner(hotel.id, account.id);
+	}
+	
 	public Boolean setHotelOwner(int hotel_id, int account_id){
 		HashMap<String, String> attr = new HashMap<>();
 		attr.put("owner_id", Integer.toString(account_id));
@@ -119,6 +129,10 @@ public class Database {
 		return this.update("Hotel", attr, cond_attr);
 	}
 
+	public Account getHotelOwner(Hotel hotel) {
+		return getHotelOwner(hotel.id);
+	}
+	
 	public Account getHotelOwner(int hotel_id){
 		HashMap<String, String> attr = new HashMap<>();
 		attr.put("id", Integer.toString(hotel_id));
@@ -132,14 +146,15 @@ public class Database {
 		}
 	}
 
-	public Boolean addAccount(String name, String email, String password){
+	public Account addAccount(String name, String email, String password){
 		// addAccount will fail if account with same email has existed.
+		// todo: return Account 
 		HashMap<String, String> attr = new HashMap<>();
 		attr.put("name", name);
 		attr.put("email", email);
 		attr.put("password", hashPassword(password));
-		if(this.insert("Account", attr)) return true;
-		else return false;
+		if(this.insert("Account", attr)) return getAccount(maxID("Account"));
+		else return null;
 	}
 
 	public Account getAccount(int account_id){
@@ -158,16 +173,16 @@ public class Database {
 		}
 	}
 
-	public Boolean verifyAccount(String email, String password){
+	public Account verifyAccount(String email, String password){
 		HashMap<String, String> attr = new HashMap<>();
 		attr.put("email", email);
 		attr.put("password", hashPassword(password));
-		if(this.select("Account", attr).size() > 0) return true;
-		else return false;
+		List<HashMap<String, String>> account = this.select("Account", attr);
+		if(account.size() > 0) return getAccount(Integer.parseInt(account.get(0).get("id")));
+		else return null;
 	}
 
 	public Boolean addCustomerOrder(Account account, Order order){
-		// todo check roomAvailable
 		for(Room room: order.selected_rooms){
 			if(!this.roomAvailable(room, order.dateIn, order.dateOut)) return false;
 		}
@@ -194,6 +209,7 @@ public class Database {
 	}
 
 	public List<Order> getCustomerOrder(int account_id){
+		// Not done 
 		HashMap<String, String> attr = new HashMap<>();
 		attr.put("account_id", Integer.toString(account_id));
 		List<HashMap<String, String>> results = this.select("CustomerOrder", attr);
@@ -282,6 +298,53 @@ public class Database {
 		}
 		return conn;
 	}
+	
+	private int maxID(String table) {
+		//String sql = "INSERT INTO JsonHotel (star, locality, street_address) VALUES (1, 'Taipei', 'abc street');";
+
+		String sql = "SELECT MAX(id) FROM " + table ;
+		//System.out.println(sql);
+		//String sql = "INSERT INTO " + table + " (star, locality, street_address) " + " VALUES " + "(1, 'Taipei', 'abc street');";
+
+		try(Connection conn = this.connect()) {
+			Statement stmt = conn.createStatement();
+			// pstmt.executeUpdate();
+			ResultSet rs = stmt.executeQuery(sql);
+            // loop through the result set
+            while (rs.next()) {
+            	return rs.getInt("MAX(id)");
+            }
+            conn.close();
+            return -1;
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			return -1;
+		}
+	}
+	
+	private int len(String table) {
+		//String sql = "INSERT INTO JsonHotel (star, locality, street_address) VALUES (1, 'Taipei', 'abc street');";
+
+		String sql = "SELECT * FROM " + table ;
+		//System.out.println(sql);
+		//String sql = "INSERT INTO " + table + " (star, locality, street_address) " + " VALUES " + "(1, 'Taipei', 'abc street');";
+
+		try(Connection conn = this.connect()) {
+			Statement stmt = conn.createStatement();
+			// pstmt.executeUpdate();
+			ResultSet rs = stmt.executeQuery(sql);
+            int count = 0;
+            // loop through the result set
+            while (rs.next()) {
+            	count++;
+            }
+            conn.close();
+            return count;
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			return -1;
+		}
+	}
 
 	private Boolean insert(String table,  HashMap<String, String> attr) {
 		//String sql = "INSERT INTO JsonHotel (star, locality, street_address) VALUES (1, 'Taipei', 'abc street');";
@@ -295,7 +358,7 @@ public class Database {
 		values = values.substring(0, values.length()-2);
 
 		String sql = "INSERT INTO " + table + " ( " + columns + " ) " + " VALUES " + " ( " + values + " ) ;";
-		System.out.println(sql);
+		//System.out.println(sql);
 		//String sql = "INSERT INTO " + table + " (star, locality, street_address) " + " VALUES " + "(1, 'Taipei', 'abc street');";
 
 		try(Connection conn = this.connect()) {
@@ -326,7 +389,7 @@ public class Database {
 		conditions = conditions.substring(0, conditions.length()-5);
 
 		String sql = "UPDATE " + table + " SET " + set_values + " WHERE " + conditions + " ;";
-		System.out.println(sql);
+		//System.out.println(sql);
 		//String sql = "INSERT INTO " + table + " (star, locality, street_address) " + " VALUES " + "(1, 'Taipei', 'abc street');";
 
 		try(Connection conn = this.connect()) {
@@ -350,7 +413,7 @@ public class Database {
 		conditions = conditions.substring(0, conditions.length()-5);
 
 		String sql = "SELECT * FROM " + table + " WHERE " + conditions + ";" ;
-		System.out.println(sql);
+		//System.out.println(sql);
 		//String sql = "INSERT INTO " + table + " (star, locality, street_address) " + " VALUES " + "(1, 'Taipei', 'abc street');";
 
 		try(Connection conn = this.connect()) {
@@ -390,7 +453,7 @@ public class Database {
 		conditions = conditions.substring(0, conditions.length()-5);
 
 		String sql = "SELECT * FROM " + table + " WHERE " + conditions + ";" ;
-		System.out.println(sql);
+		//System.out.println(sql);
 		//String sql = "INSERT INTO " + table + " (star, locality, street_address) " + " VALUES " + "(1, 'Taipei', 'abc street');";
 
 		try(Connection conn = this.connect()) {
