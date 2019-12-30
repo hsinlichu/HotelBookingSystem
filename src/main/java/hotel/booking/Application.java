@@ -15,11 +15,11 @@ public class Application {
 		System.out.println("Init");
 		
 		System.out.println("Working Directory = " + System.getProperty("user.dir"));
-		gobal.db = new Database("database/hotel.db", "resource/HotelList.json");
-		gobal.db.test();
+		Global.db = new Database("database/hotel.db", "resource/HotelList.json");
+		Global.db.test();
 
 		// Get hotel list, this will return a breif list of Hotel
-		List<Hotel> hotels = gobal.db.getAllHotel();
+		List<Hotel> hotels = Global.db.getAllHotel();
 		for(Hotel hotel: hotels){
 			// System.out.println(hotel);
 			// Get the Room of a hotel
@@ -28,34 +28,34 @@ public class Application {
 
 		// Add new account
 		System.out.println("Add new account");
-		System.out.println(gobal.db.addAccount("user1", "user1@gmail.com", "password1"));
-		System.out.println(gobal.db.addAccount("user2", "user2@gmail.com", "password2"));
-		System.out.println(gobal.db.addAccount("user3", "user3@gmail.com", "password3"));
-		System.out.println(gobal.db.addAccount("user4", "user4@gmail.com", "password4"));
-		System.out.println(gobal.db.addAccount("user5", "user5@gmail.com", "password5"));
-		System.out.println(gobal.db.addAccount("user6", "user6@gmail.com", "password6"));
-		System.out.println(gobal.db.addAccount("user7", "user7@gmail.com", "password7"));
+		System.out.println(Global.db.addAccount("user1", "user1@gmail.com", "password1"));
+		System.out.println(Global.db.addAccount("user2", "user2@gmail.com", "password2"));
+		System.out.println(Global.db.addAccount("user3", "user3@gmail.com", "password3"));
+		System.out.println(Global.db.addAccount("user4", "user4@gmail.com", "password4"));
+		System.out.println(Global.db.addAccount("user5", "user5@gmail.com", "password5"));
+		System.out.println(Global.db.addAccount("user6", "user6@gmail.com", "password6"));
+		System.out.println(Global.db.addAccount("user7", "user7@gmail.com", "password7"));
 		
 		// Login with account
 		System.out.println("Login with account");
-		System.out.println(gobal.db.verifyAccount("user1@gmail.com", "password1"));
-		System.out.println(gobal.db.verifyAccount("user1@gmail.com", "password2"));
+		System.out.println(Global.db.verifyAccount("user1@gmail.com", "password1"));
+		System.out.println(Global.db.verifyAccount("user1@gmail.com", "password2"));
 		
 		// Set hotel owner
 		System.out.println("Set hotel owner");
-		System.out.println(gobal.db.setHotelOwner(1, 1));
-		System.out.println(gobal.db.setHotelOwner(2, 2));
-		System.out.println(gobal.db.setHotelOwner(3, 3));
-		System.out.println(gobal.db.setHotelOwner(4, 4));
-		System.out.println(gobal.db.setHotelOwner(5, 5));
-		System.out.println(gobal.db.setHotelOwner(6, 6));
-		System.out.println(gobal.db.setHotelOwner(7, 7));
+		System.out.println(Global.db.setHotelOwner(1, 1));
+		System.out.println(Global.db.setHotelOwner(2, 2));
+		System.out.println(Global.db.setHotelOwner(3, 3));
+		System.out.println(Global.db.setHotelOwner(4, 4));
+		System.out.println(Global.db.setHotelOwner(5, 5));
+		System.out.println(Global.db.setHotelOwner(6, 6));
+		System.out.println(Global.db.setHotelOwner(7, 7));
 		
 		
 
-		System.out.println(gobal.db.getAccount(1));
-		System.out.println(gobal.db.getRoomsOfHotel(1));
-		System.out.println(gobal.db.getHotelOwner(1));
+		System.out.println(Global.db.getAccount(1));
+		System.out.println(Global.db.getRoomsOfHotel(1));
+		System.out.println(Global.db.getHotelOwner(1));
 	}
 
 }
