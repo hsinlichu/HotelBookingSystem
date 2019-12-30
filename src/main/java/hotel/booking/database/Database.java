@@ -55,7 +55,8 @@ public class Database {
 			// 	rooms.add(room);
 			// }
 			//Hotel hotel = new Hotel(Integer.parseInt(result.get("id")), Integer.parseInt(result.get("star")), result.get("locality"), result.get("street_address"), rooms);
-			Hotel hotel = new Hotel(Integer.parseInt(result.get("id")), Integer.parseInt(result.get("star")), result.get("locality"), result.get("street_address"), null);
+			List<Room> rooms = getRoomsOfHotel(Integer.parseInt(result.get("id")));
+			Hotel hotel = new Hotel(Integer.parseInt(result.get("id")), Integer.parseInt(result.get("star")), result.get("locality"), result.get("street_address"), rooms);
 			hotels.add(hotel);
 		}
 		return hotels;
