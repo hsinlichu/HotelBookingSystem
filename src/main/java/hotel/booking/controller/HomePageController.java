@@ -21,7 +21,7 @@ public class HomePageController {
 		while (check) {
 			check = false;
 			for (int i = 0; i < tmp.size()-1; i++) {
-				if (tmp.get(i).getHotelStar() > tmp.get(i+1).getHotelStar()) {
+				if (tmp.get(i).star > tmp.get(i+1).star) {
 					swap = tmp.get(i);
 					tmp.set(i, tmp.get(i+1));
 					tmp.set(i+1, swap);
@@ -39,7 +39,7 @@ public class HomePageController {
 		while (check) {
 			check = false;
 			for (int i = 0; i < tmp.size()-1; i++) {
-				if (tmp.get(i).getHotelStar() < tmp.get(i+1).getHotelStar()) {
+				if (tmp.get(i).star < tmp.get(i+1).star) {
 					swap = tmp.get(i);
 					tmp.set(i, tmp.get(i+1));
 					tmp.set(i+1, swap);

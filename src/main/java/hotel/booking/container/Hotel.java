@@ -38,8 +38,5 @@ public class Hotel {
 
     }
 
-	public int getHotelStar() {
-		// TODO Auto-generated method stub
-		return star;
-	}
+	
 }
