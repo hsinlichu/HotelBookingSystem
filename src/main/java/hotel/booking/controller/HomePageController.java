@@ -18,12 +18,12 @@ public class HomePageController {
         return "index";
     }
 	public List<Hotel> FilteredHotel(List<Hotel> search,int Downfloor,int Upfloor,int SinNum,int DouNum,int QuaNum){
-		for(Hotel totalprice:search) {
-			db.getRoomsOfHotel(totalprice.id);
-		}
-				for(int i=0;i<;i++) {
-				if(a<=price2.get(i)&&price2.get(i)<=b) {
-						price3.add(price2.get(i));
+		List<Hotel> filtered=new ArrayList<>();
+			
+		
+				for(int i=0;i<search.size();i++) {
+				if(Downfloor<=search.get(i).rooms.&&search.get<=Upfloor) {
+						filtered.add(search.get(i));
 				}
 				}
 		
