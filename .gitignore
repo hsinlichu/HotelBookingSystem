@@ -4,6 +4,7 @@
 
 ### Mac ###
 .DS_Store
+.swp
 
 
 database/hotel.db

@@ -3,13 +3,17 @@ package hotel.booking.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class ResultPageController {            //homepage�j�M�������G����(ResultUI)
-	  //�������whtml     
-    public String getIssues(Model model) {
+public class ResultPageController {    
+	@RequestMapping(value="/result", method=RequestMethod.POST)
+    public String getIssues(@RequestParam String checkin_date, @RequestParam String checkout_date, @RequestParam String location, @RequestParam int person, Model model) {
     	System.out.println("Resultpage");
-        return "  ";                        //�������whtml
+    	System.out.println(checkin_date+"\n"+checkout_date+"\n"+location+"\n"+person);
+    	
+        return "result";                       
     }
 
 }
