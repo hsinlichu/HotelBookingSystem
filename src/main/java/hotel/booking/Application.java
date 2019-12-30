@@ -29,6 +29,7 @@ public class Application {
 
 		// Add new account
 		System.out.println("Add new account");
+<<<<<<< HEAD
 		System.out.println(Global.db.addAccount("user1", "user1@gmail.com", "password1"));
 		System.out.println(Global.db.addAccount("user2", "user2@gmail.com", "password2"));
 		System.out.println(Global.db.addAccount("user3", "user3@gmail.com", "password3"));
@@ -37,6 +38,16 @@ public class Application {
 		System.out.println(Global.db.addAccount("user6", "user6@gmail.com", "password6"));
 		System.out.println(Global.db.addAccount("user7", "user7@gmail.com", "password7"));
 		System.out.println(Global.db.addAccount("test", "test@gmail.com", "password"));
+=======
+		System.out.println(gobal.db.addAccount("user1", "user1@gmail.com", "password1"));
+		System.out.println(gobal.db.addAccount("user2", "user2@gmail.com", "password2"));
+		System.out.println(gobal.db.addAccount("user3", "user3@gmail.com", "password3"));
+		System.out.println(gobal.db.addAccount("user4", "user4@gmail.com", "password4"));
+		System.out.println(gobal.db.addAccount("user5", "user5@gmail.com", "password5"));
+		System.out.println(gobal.db.addAccount("user6", "user6@gmail.com", "password6"));
+		System.out.println(gobal.db.addAccount("user7", "user7@gmail.com", "password7"));
+		System.out.println(gobal.db.addAccount("test", "test@gmail.com", "password"));
+>>>>>>> branch 'master' of https://github.com/james60708/HotelBookingSystem.git
 		
 		// Login with account
 		System.out.println("Login with account");
@@ -59,6 +70,7 @@ public class Application {
 		System.out.println(Global.db.getRoomsOfHotel(1));
 		System.out.println(Global.db.getHotelOwner(1));
 
+<<<<<<< HEAD
 		
 			
 		System.out.println(Global.db.addAccount("test", "test@gmail.com", "password"));
@@ -67,6 +79,20 @@ public class Application {
 		List<Room> selected_rooms = Global.db.getRoomsOfHotel(1);
 		Order order = new Order(hotel, "2019/10/23", "2019/10/24", selected_rooms);
 		System.out.println(Global.db.addCustomerOrder(account, order));
+=======
+		System.out.println(gobal.db.getAccount(1));
+		System.out.println(gobal.db.getRoomsOfHotel(1));
+		System.out.println(gobal.db.getHotelOwner(1));
+		
+		
+		
+		System.out.println(gobal.db.addAccount("test", "test@gmail.com", "password"));
+		Account account = gobal.db.verifyAccount("test@gmail.com", "password");
+		Hotel hotel = gobal.db.getHotel(1);
+		List<Room> selected_rooms = gobal.db.getRoomsOfHotel(1);
+		Order order = new Order(hotel, "2019/10/23", "2019/10/24", selected_rooms);
+		System.out.println(gobal.db.addCustomerOrder(account, order));
+>>>>>>> branch 'master' of https://github.com/james60708/HotelBookingSystem.git
 	}
 
 }
