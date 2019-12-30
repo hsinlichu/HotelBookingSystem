@@ -5,11 +5,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class InfoCheckController {             //©w³æ½T»{¤¶­±(ConfirmInfoUI)
-	@RequestMapping(value={"", "/", ".html"})  //´«¦¨«ü©whtml     
+public class InfoCheckController {             //ï¿½wï¿½ï¿½Tï¿½{ï¿½ï¿½ï¿½ï¿½(ConfirmInfoUI)
+	  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½whtml     
     public String getIssues(Model model) {
     	System.out.println("Resultpage");
-        return "  ";                        //´«¦¨«ü©whtml
+        return "  ";                        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½whtml
     }
 
 }

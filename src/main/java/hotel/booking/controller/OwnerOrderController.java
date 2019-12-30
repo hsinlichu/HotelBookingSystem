@@ -5,11 +5,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class OwnerOrderController {            //½æ¤è­q³æºÞ²z­×§ï­¶­±(OwnerOrderUI)
-	@RequestMapping(value={"", "/", ".html"})  //´«¦¨«ü©whtml     
+public class OwnerOrderController {            //ï¿½ï¿½ï¿½qï¿½ï¿½Þ²zï¿½×§ï­¶ï¿½ï¿½(OwnerOrderUI)
+	  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½whtml     
     public String getIssues(Model model) {
     	System.out.println("Resultpage");
-        return "  ";                        //´«¦¨«ü©whtml
+        return "  ";                        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½whtml
     }
 
 }

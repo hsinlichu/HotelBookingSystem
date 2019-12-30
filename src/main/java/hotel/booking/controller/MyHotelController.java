@@ -5,11 +5,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class MyHotelController {               //½æ¤èºÞ²z¦Û¤vHotelªº¥D­¶(MyHotelUI)
-	@RequestMapping(value={"", "/", ".html"})  //´«¦¨«ü©whtml     
+public class MyHotelController {               //ï¿½ï¿½ï¿½Þ²zï¿½Û¤vHotelï¿½ï¿½ï¿½Dï¿½ï¿½(MyHotelUI)
+	  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½whtml     
     public String getIssues(Model model) {
     	System.out.println("Resultpage");
-        return "  ";                        //´«¦¨«ü©whtml
+        return "  ";                        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½whtml
     }
 
 }
