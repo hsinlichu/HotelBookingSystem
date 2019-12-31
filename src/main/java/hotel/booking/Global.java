@@ -1,7 +1,7 @@
 package hotel.booking;
 import hotel.booking.database.*;
 
-public class gobal {
+public class Global {
 	public static Database db;
 
 }
