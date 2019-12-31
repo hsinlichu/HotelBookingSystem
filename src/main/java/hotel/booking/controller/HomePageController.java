@@ -17,15 +17,5 @@ public class HomePageController {
     	System.out.println("Home Page");
         return "index";
     }
-	public List<Hotel> FilteredHotel(List<Hotel> search,int Downfloor,int Upfloor,int SinNum,int DouNum,int QuaNum){
-		List<Hotel> filtered=new ArrayList<>();
-			
-		
-				for(int i=0;i<search.size();i++) {
-				if(Downfloor<=search.get(i).rooms.&&search.get<=Upfloor) {
-						filtered.add(search.get(i));
-				}
-				}
-		
-	}
+	
 }
