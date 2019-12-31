@@ -20,15 +20,17 @@ public class Application {
 		gobal.db.test();
 
 		// Get hotel list, this will return a breif list of Hotel
-		List<Hotel> hotels = gobal.db.getAllHotel();
+		List<Hotel> hotels = gobal.db.getAllHotel("2019/10/23", "2019/10/24", "台北", 4);
 		for(Hotel hotel: hotels){
 			System.out.println(hotel);
 			// Get the Room of a hotel
 			//System.out.println(gobal.db.getRoomsOfHotel(hotel));
-		}
-
-		// Add new account
+		} 
+		// Add new account 
 		System.out.println("Add new account");
+		System.out.println(gobal.db.addAccount("owner1", "owner1@gmail.com", "password1"));
+		System.out.println(gobal.db.addAccount("owner2", "owner2@gmail.com", "password2"));
+		System.out.println(gobal.db.addAccount("owner3", "owner3@gmail.com", "password3"));
 		System.out.println(gobal.db.addAccount("user1", "user1@gmail.com", "password1"));
 		System.out.println(gobal.db.addAccount("user2", "user2@gmail.com", "password2"));
 		System.out.println(gobal.db.addAccount("user3", "user3@gmail.com", "password3"));
@@ -38,20 +40,22 @@ public class Application {
 		System.out.println(gobal.db.addAccount("user7", "user7@gmail.com", "password7"));
 		System.out.println(gobal.db.addAccount("test", "test@gmail.com", "password"));
 		
-		// Login with account
+		// Login with account  
 		System.out.println("Login with account");
-		System.out.println(gobal.db.verifyAccount("user1@gmail.com", "password1"));
-		System.out.println(gobal.db.verifyAccount("user1@gmail.com", "password2"));
+		Account account1 = gobal.db.verifyAccount("owner1@gmail.com", "password1");
+		Account account2 = gobal.db.verifyAccount("owner2@gmail.com", "password2");
+		Account account3 = gobal.db.verifyAccount("owner3@gmail.com", "password3");
+		
 		
 		// Set hotel owner
 		System.out.println("Set hotel owner");
-		System.out.println(gobal.db.setHotelOwner(1, 1));
-		System.out.println(gobal.db.setHotelOwner(2, 2));
-		System.out.println(gobal.db.setHotelOwner(3, 3));
-		System.out.println(gobal.db.setHotelOwner(4, 4));
-		System.out.println(gobal.db.setHotelOwner(5, 5));
-		System.out.println(gobal.db.setHotelOwner(6, 6));
-		System.out.println(gobal.db.setHotelOwner(7, 7));
+		System.out.println(gobal.db.setHotelOwner(hotels.get(0), account1));
+		System.out.println(gobal.db.setHotelOwner(hotels.get(1), account1));
+		System.out.println(gobal.db.setHotelOwner(hotels.get(2), account1));
+		System.out.println(gobal.db.setHotelOwner(hotels.get(3), account2));
+		System.out.println(gobal.db.setHotelOwner(hotels.get(4), account2));
+		System.out.println(gobal.db.setHotelOwner(hotels.get(5), account3));
+		System.out.println(gobal.db.setHotelOwner(hotels.get(6), account3));
 		
 		
 
@@ -66,7 +70,10 @@ public class Application {
 		Hotel hotel = gobal.db.getHotel(1);
 		List<Room> selected_rooms = gobal.db.getRoomsOfHotel(1);
 		Order order = new Order(hotel, "2019/10/23", "2019/10/24", selected_rooms);
-		System.out.println(gobal.db.addCustomerOrder(account, order));
+		System.out.println(gobal.db.addCustomerOrder(account, order)); 
+		System.out.println(gobal.db.getHotelOwner(1)); 
+//		System.out.println(gobal.db.getAllHotel("2019/10/23", "2019/10/24", "台北", 4).get(0));
+//		System.out.println(gobal.db.getAllHotel("2019/10/23", "2019/10/24", "台北", 4).get(0).rooms); 
 	}
 
 }
