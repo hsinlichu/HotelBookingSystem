@@ -21,17 +21,11 @@ public class ResultPageController {
         return "result";                       
     
 	}
-	public List<Hotel> FilteredHotel(List<Hotel> search,int Downfloor,int Upfloor,int SinNum,int DouNum,int QuaNum){
+	public List<Hotel> FilteredHotel(List<Hotel> search,int Downfloor,int Upfloor,int SinNum,int DouNum,int QuaNum){//create new list to store totalprice within downfloor price and upfloor price
 		List<Hotel> filteredtotal=new ArrayList<>();
-		int total=0;
 		for(int i=0;i<search.size();i++) {
-			total=SinNum*search.get(i).rooms.get(0).price+DouNum*search.get(i).rooms.get(1).price+QuaNum*search.get(i).rooms.get(2).price; 
-		}
-		
-		for(int i=0;i<search.size();i++) {
-			if(Downfloor<=search.get(i).rooms.get(0).price&&search.get(i).rooms.get(1).price<=Upfloor) {
-				filteredtotal.add(search.get(i));
-			}
+			if(SinNum*search.get(i).rooms.get(0).price+DouNum*search.get(i).rooms.get(1).price+QuaNum*search.get(i).rooms.get(2).price>=Downfloor&&SinNum*search.get(i).rooms.get(0).price+DouNum*search.get(i).rooms.get(1).price+QuaNum*search.get(i).rooms.get(2).price<=Upfloor)
+			filteredtotal.add(search.get(i));
 		}
 				
 		return filteredtotal;
