@@ -31,6 +31,11 @@
 
         <header class="site-header js-site-header">
             <div class="container-fluid">
+            
+            <div class="result_message" th:if="${islogin}">
+            <h3>Your report has been submitted.</h3>
+            <p>Find all issues <a href="/issues">here</a></p>
+        </div>
                 <div class="row align-items-center justify-content-between">
                     <div class="col-6 col-lg-4 site-logo" data-aos="fade"><a href="./index.html">ESOE Hotel Booking</a></div>
                     <div class="col-6 col-lg-4 mr d-flex mr-lg-4" data-aos="fade"><button type="button" class="btn btn-primary ml-auto" data-toggle="modal" data-target="#loginModal">Sign In</button></div>
@@ -313,34 +318,26 @@
                             <div class="tab-content">
                                 <div id="signup">   
                                     <h2>Sign Up for Free</h2>
-                                    <form action="/" method="post">
-                                        <div class="top-row">
+                                    <form action="/signup" method="post">
                                             <div class="field-wrap">
                                                 <label>
-                                                    First Name<span class="req">*</span>
+                                                    Your Name<span class="req">*</span>
                                                 </label>
-                                                <input type="text" required autocomplete="off" />
+                                                <input type="text" name="name" required autocomplete="off" />
                                             </div>
-                                            <div class="field-wrap">
-                                                <label>
-                                                    Last Name<span class="req">*</span>
-                                                </label>
-                                                <input type="text"required autocomplete="off"/>
-                                            </div>
-                                        </div>
 
                                         <div class="field-wrap">
                                             <label>
                                                 Email Address<span class="req">*</span>
                                             </label>
-                                            <input type="email"required autocomplete="off"/>
+                                            <input type="email" name="email" required autocomplete="off"/>
                                         </div>
 
                                         <div class="field-wrap">
                                             <label>
                                                 Set A Password<span class="req">*</span>
                                             </label>
-                                            <input type="password"required autocomplete="off"/>
+                                            <input type="password" name="passwd" required autocomplete="off"/>
                                         </div>
 
                                         <button type="submit" class="button button-block"/>Get Started</button>
@@ -352,20 +349,20 @@
                                 <div id="login">   
                                     <h2>Welcome Back!</h2>
 
-                                    <form action="/" method="post">
+                                    <form action="/login" method="post">
 
                                         <div class="field-wrap">
                                             <label>
                                                 Email Address<span class="req">*</span>
                                             </label>
-                                            <input type="email"required autocomplete="off"/>
+                                            <input type="email" name="email" required autocomplete="off"/>
                                         </div>
 
                                         <div class="field-wrap">
                                             <label>
                                                 Password<span class="req">*</span>
                                             </label>
-                                            <input type="password"required autocomplete="off"/>
+                                            <input type="password" name="passwd" required autocomplete="off"/>
                                         </div>
 										<!-- <p class="forgot"><a href="#">Forgot Password?</a></p>  -->
                                         
