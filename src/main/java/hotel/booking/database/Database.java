@@ -62,7 +62,37 @@ public class Database {
 		return hotels;
 	}
 
+	public List<Hotel> getAllHotel(String dateIn, String dateOut, String locality, int persons){
+		// Return Hotel of specified hotel id. The returned Hotel will include rooms information.
+		// Return null if no such hotel found. 
+		List<Hotel> hotels = getAllHotel(locality);
+		for(Hotel hotel: hotels) {
+			int i = 0, size = hotel.rooms.size();
+			for(i = 0; i < size; i++) {
+				if(!roomAvailable(hotel.rooms.get(i), dateIn, dateOut)){
+					hotel.rooms.remove(i);
+					i--;
+					size--;
+				}
+			}
+		}
+		return hotels;
+	}
 	
+	public List<Hotel> getAllHotel(String locality){
+		// Return Hotel of specified hotel id. The returned Hotel will include rooms information.
+		// Return null if no such hotel found. 
+		List<Hotel> hotels = new ArrayList<Hotel>();
+		HashMap<String, String> hotel_attr = new HashMap<>();
+		hotel_attr.put("locality", locality);
+		List<HashMap<String, String>> results = this.select("Hotel", hotel_attr);
+		for(HashMap<String, String> result: results){
+			List<Room> rooms = getRoomsOfHotel(Integer.parseInt(result.get("id")));
+			Hotel hotel = new Hotel(Integer.parseInt(result.get("id")), Integer.parseInt(result.get("star")), result.get("locality"), result.get("street_address"), rooms);
+			hotels.add(hotel);
+		}
+		return hotels;
+	}
 
 	public Hotel getHotel(int hotel_id){
 		// Return Hotel of specified hotel id. The returned Hotel will include rooms information.
@@ -84,6 +114,8 @@ public class Database {
 		}
 	}
 	
+	
+	
 	public List<Room> getRoomsOfHotel(Hotel hotel){
 		return getRoomsOfHotel(hotel.id);
 	}
@@ -97,7 +129,7 @@ public class Database {
 		List<Room> rooms = new ArrayList<Room>();
 		for(HashMap<String, String> roomResult: roomResults){
 			Room room = new Room(Integer.parseInt(roomResult.get("id")), roomResult.get("type"), Integer.parseInt(roomResult.get("price")), Integer.parseInt(roomResult.get("quantity")));
-			rooms.add(room);
+			rooms.add(room); 
 		}
 		return rooms;
 	}
