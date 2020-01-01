@@ -4,9 +4,9 @@
 
 ### Mac ###
 .DS_Store
-.swp
+*.swp
 
 
 database/hotel.db
 
-bin
+bin/

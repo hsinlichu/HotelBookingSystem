@@ -1,42 +1,40 @@
 package hotel.booking.controller;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import hotel.booking.Global;
-import hotel.booking.container.Account;
+import hotel.booking.container.LoginInfo;
 
 
 @Controller
 public class HomePageController {
-	@RequestMapping(value={"", "/", "index.html"})
+	@Resource(name = "loginInfoSession")
+	LoginInfo loginInfo;
+	
+	@RequestMapping(value={"", "/", "index.html", "index"}, method=RequestMethod.GET, params = {})
     public String getHomePage(Model model) {
+		
+		model.addAttribute("loginInfo", loginInfo);
+		
     	System.out.println("Home Page");
+    	System.out.println("New Status: " + loginInfo.islogin);
         return "index";
     }
 	
-	
-	public Boolean register(String firstname, String lastname, String email, String password) {
-		Boolean result = true;
-		String name = lastname + firstname;
-		if (password.length() == 8) {     //the condition of password(can be canceled or changed)
-			result = false;
-		}
-		if (result) {                     //register success
-			System.out.println(name + " has registered successfully.");
-			Global.db.addAccount(name, email, password);
-		}
-		return result;
-	}
-	
-	public Account login(String account, String password) {
-		Account result;
-		result = Global.db.verifyAccount(account, password);
-		if (result != null) {
-			System.out.println(account + " logged in");
-		}
-		return result;                     //if login failed, return null
-	}
-	
+	@RequestMapping(value={"", "/", "index.html", "index"}, method=RequestMethod.GET, params = {"msg"})
+    public String getHomePage(@RequestParam String msg, Model model) {
+		System.out.println(msg);
+		model.addAttribute("loginInfo", loginInfo);
+		model.addAttribute("msg", msg);
+    	System.out.println("Home Page MSG");
+    	System.out.println("New Status: " + loginInfo.islogin);
+    	
+    	System.out.println(loginInfo.account);
+        return "index";
+    }
 }

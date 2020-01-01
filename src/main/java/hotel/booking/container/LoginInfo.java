@@ -8,8 +8,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class LoginInfo {
 	public boolean islogin = false;
-	public String name;
-	public String email;
+	public Account account;
 	
 	@Bean
 	@SessionScope
