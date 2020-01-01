@@ -179,6 +179,15 @@ public class Database {
 		}
 	}
 
+	public Account getRoomOwner(Room room){
+		HashMap<String, String> attr = new HashMap<>();
+		attr.put("id", Integer.toString(room.id));
+		List<HashMap<String, String>> results = this.select("Room", attr);
+		if(results == null) return null;
+		int hotel_id = Integer.parseInt(results.get(0).get("hotel_id"));
+		return getHotelOwner(hotel_id);
+	}
+	
 	public Account addAccount(String name, String email, String password){
 		// addAccount will fail if account with same email has existed.
 		// todo: return Account 
@@ -187,6 +196,19 @@ public class Database {
 		attr.put("email", email);
 		attr.put("password", hashPassword(password));
 		if(this.insert("Account", attr)) return getAccount(maxID("Account"));
+		else return null;
+	}
+	
+	public Account updateAccount(Account account, String name, String email, String password){
+		// addAccount will fail if account with same email has existed.
+		// todo: return Account 
+		HashMap<String, String> attr = new HashMap<>();
+		attr.put("name", name);
+		attr.put("email", email);
+		attr.put("password", hashPassword(password));
+		HashMap<String, String> cond_attr = new HashMap<>();
+		cond_attr.put("email", account.email);
+		if(this.update("Account", attr, cond_attr)) return getAccount(account.id);
 		else return null;
 	}
 
@@ -214,29 +236,24 @@ public class Database {
 		if(account.size() > 0) return getAccount(Integer.parseInt(account.get(0).get("id")));
 		else return null;
 	}
-
+	
+	
 	public Boolean addCustomerOrder(Account account, Order order){
 		for(Room room: order.selected_rooms){
-			if(!this.roomAvailable(room, order.dateIn, order.dateOut)) return false;
+			if(room.quantity > this.roomLeft(room, order.dateIn, order.dateOut)) return false;
 		}
 		for(Room room: order.selected_rooms){
 
 			HashMap<String, String> attr = new HashMap<>();
+			Account roomOwner = this.getRoomOwner(room);
 			attr.put("account_id", Integer.toString(account.id));
 			attr.put("room_id", Integer.toString(room.id));
+			attr.put("quantity", Integer.toString(room.quantity));
 			attr.put("dateIn", order.dateIn);
 			attr.put("dateOut", order.dateOut);
-			this.insert("CustomerOrder", attr);
-
-			Account roomOwner = this.getHotelOwner(order.hotel.id);
-			if(roomOwner != null){
-				HashMap<String, String> _attr = new HashMap<>();
-				_attr.put("account_id", Integer.toString(roomOwner.id));
-				_attr.put("room_id", Integer.toString(room.id));
-				_attr.put("dateIn", order.dateIn);
-				_attr.put("dateOut", order.dateOut);
-				this.insert("OwnerOrder", attr);
-			}
+			if(roomOwner != null) attr.put("owner_id", Integer.toString(roomOwner.id));
+			this.insert("Order", attr);
+ 
 		}
 		return true;
 	}
@@ -245,7 +262,7 @@ public class Database {
 		// Not done 
 		HashMap<String, String> attr = new HashMap<>();
 		attr.put("account_id", Integer.toString(account_id));
-		List<HashMap<String, String>> results = this.select("CustomerOrder", attr);
+		List<HashMap<String, String>> results = this.select("Order", attr);
 		List<Order> orders = new ArrayList<Order>();
 		for(HashMap<String, String> result: results){
 			
@@ -254,18 +271,28 @@ public class Database {
 	}
 
 	public int roomOccupied(Room room, String dateIn, String dateOut){
+		// Return number of room occupied during dateIn~dataOut
 		HashMap<String, String> attr = new HashMap<>();
 		attr.put("dateIn < ", dateOut);
 		attr.put("dateOut > ", dateIn);
 		attr.put("room_id = ", Integer.toString(room.id));
+		List<HashMap<String, String>> results = this.selectCondition("Order", attr);
+		int sum = 0; 
+		for(HashMap<String, String> result: results) {
+			sum += Integer.parseInt(result.get("quantity"));
+		}
+		return sum;
+	}
+	
+	public int roomLeft(Room room, String dateIn, String dateOut) {
+		// Return number of room left during dateIn~dataOut
 		Room queryRoom = this.getRoom(room.id);
-		List<HashMap<String, String>> results = this.selectCondition("CustomerOrder", attr);
-		return results.size();
+		return queryRoom.quantity - this.roomOccupied(room, dateIn, dateOut);
 	}
 
 	public Boolean roomAvailable(Room room, String dateIn, String dateOut){
-		Room queryRoom = this.getRoom(room.id);
-		if(this.roomOccupied(room, dateIn, dateOut) < queryRoom.quantity) return true;
+		// return whether the room has at least one room left
+		if(roomLeft(room, dateIn, dateOut) > 0) return true;
 		else return false;
 	}
 
@@ -335,7 +362,7 @@ public class Database {
 	private int maxID(String table) {
 		//String sql = "INSERT INTO JsonHotel (star, locality, street_address) VALUES (1, 'Taipei', 'abc street');";
 
-		String sql = "SELECT MAX(id) FROM " + table ;
+		String sql = "SELECT MAX(id) FROM " + "`" + table + "`" ;
 		//System.out.println(sql);
 		//String sql = "INSERT INTO " + table + " (star, locality, street_address) " + " VALUES " + "(1, 'Taipei', 'abc street');";
 
@@ -358,7 +385,7 @@ public class Database {
 	private int len(String table) {
 		//String sql = "INSERT INTO JsonHotel (star, locality, street_address) VALUES (1, 'Taipei', 'abc street');";
 
-		String sql = "SELECT * FROM " + table ;
+		String sql = "SELECT * FROM " + "`" + table + "`" ;
 		//System.out.println(sql);
 		//String sql = "INSERT INTO " + table + " (star, locality, street_address) " + " VALUES " + "(1, 'Taipei', 'abc street');";
 
@@ -390,7 +417,7 @@ public class Database {
 		columns = columns.substring(0, columns.length()-2);
 		values = values.substring(0, values.length()-2);
 
-		String sql = "INSERT INTO " + table + " ( " + columns + " ) " + " VALUES " + " ( " + values + " ) ;";
+		String sql = "INSERT INTO " + "`" + table + "`"  + " ( " + columns + " ) " + " VALUES " + " ( " + values + " ) ;";
 		//System.out.println(sql);
 		//String sql = "INSERT INTO " + table + " (star, locality, street_address) " + " VALUES " + "(1, 'Taipei', 'abc street');";
 
@@ -421,7 +448,7 @@ public class Database {
 		}
 		conditions = conditions.substring(0, conditions.length()-5);
 
-		String sql = "UPDATE " + table + " SET " + set_values + " WHERE " + conditions + " ;";
+		String sql = "UPDATE " + "`" + table + "`" + " SET " + set_values + " WHERE " + conditions + " ;";
 		//System.out.println(sql);
 		//String sql = "INSERT INTO " + table + " (star, locality, street_address) " + " VALUES " + "(1, 'Taipei', 'abc street');";
 
@@ -445,7 +472,7 @@ public class Database {
 		}
 		conditions = conditions.substring(0, conditions.length()-5);
 
-		String sql = "SELECT * FROM " + table + " WHERE " + conditions + ";" ;
+		String sql = "SELECT * FROM " + "`" + table + "`" + " WHERE " + conditions + ";" ;
 		//System.out.println(sql);
 		//String sql = "INSERT INTO " + table + " (star, locality, street_address) " + " VALUES " + "(1, 'Taipei', 'abc street');";
 
@@ -485,7 +512,7 @@ public class Database {
 		}
 		conditions = conditions.substring(0, conditions.length()-5);
 
-		String sql = "SELECT * FROM " + table + " WHERE " + conditions + ";" ;
+		String sql = "SELECT * FROM " + "`" + table + "`" + " WHERE " + conditions + ";" ;
 		//System.out.println(sql);
 		//String sql = "INSERT INTO " + table + " (star, locality, street_address) " + " VALUES " + "(1, 'Taipei', 'abc street');";
 

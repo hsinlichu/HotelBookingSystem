@@ -15,9 +15,9 @@ public class AccountInfoController {
         return "  ";                        
     }
     
-    public Account modifyAccount(Account account, String email, String password) {   //input new email or address
+    public Account modifyAccount(Account account, String name, String email, String password) {   //input new email or address
     	Account modified;
-    	modified = Global.db.verifyAccount(email, password);    	
+    	modified = Global.db.updateAccount(account, name, email, password);    	
     	return modified;
     }
     
