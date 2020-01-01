@@ -4,13 +4,24 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import hotel.booking.Global;
+import hotel.booking.container.Account;
+
 @Controller
-public class AccountInfoController {               //�Τ�ӤH��ƺ޲z����(AccountInfoUI)
-	  //�������whtml     
+public class AccountInfoController {               
+     
     public String getIssues(Model model) {
     	System.out.println("Resultpage");
-        return "  ";                        //�������whtml
+        return "  ";                        
     }
+    
+    public Account modifyAccount(Account account, String email, String password) {   //input new email or address
+    	Account modified;
+    	modified = Global.db.verifyAccount(email, password);    	
+    	return modified;
+    }
+    
+    
 	
 
 }

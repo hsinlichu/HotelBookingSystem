@@ -18,6 +18,7 @@ public class HotelDetailController {
     public Hotel getHotel(int id) {
     	Hotel result;
     	result = Global.db.getHotel(id);    	
+    	System.out.println("get hotel " + id );
     	return result;                         //if failed, return null
     }
 

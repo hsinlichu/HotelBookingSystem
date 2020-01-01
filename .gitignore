@@ -9,4 +9,5 @@
 
 database/hotel.db
 
-bin/
+### Compiled class file
+*.class
