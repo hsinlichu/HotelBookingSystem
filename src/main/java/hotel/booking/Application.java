@@ -60,6 +60,8 @@ public class Application {
 		System.out.println(Global.db.getAccount(1));
 		System.out.println(Global.db.getRoomsOfHotel(1));
 		System.out.println(Global.db.getHotelOwner(1));
+		
+		System.out.println(Global.db.getRoomsOfHotel(1).get(0));
 
 		
 			
