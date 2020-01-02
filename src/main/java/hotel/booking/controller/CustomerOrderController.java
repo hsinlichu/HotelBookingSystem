@@ -11,25 +11,20 @@ import hotel.booking.Global;
 import hotel.booking.container.Account;
 import hotel.booking.container.Order;
 @Controller
-public class CustomerOrderController {         //�U�ȭq��޲z�קﭶ��(CustomerOrderUI)
-	 //�������whtml     
+public class CustomerOrderController {         
+	     
     public String getIssues(Model model) {
     	System.out.println("Resultpage");
-        return "  ";                        //�������whtml
+        return "  ";                        
     }
     public List<Order> getCustomerOrder(Account account){
     	List<Order> Orderlist=Global.db.getCustomerOrder(account.id);
     	return Orderlist;
     }
-    public List<Order> modifyCustomerOrder(List<Order> Orderlist,Order selectOrder){//not done
-    	List<Order> Order=Orderlist;
-    	Order select=selectOrder;
-    	for(int i=0;i<Order.size();i++) {
-    		if(Order.get(i).equals(select)) {
-    			Order.remove(select);
-    		}
-    	}
-    	return Order;
+    public boolean deleteCustomerOrder(Order deleteOrder){
+    	Order order=deleteOrder;
+    	Global.db.cancelOrder(order);
+    	return true;
     }
 
 }

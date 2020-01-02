@@ -34,6 +34,7 @@ public class ResultPageController {
     	
         return "result";                       
 	}
+
 	@RequestMapping(value="/result", method=RequestMethod.GET)
     public String getfilter(@RequestParam int star, @RequestParam int pricefrom, @RequestParam int priceto, Model model) {
     	System.out.println("Resultpage");
@@ -46,14 +47,52 @@ public class ResultPageController {
         return "result";              
 	}
 	
-	public List<Hotel> FilteredHotel(List<Hotel> search,int Downfloor,int Upfloor,int SinNum,int DouNum,int QuaNum){//create new list to store totalprice within downfloor price and upfloor price
+
+	public List<Hotel> FilteredHotel(List<Hotel> search,int downfloor,int upfloor,int sinnum,int dounum,int quanum){//create new list to store totalprice within downfloor price and upfloor price
+
 		List<Hotel> filteredtotal=new ArrayList<>();
 		for(int i=0;i<search.size();i++) {
-			if(SinNum*search.get(i).rooms.get(0).price+DouNum*search.get(i).rooms.get(1).price+QuaNum*search.get(i).rooms.get(2).price>=Downfloor&&SinNum*search.get(i).rooms.get(0).price+DouNum*search.get(i).rooms.get(1).price+QuaNum*search.get(i).rooms.get(2).price<=Upfloor)
+			if(sinnum*search.get(i).rooms.get(0).price+dounum*search.get(i).rooms.get(1).price+quanum*search.get(i).rooms.get(2).price>=downfloor&&sinnum*search.get(i).rooms.get(0).price+dounum*search.get(i).rooms.get(1).price+quanum*search.get(i).rooms.get(2).price<=upfloor)
 			filteredtotal.add(search.get(i));
 		}
 				
 		return filteredtotal;
+	}
+	public static List<Hotel> sort_star_LtoH(List<Hotel> search) {
+		List<Hotel> tmp = search;
+		Hotel swap =new Hotel();
+		boolean check = true;
+		while (check) {
+			check = false;
+			for (int i = 0; i < tmp.size()-1; i++) {
+				if (tmp.get(i).star > tmp.get(i+1).star) {
+					swap = tmp.get(i);
+					tmp.set(i, tmp.get(i+1));
+					tmp.set(i+1, swap);
+					check = true;
+				}
+			}
+		}
+		return tmp;
+		
+	}
+	public static List<Hotel> sort_star_HtoL(List<Hotel> search) {
+		List<Hotel> tmp = search;
+		Hotel swap =new Hotel();
+		boolean check = true;
+		while (check) {
+			check = false;
+			for (int i = 0; i < tmp.size()-1; i++) {
+				if (tmp.get(i).star < tmp.get(i+1).star) {
+					swap = tmp.get(i);
+					tmp.set(i, tmp.get(i+1));
+					tmp.set(i+1, swap);
+					check = true;
+				}
+			}
+		}
+		return tmp;
+		
 	}
 	
 	@RequestMapping(path = "/GetAllHotel", produces = "application/json; charset=UTF-8")
