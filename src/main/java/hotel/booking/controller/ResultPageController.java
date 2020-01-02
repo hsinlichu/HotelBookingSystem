@@ -31,6 +31,42 @@ public class ResultPageController {
 				
 		return filteredtotal;
 	}
+	public static List<Hotel> sort_star_LtoH(List<Hotel> search) {
+		List<Hotel> tmp = search;
+		Hotel swap =new Hotel();
+		boolean check = true;
+		while (check) {
+			check = false;
+			for (int i = 0; i < tmp.size()-1; i++) {
+				if (tmp.get(i).star > tmp.get(i+1).star) {
+					swap = tmp.get(i);
+					tmp.set(i, tmp.get(i+1));
+					tmp.set(i+1, swap);
+					check = true;
+				}
+			}
+		}
+		return tmp;
+		
+	}
+	public static List<Hotel> sort_star_HtoL(List<Hotel> search) {
+		List<Hotel> tmp = search;
+		Hotel swap =new Hotel();
+		boolean check = true;
+		while (check) {
+			check = false;
+			for (int i = 0; i < tmp.size()-1; i++) {
+				if (tmp.get(i).star < tmp.get(i+1).star) {
+					swap = tmp.get(i);
+					tmp.set(i, tmp.get(i+1));
+					tmp.set(i+1, swap);
+					check = true;
+				}
+			}
+		}
+		return tmp;
+		
+	}
 	
 	@RequestMapping(path = "/GetAllHotel", produces = "application/json; charset=UTF-8")
     @ResponseBody
