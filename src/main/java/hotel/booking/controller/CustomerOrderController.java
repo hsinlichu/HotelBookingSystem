@@ -11,11 +11,11 @@ import hotel.booking.Global;
 import hotel.booking.container.Account;
 import hotel.booking.container.Order;
 @Controller
-public class CustomerOrderController {         //�U�ȭq��޲z�קﭶ��(CustomerOrderUI)
-	 //�������whtml     
+public class CustomerOrderController {         
+	     
     public String getIssues(Model model) {
     	System.out.println("Resultpage");
-        return "  ";                        //�������whtml
+        return "  ";                        
     }
     public List<Order> getCustomerOrder(Account account){
     	List<Order> Orderlist=Global.db.getCustomerOrder(account.id);
