@@ -274,7 +274,23 @@ public class Database {
 		return orders;
 	}
 
-	public boolean cancelCustomerOrder(int account_id, Order order){
+	public List<Order> getOwnerOrder(int owner_id){
+		HashMap<String, String> attr = new HashMap<>();
+		attr.put("owner_id", Integer.toString(owner_id));
+		List<HashMap<String, String>> results = this.select("Order", attr);
+		List<Order> orders = new ArrayList<Order>();
+		for(HashMap<String, String> result: results){
+			Room room = getRoom(Integer.parseInt(result.get("room_id")));
+			room.quantity = Integer.parseInt(result.get("quantity"));
+			List<Room> rooms = new ArrayList<Room>();
+			rooms.add(room);
+			Order order = new Order(Integer.parseInt(result.get("id")), result.get("dateIn"), result.get("dateOut"), rooms);
+			orders.add(order);
+		}
+		return orders;
+	}
+
+	public boolean cancelOrder(Order order){
 		HashMap<String, String> attr = new HashMap<>();
 		attr.put("id", Integer.toString(order.id));
 		if(this.delete("Order", attr)) return true;
