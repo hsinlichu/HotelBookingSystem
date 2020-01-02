@@ -259,15 +259,42 @@ public class Database {
 	}
 
 	public List<Order> getCustomerOrder(int account_id){
-		// Not done 
 		HashMap<String, String> attr = new HashMap<>();
 		attr.put("account_id", Integer.toString(account_id));
 		List<HashMap<String, String>> results = this.select("Order", attr);
 		List<Order> orders = new ArrayList<Order>();
 		for(HashMap<String, String> result: results){
-			
+			Room room = getRoom(Integer.parseInt(result.get("room_id")));
+			room.quantity = Integer.parseInt(result.get("quantity"));
+			List<Room> rooms = new ArrayList<Room>();
+			rooms.add(room);
+			Order order = new Order(Integer.parseInt(result.get("id")), result.get("dateIn"), result.get("dateOut"), rooms);
+			orders.add(order);
 		}
-		return null;
+		return orders;
+	}
+
+	public List<Order> getOwnerOrder(int owner_id){
+		HashMap<String, String> attr = new HashMap<>();
+		attr.put("owner_id", Integer.toString(owner_id));
+		List<HashMap<String, String>> results = this.select("Order", attr);
+		List<Order> orders = new ArrayList<Order>();
+		for(HashMap<String, String> result: results){
+			Room room = getRoom(Integer.parseInt(result.get("room_id")));
+			room.quantity = Integer.parseInt(result.get("quantity"));
+			List<Room> rooms = new ArrayList<Room>();
+			rooms.add(room);
+			Order order = new Order(Integer.parseInt(result.get("id")), result.get("dateIn"), result.get("dateOut"), rooms);
+			orders.add(order);
+		}
+		return orders;
+	}
+
+	public boolean cancelOrder(Order order){
+		HashMap<String, String> attr = new HashMap<>();
+		attr.put("id", Integer.toString(order.id));
+		if(this.delete("Order", attr)) return true;
+		else return false;
 	}
 
 	public int roomOccupied(Room room, String dateIn, String dateOut){
@@ -449,6 +476,30 @@ public class Database {
 		conditions = conditions.substring(0, conditions.length()-5);
 
 		String sql = "UPDATE " + "`" + table + "`" + " SET " + set_values + " WHERE " + conditions + " ;";
+		//System.out.println(sql);
+		//String sql = "INSERT INTO " + table + " (star, locality, street_address) " + " VALUES " + "(1, 'Taipei', 'abc street');";
+
+		try(Connection conn = this.connect()) {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.executeUpdate();
+			conn.close();
+			return true;
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
+	}
+
+	private Boolean delete(String table,  HashMap<String, String> attr) {
+		//String sql = "INSERT INTO JsonHotel (star, locality, street_address) VALUES (1, 'Taipei', 'abc street');";
+		String conditions = "";
+		for(String key: attr.keySet()){
+			String value = attr.get(key);
+			conditions += key + "=" + "'" + value + "'" + " and ";
+		}
+		conditions = conditions.substring(0, conditions.length()-5);
+
+		String sql = "DELETE FROM " + "`" + table + "`" + " WHERE " + conditions + " ;";
 		//System.out.println(sql);
 		//String sql = "INSERT INTO " + table + " (star, locality, street_address) " + " VALUES " + "(1, 'Taipei', 'abc street');";
 

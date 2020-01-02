@@ -41,7 +41,6 @@ public class InfoCheckController {
     		orderRoomlist.add(single);
     		orderRoomlist.add(Double);
     		orderRoomlist.add(quad);
-    		order.hotel = hotel;
     		order.dateIn = dateIn;
     		order.dateOut = dateOut;
     		order.selected_rooms = orderRoomlist;
