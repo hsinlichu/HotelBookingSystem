@@ -4,21 +4,30 @@ import hotel.booking.container.Hotel;
 import java.util.List;
 
 public class Order {
-	public Hotel hotel;
+	public int id;
 	public String dateIn;
 	public String dateOut;
 	public List<Room> selected_rooms;
 
 	public Order(){
 		//Default constructor
+		this.id = -1;
 		this.dateIn = "";
 		this.dateOut = "";
 	}
 	
 
-	public Order(Hotel hotel, String dateIn, String dateOut, List<Room> selected_rooms){
+	public Order(String dateIn, String dateOut, List<Room> selected_rooms){
 		// Parameter constructor
-		this.hotel = hotel;
+		this.id = -1;
+		this.dateIn = dateIn;
+		this.dateOut = dateOut;
+		this.selected_rooms = selected_rooms;
+	}
+
+	public Order(int id, String dateIn, String dateOut, List<Room> selected_rooms){
+		// Parameter constructor
+		this.id = id;
 		this.dateIn = dateIn;
 		this.dateOut = dateOut;
 		this.selected_rooms = selected_rooms;
@@ -28,8 +37,9 @@ public class Order {
 	public String toString() {
 		// return String representation of the class
         return "-----Order-----\n" + 
-        	   "hotel: " + this.hotel + "\n" + 
+        	   "id: " + this.id + "\n" + 
         	   "dateIn: " + this.dateIn + "\n" + 
-        	   "dateOut: " +  this.dateOut + "\n";
+        	   "dateOut: " +  this.dateOut + "\n" + 
+        	   this.selected_rooms;
     }
 }
