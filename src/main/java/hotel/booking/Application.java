@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import hotel.booking.database.Database;
 import hotel.booking.container.Hotel;
+import hotel.booking.controller.ResultPageController;
 import hotel.booking.container.*;
 
 import java.util.List;
@@ -67,7 +68,6 @@ public class Application {
 		System.out.println(Global.db.getHotelOwner(1));
 		
 		System.out.println(Global.db.getRoomsOfHotel(1).get(0));
-
 		
 			  
 		System.out.println(Global.db.addAccount("test", "test@gmail.com", "password"));
@@ -87,6 +87,7 @@ public class Application {
 		List<Order> orders = Global.db.getOwnerOrder(1);
 		System.out.println(orders);
 		System.out.println(Global.db.cancelOrder(orders.get(0)));
+
 		account = Global.db.verifyAccount("owner1@gmail.com", "password1");
 		System.out.println(Global.db.getHotelsOfOwner(account));
 		System.out.println(Global.db.addHotel(account, hotels.get(0)));
@@ -99,6 +100,15 @@ public class Application {
 		modified_hotel.rooms.get(0).quantity = 10;
 		modified_hotel.rooms.get(0).price = 10;
 		System.out.println(Global.db.modifyHotel(modified_hotel));
+		
+		//test ResultPageController function
+		ResultPageController test = new ResultPageController();
+		test.checkin_date = "2019/03/28";
+		test.checkout_date = "2019/03/29";
+		test.location = "台北";
+		test.person = 7;
+		System.out.println(test.GetAllHotel().get(1).id);
+		System.out.println("result list");
 	} 
 
 }
