@@ -1,6 +1,7 @@
 package hotel.booking.controller;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,36 +22,38 @@ public class InfoCheckController {
     }
     
     public Order bookCheck(Hotel hotel, String dateIn, String dateOut, int numofSingle, int numofDouble, int numofQuad) {
-    	Order order = null;
-    	boolean available = true;
+    	// Given a hotel and dateIn~dateOut, and the number of room the user want to book, 
+        // this function will check if the desired room are available, and create an order for you.
+        // (If not all rooms are available, it will return null.)
+        boolean available = true;
     	List<Room> roomlist = Global.db.getRoomsOfHotel(hotel);
-    	if (Global.db.roomLeft(roomlist.get(0), dateIn, dateOut) < numofSingle) {   //not finished yet
+    	if (Global.db.roomLeft(roomlist.get(0), dateIn, dateOut) >= numofSingle) {   //not finished yet
     		available = false;
     	}
-    	if (Global.db.roomLeft(roomlist.get(1), dateIn, dateOut) < numofDouble) {
+    	if (Global.db.roomLeft(roomlist.get(1), dateIn, dateOut) >= numofDouble) {
     		available = false;
     	}
-    	if (Global.db.roomLeft(roomlist.get(2), dateIn, dateOut) < numofQuad) {
+    	if (Global.db.roomLeft(roomlist.get(2), dateIn, dateOut) >= numofQuad) {
     		available = false;
     	}
     	if(available = true) {
-    		List<Room> orderRoomlist = null;
-    		Room single = new Room(roomlist.get(0).id, roomlist.get(0).type, roomlist.get(0).price, numofSingle);
-    		Room Double = new Room(roomlist.get(1).id, roomlist.get(1).type, roomlist.get(1).price, numofDouble);
-    		Room quad = new Room(roomlist.get(2).id, roomlist.get(2).type, roomlist.get(2).price, numofQuad);
-    		orderRoomlist.add(single);
-    		orderRoomlist.add(Double);
-    		orderRoomlist.add(quad);
-    		order.dateIn = dateIn;
-    		order.dateOut = dateOut;
-    		order.selected_rooms = orderRoomlist;
-    	}
-    	return order;
+    		List<Room> orderRoomlist = new ArrayList<>();
+    		Room single_room = new Room(roomlist.get(0).id, roomlist.get(0).type, roomlist.get(0).price, numofSingle);
+    		Room double_room = new Room(roomlist.get(1).id, roomlist.get(1).type, roomlist.get(1).price, numofDouble);
+    		Room quad_room = new Room(roomlist.get(2).id, roomlist.get(2).type, roomlist.get(2).price, numofQuad);
+    		orderRoomlist.add(single_room);
+    		orderRoomlist.add(double_room);
+    		orderRoomlist.add(quad_room);
+            Order order = new Order(dateIn, dateOut, orderRoomlist);
+            return order;
+    	}else{
+            return null;
+        }
     }
     
-    public boolean complete(Account account, Order order) {
-    	boolean execute = Global.db.addCustomerOrder(account, order);      	
-    	return execute;
+    public boolean bookComplete(Account account, Order order) {
+        // Place an order. Return true if success, false if failed. 
+    	return Global.db.addCustomerOrder(account, order); 
     }
 
 }
