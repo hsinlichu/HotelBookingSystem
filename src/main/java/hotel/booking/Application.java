@@ -87,7 +87,21 @@ public class Application {
 		List<Order> orders = Global.db.getOwnerOrder(1);
 		System.out.println(orders);
 		System.out.println(Global.db.cancelOrder(orders.get(0)));
+
+		account = Global.db.verifyAccount("owner1@gmail.com", "password1");
+		System.out.println(Global.db.getHotelsOfOwner(account));
+		System.out.println(Global.db.addHotel(account, hotels.get(0)));
 		
+		//modify hotel 
+		Hotel modified_hotel = hotels.get(0);
+		modified_hotel.star = 1;
+		modified_hotel.locality = "台南";
+		modified_hotel.street = "abc street";
+		modified_hotel.rooms.get(0).quantity = 10;
+		modified_hotel.rooms.get(0).price = 10;
+		System.out.println(Global.db.modifyHotel(modified_hotel));
+		
+		//test ResultPageController function
 		ResultPageController test = new ResultPageController();
 		test.checkin_date = "2019/03/28";
 		test.checkout_date = "2019/03/29";

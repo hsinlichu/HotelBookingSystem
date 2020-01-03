@@ -115,34 +115,33 @@
                                     <label for="checkin_date" class="font-weight-bold text-black">Check In</label>
                                     <div class="field-icon-wrap">
                                         <div class="icon"><span class="icon-calendar"></span></div>
-                                        <input type="text" id="checkin_date" name="checkin_date" class="form-control">
+                                        <input type="text" id="checkin_date" name="checkin_date" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3 mb-lg-0 col-lg-3">
                                     <label for="checkout_date" class="font-weight-bold text-black">Check Out</label>
                                     <div class="field-icon-wrap">
                                         <div class="icon"><span class="icon-calendar"></span></div>
-                                        <input type="text" id="checkout_date" name="checkout_date" class="form-control">
+                                        <input type="text" id="checkout_date" name="checkout_date" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3 mb-md-0 col-lg-3">
                                     <div class="row">
                                         <div class="col-md-6 mb-3 mb-md-0">
-                                            <label for="adults" class="font-weight-bold text-black">Location</label>
+                                            <label for="location" class="font-weight-bold text-black">Location</label>
                                             <div class="field-icon-wrap">
                                                 <div class="icon"><span class="ion-ios-arrow-down"></span></div>
                                                 <select name="location" id="location" class="form-control">
-                                                    <option value="taipei">台北</option>
-                                                    <option value="taichung">台中</option>
-                                                    <option value="kaohsiung">高雄</option>
-                                                    <option value="other">其他</option>
+                                                    <option value="台北">台北</option>
+                                                    <option value="台中">台中</option>
+                                                    <option value="高雄">高雄</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-md-6 mb-3 mb-md-0">
-                                            <label for="children" class="font-weight-bold text-black">Persons</label>
+                                            <label for="person" class="font-weight-bold text-black">Persons</label>
                                             <div class="field-icon-wrap">
-                                                <input type="number" id="person" name="person" class="form-control">
+                                                <input type="number" id="person" name="person" class="form-control" required>
                                             </div>
                                         </div>
                                     </div>
@@ -285,7 +284,7 @@
                         <p>Sign up for our newsletter</p>
                         <form action="#" class="footer-newsletter">
                             <div class="form-group">
-                                <input type="email" class="form-control" placeholder="Email...">
+                                <input type="email" class="form-control" placeholder="Email..." required>
                                 <button type="submit" class="btn"><span class="fa fa-paper-plane"></span></button>
                             </div>
                         </form>
@@ -332,28 +331,28 @@
                                                 <label>
                                                     First Name<span class="req">*</span>
                                                 </label>
-                                                <input type="text" name="firstname" required autocomplete="off" />
+                                                <input type="text" name="firstname" required autocomplete="off"  />
                                             </div>
 
                                             <div class="field-wrap">
                                                 <label>
                                                     Last Name<span class="req">*</span>
                                                 </label>
-                                                <input type="text" name="lastname" required autocomplete="off"/>
+                                                <input type="text" name="lastname" required autocomplete="off"  />
                                             </div>
                                         </div>
                                         <div class="field-wrap">
                                             <label>
                                                 Email Address<span class="req">*</span>
                                             </label>
-                                            <input type="email" name="email" required autocomplete="off"/>
+                                            <input type="email" name="email" required autocomplete="off"  />
                                         </div>
 
                                         <div class="field-wrap">
                                             <label>
                                                 Set A Password<span class="req">*</span>
                                             </label>
-                                            <input type="password" name="passwd" required autocomplete="off"/>
+                                            <input type="password" name="passwd" required autocomplete="off"  />
                                         </div>
 
                                         <button type="submit" class="button button-block"/>Get Started</button>
@@ -371,14 +370,14 @@
                                             <label>
                                                 Email Address<span class="req">*</span>
                                             </label>
-                                            <input type="email" name="email" required autocomplete="off"/>
+                                            <input type="email" name="email" required autocomplete="off"  />
                                         </div>
 
                                         <div class="field-wrap">
                                             <label>
                                                 Password<span class="req">*</span>
                                             </label>
-                                            <input type="password" name="passwd" required autocomplete="off"/>
+                                            <input type="password" name="passwd" required autocomplete="off"  />
                                         </div>
 										<!-- <p class="forgot"><a href="#">Forgot Password?</a></p>  -->
                                         

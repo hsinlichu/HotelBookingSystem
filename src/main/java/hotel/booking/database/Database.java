@@ -114,6 +114,44 @@ public class Database {
 		}
 	}
 	
+	public List<Hotel> getHotelsOfOwner(Account account){
+		List<Hotel> hotels = new ArrayList<Hotel>();
+		HashMap<String, String> attr = new HashMap<>();
+		attr.put("owner_id", Integer.toString(account.id));
+		List<HashMap<String, String>> results = this.select("Hotel", attr);
+		for(HashMap<String, String> result: results){
+			List<Room> rooms = getRoomsOfHotel(Integer.parseInt(result.get("id")));
+			Hotel hotel = new Hotel(Integer.parseInt(result.get("id")), Integer.parseInt(result.get("star")), result.get("locality"), result.get("street_address"), rooms);
+			hotels.add(hotel);
+		}
+		return hotels;
+	}
+	
+	public boolean addHotel(Account account, Hotel hotel) {
+		HashMap<String, String> attr = new HashMap<>();
+		attr.put("star", Integer.toString(hotel.star));
+		attr.put("locality", hotel.locality);
+		attr.put("street_address", hotel.street);
+		attr.put("owner_id", Integer.toString(account.id));
+		if(this.insert("Hotel", attr)) return true;
+		else return false;
+	}
+
+	public boolean modifyHotel(Hotel hotel){
+		HashMap<String, String> attr = new HashMap<>();
+		attr.put("star", Integer.toString(hotel.star));
+		attr.put("locality", hotel.locality);
+		attr.put("street_address", hotel.street);
+		HashMap<String, String> cond_attr = new HashMap<>();
+		cond_attr.put("id", Integer.toString(hotel.id));
+		if(this.update("Hotel", attr, cond_attr)){
+			for(Room room: hotel.rooms){
+				modifyRoom(room);
+			}
+			return true;
+		}
+		else return false;
+	}
 	
 	
 	public List<Room> getRoomsOfHotel(Hotel hotel){
@@ -148,6 +186,16 @@ public class Database {
 		}else{
 			return rooms.get(0);
 		}
+	}
+
+	public boolean modifyRoom(Room room){
+		HashMap<String, String> attr = new HashMap<>();
+		attr.put("price", Integer.toString(room.price));
+		attr.put("quantity", Integer.toString(room.quantity));
+		HashMap<String, String> cond_attr = new HashMap<>();
+		cond_attr.put("id", Integer.toString(room.id));
+		if(this.update("Room", attr, cond_attr)) return true;
+		else return false;
 	}
 
 	public Boolean setHotelOwner(Hotel hotel, Account account) {
@@ -189,8 +237,6 @@ public class Database {
 	}
 	
 	public Account addAccount(String name, String email, String password){
-		// addAccount will fail if account with same email has existed.
-		// todo: return Account 
 		HashMap<String, String> attr = new HashMap<>();
 		attr.put("name", name);
 		attr.put("email", email);
