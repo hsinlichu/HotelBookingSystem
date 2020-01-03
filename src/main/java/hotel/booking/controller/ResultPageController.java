@@ -25,9 +25,8 @@ public class ResultPageController {
 	
 	@RequestMapping(value="/result", method=RequestMethod.POST)
     public String getIssues(@RequestParam String checkin_date, @RequestParam String checkout_date, @RequestParam String location, @RequestParam int person, Model model) {
-    	System.out.println("Resultpage");
-    	System.out.println(checkin_date+"\n"+checkout_date+"\n"+location+"\n"+person);
-    	 	
+    	System.out.println("Resultpage" + checkin_date+" "+checkout_date+" "+location+""+person);
+
     	this.checkin_date = dateChangeType(checkin_date);
     	this.checkout_date = dateChangeType(checkout_date);
     	this.location = location;
