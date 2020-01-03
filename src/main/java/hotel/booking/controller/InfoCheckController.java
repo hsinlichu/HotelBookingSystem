@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import hotel.booking.Global;
 import hotel.booking.container.Account;
@@ -15,10 +17,10 @@ import hotel.booking.container.Room;
 
 @Controller
 public class InfoCheckController {            
-	      
-    public String getIssues(Model model) {
-    	System.out.println("Resultpage");
-        return "  ";                        
+	@RequestMapping(value="/confirmation", method=RequestMethod.POST)
+    public String infoCheck(@RequestParam int numofSingle, @RequestParam int numofDouble, @RequestParam int numofQuad, Model model) {
+    	System.out.println("confirmation page");
+        return "confirmation";                        
     }
     
     public Order bookCheck(Hotel hotel, String dateIn, String dateOut, int numofSingle, int numofDouble, int numofQuad) {
