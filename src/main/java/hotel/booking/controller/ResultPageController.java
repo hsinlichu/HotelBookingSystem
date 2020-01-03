@@ -191,6 +191,7 @@ public class ResultPageController {
 			}
 			addHotel.avgprice = numofSingle * priceofSingle + numofDouble * priceofDouble + numofQuad * priceofQuad;
 			resultHotel.add(addHotel);
+			/*
 			System.out.println("-------Hotel " + resultHotel.get(i).id + "-------");
 			System.out.println("star: " + resultHotel.get(i).star);
 			System.out.println("locality: " + resultHotel.get(i).locality);
@@ -200,6 +201,7 @@ public class ResultPageController {
 			System.out.println("Quad room[price: " + resultHotel.get(i).quadRoomPrice + ", quantity: " + resultHotel.get(i).quadRoomNum + "]");
 			System.out.println("average price: " + resultHotel.get(i).avgprice);
 			System.out.println(" ");
+			*/
 		}	
 		System.out.println("successful searching" );
         return resultHotel;
