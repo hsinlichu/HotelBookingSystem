@@ -95,6 +95,7 @@ public class ResultPageController {
 		return tmp;
 		
 	}
+
 	
 	@RequestMapping(path = "/GetAllHotel", produces = "application/json; charset=UTF-8")
     @ResponseBody
@@ -103,7 +104,9 @@ public class ResultPageController {
 		int numofDouble = this.person % 4 / 2;
 		int numofQuad = this.person / 4;
 		List<Hotel> hotel = Global.db.getAllHotel(this.checkin_date, this.checkout_date, this.location, this.person);
+		
 		List<ResultHotel> resultHotel = new ArrayList<>();
+		
 		for (int i = 0; i < hotel.size(); i++) {
 			int hotelId = hotel.get(i).id;
 			int priceofSingle = hotel.get(i).rooms.get((hotelId * 3) - 3).price;
@@ -132,8 +135,10 @@ public class ResultPageController {
 		}	
 		System.out.println(resultHotel.get(0).avgprice );
 		System.out.println("success" );
+		
         return resultHotel;
     }
+    
 	
 	public static String dateChangeType(String checkin_date) {
 		String datein[] = checkin_date.split(" ");
