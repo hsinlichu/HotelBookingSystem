@@ -20,7 +20,7 @@ public class Application {
 		Global.db = new Database("database/hotel.db", "resource/HotelList.json");
 		Global.db.test();
 
-		// Get hotel list, this will return a breif list of Hotel
+		// Get hotel list, this will return a brief list of Hotel
 		List<Hotel> hotels = Global.db.getAllHotel("2019/10/23", "2019/10/24", "台北", 4);
 
 		for(Hotel hotel: hotels){

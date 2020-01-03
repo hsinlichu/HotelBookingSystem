@@ -10,6 +10,7 @@ import hotel.booking.Global;
 import hotel.booking.container.Account;
 import hotel.booking.container.Hotel;
 import hotel.booking.container.Order;
+import hotel.booking.container.Room;
 
 @Controller
 public class MyHotelController {               
@@ -22,7 +23,15 @@ public class MyHotelController {
     	List<Hotel> Hotellist=Global.db.getHotelsOfOwner(account);
     	return Hotellist;
     }
-
+    public boolean addHotel(Account account,Hotel hotel) {
+    	return Global.db.addHotel(account, hotel);
+    }
+    public boolean modifyHotel(Hotel hotel) {
+    	return Global.db.modifyHotel(hotel);
+    }
+    public boolean modifyRoom(Room room) {
+    	return Global.db.modifyRoom(room);
+    }
     
 
 }
