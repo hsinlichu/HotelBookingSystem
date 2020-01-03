@@ -25,8 +25,7 @@ public class ResultPageController {
 	
 	@RequestMapping(value="/result", method=RequestMethod.POST)
     public String getIssues(@RequestParam String checkin_date, @RequestParam String checkout_date, @RequestParam String location, @RequestParam int person, Model model) {
-    	System.out.println("Resultpage");
-    	System.out.println(checkin_date+"\n"+checkout_date+"\n"+location+"\n"+person);
+    	System.out.println("Resultpage" + checkin_date+" "+checkout_date+" "+location+""+person);
     	 	
     	this.checkin_date = dateChangeType(checkin_date);
     	this.checkout_date = dateChangeType(checkout_date);
@@ -38,8 +37,7 @@ public class ResultPageController {
 
 	@RequestMapping(value="/result", method=RequestMethod.GET)
     public String getfilter(@RequestParam int star, @RequestParam int pricefrom, @RequestParam int priceto, Model model) {
-    	System.out.println("Resultpage");
-    	System.out.println(star+"\n"+pricefrom+"\n"+priceto+"\n");
+    	System.out.println("filter: " + star+" "+pricefrom+" "+priceto);
     	
     	this.star = star;
     	this.price_from = pricefrom;
@@ -100,6 +98,8 @@ public class ResultPageController {
 	@RequestMapping(path = "/GetAllHotel", produces = "application/json; charset=UTF-8")
     @ResponseBody
     public List<ResultHotel> GetAllHotel() {
+		System.out.println("GetAllHotel: " + this.star+" "+this.price_from+" "+this.price_to);
+		System.out.println("GetAllHotel" + this.checkin_date+" "+this.checkout_date+" "+this.location+""+this.person);
 		int numofSingle = this.person % 4 % 2;
 		int numofDouble = this.person % 4 / 2;
 		int numofQuad = this.person / 4;
@@ -118,7 +118,7 @@ public class ResultPageController {
 			int hotelId = hotel.get(i).id;
 			
 			for(int j = 0; j < roomslist.size(); j++) {          //take Room list
-				System.out.println(roomslist.get(j).type);
+				//System.out.println(roomslist.get(j).type);
 				if(roomslist.get(j).type.equals("Single")) {
 					priceofSingle = roomslist.get(j).price;
 					leftofSingle = roomslist.get(j).quantity;
@@ -126,7 +126,7 @@ public class ResultPageController {
 				if(roomslist.get(j).type.equals("Double")) {
 					priceofDouble = roomslist.get(j).price;
 					leftofDouble = roomslist.get(j).quantity;
-					System.out.println(priceofDouble + "enter");
+					//System.out.println(priceofDouble + "enter");
 				}
 				if(roomslist.get(j).type.equals("Quad")){
 					priceofQuad = roomslist.get(j).price;
@@ -134,7 +134,7 @@ public class ResultPageController {
 				}
 			}
 			
-			System.out.println("generate hotel");
+			//System.out.println("generate hotel");
 			ResultHotel addHotel = new ResultHotel();
 			addHotel.id = hotelId;
 			addHotel.locality = hotel.get(i).locality;
@@ -148,6 +148,7 @@ public class ResultPageController {
 			addHotel.quadRoomPrice = priceofQuad;
 			addHotel.avgprice = numofSingle * priceofSingle + numofDouble * priceofDouble + numofQuad * priceofQuad;
 			resultHotel.add(addHotel);
+			/*
 			System.out.println("-------Hotel " + resultHotel.get(i).id + "-------");
 			System.out.println("star: " + resultHotel.get(i).star);
 			System.out.println("locality: " + resultHotel.get(i).locality);
@@ -156,6 +157,7 @@ public class ResultPageController {
 			System.out.println("Double room[price: " + resultHotel.get(i).doubleRoomPrice + ", quantity: " + resultHotel.get(i).doubleRoomNum + "]");
 			System.out.println("Quad room[price: " + resultHotel.get(i).quadRoomPrice + ", quantity: " + resultHotel.get(i).quadRoomNum + "]");
 			System.out.println(" ");
+			*/
 		}	
 
 		System.out.println("successful searching" );
