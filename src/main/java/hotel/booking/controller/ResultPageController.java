@@ -49,11 +49,11 @@ public class ResultPageController {
 	}
 	
 
-	public List<Hotel> FilteredHotel(List<Hotel> search,int downfloor,int upfloor,int sinnum,int dounum,int quanum){//create new list to store totalprice within downfloor price and upfloor price
+	public List<ResultHotel> FilteredHotel(List<ResultHotel> search,int downfloor,int upfloor){//create new list to store totalprice within downfloor price and upfloor price
 
-		List<Hotel> filteredtotal=new ArrayList<>();
+		List<ResultHotel> filteredtotal=new ArrayList<>();
 		for(int i=0;i<search.size();i++) {
-			if(sinnum*search.get(i).rooms.get(0).price+dounum*search.get(i).rooms.get(1).price+quanum*search.get(i).rooms.get(2).price>=downfloor&&sinnum*search.get(i).rooms.get(0).price+dounum*search.get(i).rooms.get(1).price+quanum*search.get(i).rooms.get(2).price<=upfloor)
+			if(search.get(i).singleRoomNum*search.get(i).singleRoomPrice+search.get(i).doubleRoomNum*search.get(i).doubleRoomPrice+search.get(i).quadRoomNum*search.get(i).quadRoomPrice>=downfloor&&search.get(i).singleRoomNum*search.get(i).singleRoomPrice+search.get(i).doubleRoomNum*search.get(i).doubleRoomPrice+search.get(i).quadRoomNum*search.get(i).quadRoomPrice<=upfloor)
 			filteredtotal.add(search.get(i));
 		}
 				
@@ -95,6 +95,18 @@ public class ResultPageController {
 		return tmp;
 		
 	}
+	
+	public static List<Hotel> sort_star(List<Hotel> search,int star) {
+		List<Hotel> sorted = new ArrayList<>();
+		
+			for (int i = 0; i < search.size(); i++) {
+				if (search.get(i).star ==star) {
+					sorted.add(search.get(i));
+			}
+		}
+		return sorted;
+		
+	}
 
 	
 	@RequestMapping(path = "/GetAllHotel", produces = "application/json; charset=UTF-8")
@@ -110,7 +122,7 @@ public class ResultPageController {
 		int leftofDouble = 0;
 		int leftofQuad = 0;
 		List<Hotel> hotel = Global.db.getAllHotel(this.checkin_date, this.checkout_date, this.location, this.person);
-		
+		hotel=sort_star_LtoH(hotel);
 		List<ResultHotel> resultHotel = new ArrayList<>();
 		
 		for (int i = 0; i < hotel.size(); i++) {
@@ -157,7 +169,73 @@ public class ResultPageController {
 			System.out.println("Quad room[price: " + resultHotel.get(i).quadRoomPrice + ", quantity: " + resultHotel.get(i).quadRoomNum + "]");
 			System.out.println(" ");
 		}	
-
+		
+		System.out.println("successful searching" );
+        return resultHotel;
+    }
+	
+	public List<ResultHotel> GetAllHotel(int person,int star,int pricefrom,int priceto) {
+		int numofSingle = person % 4 % 2;
+		int numofDouble = person % 4 / 2;
+		int numofQuad = person / 4;
+		int priceofSingle = -1;
+		int priceofDouble = -1;
+		int priceofQuad = -1;
+		int leftofSingle = 0;
+		int leftofDouble = 0;
+		int leftofQuad = 0;
+		List<Hotel> hotel = Global.db.getAllHotel(this.checkin_date, this.checkout_date, this.location, this.person);
+		hotel=sort_star(hotel,star);
+		List<ResultHotel> resultHotel = new ArrayList<>();
+		
+		for (int i = 0; i < hotel.size(); i++) {
+			List<Room> roomslist = hotel.get(i).rooms;
+			int hotelId = hotel.get(i).id;
+			
+			for(int j = 0; j < roomslist.size(); j++) {          //take Room list
+				System.out.println(roomslist.get(j).type);
+				if(roomslist.get(j).type.equals("Single")) {
+					priceofSingle = roomslist.get(j).price;
+					leftofSingle = roomslist.get(j).quantity;
+				}
+				if(roomslist.get(j).type.equals("Double")) {
+					priceofDouble = roomslist.get(j).price;
+					leftofDouble = roomslist.get(j).quantity;
+					System.out.println(priceofDouble + "enter");
+				}
+				if(roomslist.get(j).type.equals("Quad")){
+					priceofQuad = roomslist.get(j).price;
+					leftofQuad = roomslist.get(j).quantity;
+				}
+			}
+			
+			System.out.println("generate hotel");
+			ResultHotel addHotel = new ResultHotel();
+			addHotel.id = hotelId;
+			addHotel.locality = hotel.get(i).locality;
+			addHotel.star = hotel.get(i).star;
+			addHotel.street = hotel.get(i).street;
+			addHotel.singleRoomNum = leftofSingle;
+			addHotel.singleRoomPrice = priceofSingle;
+			addHotel.doubleRoomNum = leftofDouble;
+			addHotel.doubleRoomPrice = priceofDouble;
+			addHotel.quadRoomNum = leftofQuad;
+			addHotel.quadRoomPrice = priceofQuad;
+			addHotel.avgprice = numofSingle * priceofSingle + numofDouble * priceofDouble + numofQuad * priceofQuad;
+			if(addHotel.avgprice>=pricefrom&&addHotel.avgprice<=priceto) {
+			resultHotel.add(addHotel);
+			System.out.println("-------Hotel " + resultHotel.get(i).id + "-------");
+			System.out.println("star: " + resultHotel.get(i).star);
+			System.out.println("locality: " + resultHotel.get(i).locality);
+			System.out.println("street: " + resultHotel.get(i).street);
+			System.out.println("Single room[price: " + resultHotel.get(i).singleRoomPrice + ", quantity: " + resultHotel.get(i).singleRoomNum + "]");
+			System.out.println("Double room[price: " + resultHotel.get(i).doubleRoomPrice + ", quantity: " + resultHotel.get(i).doubleRoomNum + "]");
+			System.out.println("Quad room[price: " + resultHotel.get(i).quadRoomPrice + ", quantity: " + resultHotel.get(i).quadRoomNum + "]");
+			System.out.println(" ");
+			}
+			
+		}	
+		
 		System.out.println("successful searching" );
         return resultHotel;
     }

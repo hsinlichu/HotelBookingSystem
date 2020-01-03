@@ -110,6 +110,7 @@ public class Application {
 		test.location = "台北";
 		test.person = 7;
 		System.out.println(test.GetAllHotel());
+//		System.out.println(test.GetAllHotel(6,4,5000,6000));
 	} 
 
 }
