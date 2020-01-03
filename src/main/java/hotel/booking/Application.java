@@ -101,14 +101,15 @@ public class Application {
 		modified_hotel.rooms.get(0).price = 10;
 		System.out.println(Global.db.modifyHotel(modified_hotel));
 		
+		
+		System.out.println("result list");
 		//test ResultPageController function
 		ResultPageController test = new ResultPageController();
 		test.checkin_date = "2019/03/28";
 		test.checkout_date = "2019/03/29";
 		test.location = "台北";
 		test.person = 7;
-		System.out.println(test.GetAllHotel().get(1).id);
-		System.out.println("result list");
+		System.out.println(test.GetAllHotel());
 	} 
 
 }
