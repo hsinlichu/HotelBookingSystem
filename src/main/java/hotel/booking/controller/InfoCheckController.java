@@ -20,17 +20,17 @@ public class InfoCheckController {
         return "  ";                        
     }
     
-    public Order book(Hotel hotel, String dateIn, String dateOut, int numofSingle, int numofDouble, int numofQuad) {
+    public Order bookCheck(Hotel hotel, String dateIn, String dateOut, int numofSingle, int numofDouble, int numofQuad) {
     	Order order = null;
     	boolean available = true;
     	List<Room> roomlist = Global.db.getRoomsOfHotel(hotel);
-    	if (Global.db.roomOccupied(roomlist.get(0), dateIn, dateOut) < numofSingle) {   //not finished yet
+    	if (Global.db.roomLeft(roomlist.get(0), dateIn, dateOut) < numofSingle) {   //not finished yet
     		available = false;
     	}
-    	if (Global.db.roomOccupied(roomlist.get(1), dateIn, dateOut) < numofDouble) {
+    	if (Global.db.roomLeft(roomlist.get(1), dateIn, dateOut) < numofDouble) {
     		available = false;
     	}
-    	if (Global.db.roomOccupied(roomlist.get(2), dateIn, dateOut) < numofQuad) {
+    	if (Global.db.roomLeft(roomlist.get(2), dateIn, dateOut) < numofQuad) {
     		available = false;
     	}
     	if(available = true) {

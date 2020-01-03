@@ -10,14 +10,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import hotel.booking.Global;
 import hotel.booking.container.*;
 
 @Controller
 public class ResultPageController {  
-	private String checkin_date;
-	private String checkout_date;
-	private String location;
-	private String person;
+	public String checkin_date;
+	public String checkout_date;
+	public String location;
+	public int person;
 	private int star = 0;
 	private int price_from = -1;
 	private int price_to = -1;
@@ -26,11 +27,11 @@ public class ResultPageController {
     public String getIssues(@RequestParam String checkin_date, @RequestParam String checkout_date, @RequestParam String location, @RequestParam int person, Model model) {
     	System.out.println("Resultpage");
     	System.out.println(checkin_date+"\n"+checkout_date+"\n"+location+"\n"+person);
-    	
-    	this.checkin_date = null;
-    	this.checkout_date = null;
-    	this.location = null;
-    	this.person = null;
+    	 	
+    	this.checkin_date = dateChangeType(checkin_date);
+    	this.checkout_date = dateChangeType(checkout_date);
+    	this.location = location;
+    	this.person = person;
     	
         return "result";                       
 	}
@@ -98,7 +99,123 @@ public class ResultPageController {
 	@RequestMapping(path = "/GetAllHotel", produces = "application/json; charset=UTF-8")
     @ResponseBody
     public List<ResultHotel> GetAllHotel() {
-        return null;
+		int numofSingle = this.person % 4 % 2;
+		int numofDouble = this.person % 4 / 2;
+		int numofQuad = this.person / 4;
+		List<Hotel> hotel = Global.db.getAllHotel(this.checkin_date, this.checkout_date, this.location, this.person);
+		List<ResultHotel> resultHotel = new ArrayList<>();
+		for (int i = 0; i < hotel.size(); i++) {
+			int hotelId = hotel.get(i).id;
+			int priceofSingle = hotel.get(i).rooms.get((hotelId * 3) - 3).price;
+			int priceofDouble = hotel.get(i).rooms.get((hotelId * 3) - 2).price;
+			ResultHotel addHotel = new ResultHotel();
+			int priceofQuad = hotel.get(i).rooms.get(hotelId * 3 - 1).price;
+			addHotel.id = hotelId;
+			addHotel.locality = hotel.get(i).locality;
+			addHotel.star = hotel.get(i).star;
+			addHotel.street = hotel.get(i).street;
+			addHotel.singleRoomNum = hotel.get(i).rooms.get((hotelId * 3) - 3).quantity;
+			addHotel.singleRoomPrice = priceofSingle;
+			addHotel.doubleRoomNum = hotel.get(i).rooms.get((hotelId * 3) - 2).quantity;
+			addHotel.doubleRoomPrice = priceofDouble;
+			addHotel.quadRoomNum = hotel.get(i).rooms.get(hotelId * 1).quantity;
+			addHotel.quadRoomPrice = priceofQuad;
+			addHotel.avgprice = numofSingle * priceofSingle + numofDouble * priceofDouble + numofQuad * priceofQuad;
+			resultHotel.add(addHotel);
+			System.out.println(priceofDouble);
+			System.out.println(priceofSingle);
+			System.out.println(hotelId);
+			System.out.println(hotelId * 3 - 1);
+			System.out.println(addHotel.avgprice);
+			System.out.println(addHotel.quadRoomNum);
+			System.out.println(resultHotel.get(0).avgprice +"success");
+		}	
+		System.out.println(resultHotel.get(0).avgprice );
+		System.out.println("success" );
+        return resultHotel;
     }
+	
+	public static String dateChangeType(String checkin_date) {
+		String datein[] = checkin_date.split(" ");
+		String[] month1 = datein[1].split(",");
+		String year = datein[2];
+		String month = null;
+		String day = null;
+		switch (month1[0]) {
+		case "January":
+			month = "01";
+			break;
+		case "Fabruary":
+			month = "02";
+			break;
+		case "March":
+			month = "03";
+			break;
+		case "April":
+			month = "04";
+			break;
+		case "May":
+			month = "05";
+			break;
+		case "June":
+			month = "06";
+			break;
+		case "July":
+			month = "07";
+			break;
+		case "August":
+			month = "08";
+			break;
+		case "September":
+			month = "09";
+			break;
+		case "October":
+			month = "10";
+			break;
+		case "November":
+			month = "11";
+			break;
+		case "December":
+			month = "12";	
+			break;
+		default :
+			break;
+	    }
+		
+		switch (datein[0]) {
+		case "1":
+			day = "01";
+			break;
+		case "2":
+			day = "02";
+			break;
+		case "3":
+			day = "03";
+			break;
+		case "4":
+			day = "04";
+			break;
+		case "5":
+			day = "05";
+			break;
+		case "6":
+			day = "06";
+			break;
+		case "7":
+			day = "07";
+			break;
+		case "8":
+			day = "08";
+			break;
+		case "9":
+			day = "09";
+			break;
+		default :
+			day = datein[0];
+			break;
+	    }
+		checkin_date = (year + "/" + month + "/" + day);
+		return checkin_date;
+	}
 
 }
