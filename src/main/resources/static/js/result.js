@@ -3,7 +3,6 @@
     'use strict';
 
     $.getJSON('/GetAllHotel', function (data) {
-        //console.log(data);
         
         $(".post .media").remove();
         var template = `
@@ -28,7 +27,7 @@
         </div>
         `;
         var i;
-        for(i = 0;i < 10; ++i){
+        for(i = 0;i < data.length; ++i){
             var tmp = sprintf(template, data[i]);
             $("div.post").append(tmp);
         }
