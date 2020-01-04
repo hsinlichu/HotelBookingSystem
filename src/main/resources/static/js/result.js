@@ -20,7 +20,7 @@
                             <span>Single Room Price: %(singleRoomPrice)s (%(singleRoomNum)s remained)</span></br>
                             <span>Double Room Price: %(doubleRoomPrice)s (%(doubleRoomNum)s remained)</span></br>
                             <span>Quad Room Price: %(quadRoomPrice)s (%(quadRoomNum)s remained)</span></br>
-                            <span>TWD: %(avgprice)s (average per person)</span>
+                            <span>TWD: %(avgprice)s (total price per day)</span>
                         </div>
                     </div>
                 </div>
@@ -37,7 +37,6 @@
 
         //});
     });
-
 })(jQuery);
 
 

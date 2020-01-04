@@ -1,6 +1,7 @@
 package hotel.booking.container;
 
 import org.springframework.context.annotation.Bean;
+
 import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.context.annotation.Configuration;
 
@@ -9,6 +10,11 @@ import org.springframework.context.annotation.Configuration;
 public class LoginInfo {
 	public boolean islogin = false;
 	public Account account;
+	public String search_datein;
+	public String search_dateout;
+	public String search_location;
+	public int search_person;
+	public int select_hotel_id;
 	
 	@Bean
 	@SessionScope

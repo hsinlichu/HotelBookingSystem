@@ -3,7 +3,9 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Sogo Hotel by Colorlib.com</title>
+        <link rel="icon" href="./images/esoelogo.png" type="image/x-icon"/>
+        <link rel="shortcut icon" href="./images/esoelogo.png" type="image/x-icon"/>
+        <title>ESOE Hotel Booking</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="" />
         <meta name="keywords" content="" />
@@ -31,40 +33,40 @@
         <header class="site-header js-site-header">
             <div class="container-fluid">
                 <div class="row align-items-center justify-content-between">
-                <div class="col-6 col-lg-4 site-logo" data-aos="fade"><a href="./index.html">ESOE Hotel Booking</a></div>
-                <div class="col-6 col-lg-4 mr d-flex mr-lg-4" data-aos="fade" th:if="${loginInfo.islogin} == False"><button type="button" class="btn btn-primary ml-auto" data-toggle="modal" data-target="#loginModal">Sign In</button></div>
-                <!-- Button trigger modal -->
+                    <div class="col-6 col-lg-4 site-logo" data-aos="fade"><a href="./index.html">ESOE Hotel Booking</a></div>
+                    <div class="col-6 col-lg-4 mr d-flex mr-lg-4" data-aos="fade" th:if="${loginInfo.islogin} == False"><button type="button" class="btn btn-primary ml-auto" data-toggle="modal" data-target="#loginModal">Sign In</button></div>
+                    <!-- Button trigger modal -->
 
-                <div class="col-6 col-lg-8" th:if="${loginInfo.islogin} == True">
-                    <div class="site-menu-toggle js-site-menu-toggle"  data-aos="fade">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
+                    <div class="col-6 col-lg-8" th:if="${loginInfo.islogin} == True">
+                        <div class="site-menu-toggle js-site-menu-toggle"  data-aos="fade">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
 
-                    <div>
-                        <div class="site-navbar js-site-navbar">
-                            <nav role="navigation">
-                                <div class="container">
-                                    <div class="row full-height align-items-center">
-                                        <div class="col-md-6 mx-auto">
-                                            <ul class="list-unstyled menu">
-                                                <p>Welcome <span th:text="${loginInfo.account.name}">James Chu</span></p>
-                                                <li class="active"><a href="./index.html">Home</a></li>
-                                                <li><a href="/ordermanagement.html">Manage My Order</a></li>
-                                                <li><a href="/hotelmanagement.html">Manage My hotel</a></li>
-                                                <li><a href="/hotelordermanagement.html">Manage My hotel Order</a></li>
-                                                <li><a href="/accountmanagement.html">Manage My Account</a></li>
-                                                <li><a href="/signout">Sign Out</a></li>
-                                            </ul>
+                        <div>
+                            <div class="site-navbar js-site-navbar">
+                                <nav role="navigation">
+                                    <div class="container">
+                                        <div class="row full-height align-items-center">
+                                            <div class="col-md-6 mx-auto">
+                                                <ul class="list-unstyled menu">
+                                                    <p>Welcome <span th:text="${loginInfo.account.name}">James Chu</span></p>
+                                                    <li class="active"><a href="./index.html">Home</a></li>
+                                                    <li><a href="/ordermanagement.html">Manage My Order</a></li>
+                                                    <li><a href="/hotelmanagement.html">Manage My hotel</a></li>
+                                                    <li><a href="/hotelordermanagement.html">Manage My hotel Order</a></li>
+                                                    <li><a href="/accountmanagement.html">Manage My Account</a></li>
+                                                    <li><a href="/signout">Sign Out</a></li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </nav>
+                                </nav>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
             </div>
         </header>
         <!-- END head -->
@@ -122,74 +124,37 @@
                                         <div class="col-lg-5 col-12 align-self-center">
                                             <div class="media-body">
                                                 <span class="meta-post"> 5 <span class="fa fa-star text-primary"></span></span>
-                                                <h2 class="mt-0 mb-3">台北 民生東路一段28號</h2>
-                                                <span>Single Room Price: 500 (300 remained)</span></br>
-                                                <span>Double Room Price: 500 (300 remained)</span></br>
-                                                <span>Quad Room Price: 500 (300 remained)</span></br>
-                                                <span>TWD: 1500 (total price)</span>
+                                                <h2 class="mt-0 mb-3">Loading...</h2>
+                                                <span>Single Room Price: Loading...</span></br>
+                        <span>Double Room Price: Loading...</span></br>
+                            <span>Quad Room Price: Loading...</span></br>
+                            <span>TWD: Loading...</span>
                                             </div>
                                         </div>
                                     </div>
                                 </a>
                             </div>
+
                             
-                            <div class="media media-custom d-block mb-4 h-100">
-                                <a href="#" class="mb-4 d-block">
-                                    <div class="row py-2">
-                                        <div class="col-lg-4 col-12 align-self-center">
-                                            <img src="images/img_1.jpg" width="100%" alt="Image placeholder">
-                                        </div>
-                                        <div class="col-lg-5 col-12 align-self-center">
-                                            <div class="media-body">
-                                                <span class="meta-post">February 26, 2018</span>
-                                                <h2 class="mt-0 mb-3">Travel Hacks to Make Your Flight More Comfortable</h2>
-                                                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                </a>
-                            </div>
-                            
-                            <div class="media media-custom d-block mb-4 h-100">
-                                <a href="#" class="mb-4 d-block">
-                                    <div class="row py-2">
-                                        <div class="col-lg-4 col-12 align-self-center">
-                                            <img src="images/img_1.jpg" width="100%" alt="Image placeholder">
-                                        </div>
-                                        <div class="col-lg-5 col-12 align-self-center">
-                                            <div class="media-body">
-                                                <span class="meta-post">February 26, 2018</span>
-                                                <h2 class="mt-0 mb-3">Travel Hacks to Make Your Flight More Comfortable</h2>
-                                                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                </a>
-                            </div>
-
-                        </div>
-                    </div>
-                    </div>
-
-
-                    <div class="row" data-aos="fade">
-                        <div class="col-12 mx-auto">
-                            <div class="custom-pagination">
-                                <ul class="list-unstyled">
-                                    <li class="active"><span>1</span></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><span>...</span></li>
-                                    <li><a href="#">30</a></li>
-                                </ul>
-                            </div>
                         </div>
                     </div>
                 </div>
+
+
+                <div class="row" data-aos="fade">
+                    <div class="col-12 mx-auto">
+                        <div class="custom-pagination">
+                            <ul class="list-unstyled">
+                                <li class="active"><span>1</span></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><span>...</span></li>
+                                <li><a href="#">30</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
 

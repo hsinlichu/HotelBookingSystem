@@ -1,6 +1,9 @@
 package hotel.booking.controller;
 
 import java.util.List;
+
+import javax.annotation.Resource;
+
 import java.util.ArrayList;
 
 import org.springframework.stereotype.Controller;
@@ -12,15 +15,35 @@ import org.springframework.web.bind.annotation.RequestParam;
 import hotel.booking.Global;
 import hotel.booking.container.Account;
 import hotel.booking.container.Hotel;
+import hotel.booking.container.LoginInfo;
 import hotel.booking.container.Order;
 import hotel.booking.container.Room;
 
 @Controller
-public class InfoCheckController {            
+public class InfoCheckController {     
+	@Resource(name = "loginInfoSession")
+	LoginInfo loginInfo;
+	Order order;
+	
 	@RequestMapping(value="/confirmation", method=RequestMethod.POST)
-    public String infoCheck(@RequestParam int numofSingle, @RequestParam int numofDouble, @RequestParam int numofQuad, Model model) {
-    	System.out.println("confirmation page");
-        return "confirmation";                        
+    public String infoCheck(@RequestParam int numofSingle, @RequestParam int numofDouble, @RequestParam int numofQuad, @RequestParam int totalprice, Model model) {
+		System.out.println("Confirmation: " + loginInfo.search_datein+" "+loginInfo.search_dateout+" "+loginInfo.search_location+" "+loginInfo.search_person);
+		System.out.println("Select hotel id:" + loginInfo.select_hotel_id);
+		Hotel selecthotel = Global.db.getHotel(loginInfo.select_hotel_id); 
+		
+		order = bookCheck(selecthotel, loginInfo.search_datein, loginInfo.search_dateout, numofSingle, numofDouble, numofQuad);
+		if( order == null)
+			return "index?msg=6"; //     alert("Selected hotel is unavailable now, please try again!");
+		else {
+			model.addAttribute("selecthotel", selecthotel);
+			model.addAttribute("numofSingle", numofSingle);
+			model.addAttribute("numofDouble", numofDouble);
+			model.addAttribute("numofQuad", numofQuad);
+			model.addAttribute("totalprice", totalprice);
+	    	model.addAttribute("loginInfo", loginInfo);
+	        return "confirmation";    
+		}
+		                    
     }
     
     public Order bookCheck(Hotel hotel, String dateIn, String dateOut, int numofSingle, int numofDouble, int numofQuad) {
@@ -52,7 +75,22 @@ public class InfoCheckController {
             return null;
         }
     }
-    
+    @RequestMapping(value="/bookcomplete")
+    public String confirmOrder() {
+    	int msg;
+    	if(bookComplete(loginInfo.account, this.order)) {
+    		msg = 7;
+    		System.out.println("Book Success");
+    	}
+
+    	else {
+    		msg = 8;
+    		System.out.println("Book Fail");
+    	}
+    	String newurl = "redirect:/";
+		newurl += ("?msg=" + msg);
+    	return newurl;
+    }
     public boolean bookComplete(Account account, Order order) {
         // Place an order. Return true if success, false if failed. 
     	return Global.db.addCustomerOrder(account, order); 

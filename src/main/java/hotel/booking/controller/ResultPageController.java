@@ -28,15 +28,20 @@ public class ResultPageController {
 	private int price_to = -1;
 	
 	@RequestMapping(value="/result", method=RequestMethod.POST)
-    public String getIssues(@RequestParam String checkin_date, @RequestParam String checkout_date, @RequestParam String location, @RequestParam int person, Model model) {
-		model.addAttribute("loginInfo", loginInfo);
-		System.out.println("Resultpage" + checkin_date+" "+checkout_date+" "+location+""+person);
+    public String getResult(@RequestParam String checkin_date, @RequestParam String checkout_date, @RequestParam String location, @RequestParam int person, Model model) {
+		
+		System.out.println("Resultpage" + checkin_date+" "+checkout_date+" "+location+" "+person);
 
     	this.checkin_date = dateChangeType(checkin_date);
     	this.checkout_date = dateChangeType(checkout_date);
     	this.location = location;
     	this.person = person;
     	
+    	loginInfo.search_datein = this.checkin_date;
+    	loginInfo.search_dateout = this.checkout_date;
+    	loginInfo.search_location = this.location;
+    	loginInfo.search_person = this.person;
+    	model.addAttribute("loginInfo", loginInfo);
         return "result";                       
 	}
 
