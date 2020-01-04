@@ -41,12 +41,9 @@ public class InfoCheckController {
     	if(available = true) {
     		List<Room> orderRoomlist = new ArrayList<>();
             List<Order> orders = new ArrayList<>();
-    		Room single_room = new Room(roomlist.get(0).id, roomlist.get(0).type, roomlist.get(0).price, numofSingle);
-    		Room double_room = new Room(roomlist.get(1).id, roomlist.get(1).type, roomlist.get(1).price, numofDouble);
-    		Room quad_room = new Room(roomlist.get(2).id, roomlist.get(2).type, roomlist.get(2).price, numofQuad);
-            orders.add(new Order(dateIn, dateOut, single_room));
-            orders.add(new Order(dateIn, dateOut, double_room));
-            orders.add(new Order(dateIn, dateOut, quad_room));
+            orders.add(new Order(numofSingle, dateIn, dateOut, roomlist.get(0)));
+            orders.add(new Order(numofDouble, dateIn, dateOut, roomlist.get(1)));
+            orders.add(new Order(numofQuad, dateIn, dateOut, roomlist.get(2)));
             return orders;
     	}else{
             return null;

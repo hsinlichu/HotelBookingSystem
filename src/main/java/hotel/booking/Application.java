@@ -68,21 +68,18 @@ public class Application {
 		System.out.println(Global.db.getHotelOwner(1));
 		
 		System.out.println(Global.db.getRoomsOfHotel(1).get(0));
-		
+		 
 			  
 		System.out.println(Global.db.addAccount("test", "test@gmail.com", "password"));
 		Account account = Global.db.verifyAccount("test@gmail.com", "password");
 		Hotel hotel = Global.db.getHotel(1);
-		List<Room> selected_rooms = Global.db.getRoomsOfHotel(1);
-		selected_rooms.get(0).quantity = 5;
-		selected_rooms.get(1).quantity = 5;
-		selected_rooms.get(2).quantity = 5;
+		List<Room> selected_rooms = Global.db.getRoomsOfHotel(1); 
 
-		Order order = new Order("2019/10/24", "2019/10/25", selected_rooms.get(0));
+		Order order = new Order(2, "2019/10/24", "2019/10/25", selected_rooms.get(0));
 		System.out.println(Global.db.addCustomerOrder(account, order)); 
-		order = new Order("2019/10/24", "2019/10/25", selected_rooms.get(1));
+		order = new Order(3, "2019/10/24", "2019/10/25", selected_rooms.get(1));
 		System.out.println(Global.db.addCustomerOrder(account, order)); 
-		order = new Order("2019/10/24", "2019/10/25", selected_rooms.get(2));
+		order = new Order(4, "2019/10/24", "2019/10/25", selected_rooms.get(2));
 		System.out.println(Global.db.addCustomerOrder(account, order)); 
 
 		System.out.println(Global.db.getHotelOwner(1)); 
@@ -92,20 +89,20 @@ public class Application {
 		//List<Order> orders = Global.db.getCustomerOrder(12);
 		List<Order> orders = Global.db.getOwnerOrder(1);
 		System.out.println(orders);
-		System.out.println(Global.db.cancelOrder(orders.get(0)));
+		//System.out.println(Global.db.cancelOrder(orders.get(0))); 
 
 		account = Global.db.verifyAccount("owner1@gmail.com", "password1");
 		System.out.println(Global.db.getHotelsOfOwner(account));
 		System.out.println(Global.db.addHotel(account, hotels.get(0)));
 		
 		//modify hotel 
-		Hotel modified_hotel = hotels.get(0);
-		modified_hotel.star = 1;
-		modified_hotel.locality = "台南";
-		modified_hotel.street = "abc street";
-		modified_hotel.rooms.get(0).quantity = 10;
-		modified_hotel.rooms.get(0).price = 10;
-		System.out.println(Global.db.modifyHotel(modified_hotel));
+		//Hotel modified_hotel = hotels.get(0);
+		//modified_hotel.star = 1;
+		//modified_hotel.locality = "台南";
+		//modified_hotel.street = "abc street";
+		//modified_hotel.rooms.get(0).quantity = 10;
+		//modified_hotel.rooms.get(0).price = 10;
+		//System.out.println(Global.db.modifyHotel(modified_hotel));
 		
 		
 		System.out.println("result list");
@@ -117,6 +114,11 @@ public class Application {
 		test.person = 7;
 		test.GetAllHotel();
 		test.FilteredHotel(test.GetAllHotel(), 4, 5000, 7000);
+		
+		orders.get(2).dateIn = "2019/10/23"; 
+		System.out.println(orders);
+		System.out.println(Global.db.getOrder(4));
+		System.out.println(Global.db.modifyOrder(orders.get(2)));
 	} 
 
 }
