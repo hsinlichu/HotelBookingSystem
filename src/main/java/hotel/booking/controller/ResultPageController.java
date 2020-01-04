@@ -26,6 +26,8 @@ public class ResultPageController {
 	private int star = 0;
 	private int price_from = -1;
 	private int price_to = -1;
+	private int sortmethod = 0;     //0->star HtoL, 1->star LtoH, 2->price HtoL, 3->price LtoH
+
 	
 	@RequestMapping(value="/result", method=RequestMethod.POST)
     public String getIssues(@RequestParam String checkin_date, @RequestParam String checkout_date, @RequestParam String location, @RequestParam int person, Model model) {
@@ -120,8 +122,17 @@ public class ResultPageController {
     public List<ResultHotel> GetAllHotel() {
 		List<Hotel> hotel =Global.db.getAllHotel(this.checkin_date, this.checkout_date, this.location, this.person);
 		List<ResultHotel> resultHotel = new ArrayList<>();
-		hotel=sort_star_LtoH(hotel);
-		for (int i = 0; i < hotel.size(); i++) {
+		
+		if(sortmethod == 0)                         //sort method
+			hotel = sort_star_HtoL(hotel);
+		else if(sortmethod == 1)
+			hotel = sort_star_LtoH(hotel);
+		else if(sortmethod == 2)
+			hotel = sort_star_HtoL(hotel);
+		else if(sortmethod == 3)
+			hotel = sort_star_LtoH(hotel);
+		
+		for (int i = 0; i < hotel.size(); i++) {    //turn Hotel to ResultHotel
 			int numofSingle = this.person % 4 % 2;
 			int numofDouble = this.person % 4 / 2;
 			int numofQuad = this.person / 4;
@@ -230,6 +241,7 @@ public class ResultPageController {
 			
 		}	
 		System.out.println("successful searching" );
+		resultHotel = FilteredHotel(resultHotel, star, price_from, price_to);
         return resultHotel;
     }
 	
