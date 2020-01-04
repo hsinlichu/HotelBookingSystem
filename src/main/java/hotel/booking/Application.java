@@ -109,8 +109,8 @@ public class Application {
 		test.checkout_date = "2019/03/29";
 		test.location = "台北";
 		test.person = 7;
-		System.out.println(test.GetAllHotel());
-//		System.out.println(test.GetAllHotel(6,4,5000,6000));
+		test.GetAllHotel();
+		test.FilteredHotel(test.GetAllHotel(), 4, 5000, 7000);
 	} 
 
 }
