@@ -119,6 +119,42 @@ public class ResultPageController {
 		return tmp;
 		
 	}
+	public static List<ResultHotel> sort_price_LtoH(List<ResultHotel> search) {
+		List<ResultHotel> tmp = search;
+		ResultHotel swap =new ResultHotel();
+		boolean check = true;
+		while (check) {
+			check = false;
+			for (int i = 0; i < tmp.size()-1; i++) {
+				if (tmp.get(i).avgprice > tmp.get(i+1).avgprice) {
+					swap = tmp.get(i);
+					tmp.set(i, tmp.get(i+1));
+					tmp.set(i+1, swap);
+					check = true;
+				}
+			}
+		}
+		return tmp;
+		
+	}
+	public static List<ResultHotel> sort_price_HtoL(List<ResultHotel> search) {
+		List<ResultHotel> tmp = search;
+		ResultHotel swap =new ResultHotel();
+		boolean check = true;
+		while (check) {
+			check = false;
+			for (int i = 0; i < tmp.size()-1; i++) {
+				if (tmp.get(i).avgprice < tmp.get(i+1).avgprice) {
+					swap = tmp.get(i);
+					tmp.set(i, tmp.get(i+1));
+					tmp.set(i+1, swap);
+					check = true;
+				}
+			}
+		}
+		return tmp;
+		
+	}
 	
 	@RequestMapping(path = "/GetAllHotel", produces = "application/json; charset=UTF-8")
     @ResponseBody
@@ -130,10 +166,6 @@ public class ResultPageController {
 		if(sortmethod == 0)                         //sort method
 			hotel = sort_star_HtoL(hotel);
 		else if(sortmethod == 1)
-			hotel = sort_star_LtoH(hotel);
-		else if(sortmethod == 2)
-			hotel = sort_star_HtoL(hotel);
-		else if(sortmethod == 3)
 			hotel = sort_star_LtoH(hotel);
 		
 		for (int i = 0; i < hotel.size(); i++) {    //turn Hotel to ResultHotel
@@ -245,6 +277,10 @@ public class ResultPageController {
 			
 		}	
 		System.out.println("successful searching" );
+		if(sortmethod == 2)
+			resultHotel = sort_price_HtoL(resultHotel);
+		else if(sortmethod == 3)
+			resultHotel = sort_price_LtoH(resultHotel);
 		resultHotel = FilteredHotel(resultHotel, star, price_from, price_to);
         return resultHotel;
     }
