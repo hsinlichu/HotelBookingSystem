@@ -54,12 +54,26 @@ public class ResultPageController {
 	}
 	
 
-	public List<Hotel> FilteredHotel(List<Hotel> search,int downfloor,int upfloor,int sinnum,int dounum,int quanum){//create new list to store totalprice within downfloor price and upfloor price
+	public List<ResultHotel> FilteredHotel(List<ResultHotel> search,int star,int downfloor,int upfloor){//create new list to store totalprice within downfloor price and upfloor price
 
-		List<Hotel> filteredtotal=new ArrayList<>();
+		List<ResultHotel> filteredtotal=new ArrayList<>();
 		for(int i=0;i<search.size();i++) {
-			if(sinnum*search.get(i).rooms.get(0).price+dounum*search.get(i).rooms.get(1).price+quanum*search.get(i).rooms.get(2).price>=downfloor&&sinnum*search.get(i).rooms.get(0).price+dounum*search.get(i).rooms.get(1).price+quanum*search.get(i).rooms.get(2).price<=upfloor)
+			if(search.get(i).star==star) {
+			if(search.get(i).avgprice>=downfloor&&search.get(i).avgprice<=upfloor)
 			filteredtotal.add(search.get(i));
+			
+		}
+		}
+		for(int j=0;j<filteredtotal.size();j++) {
+			System.out.println("-------Hotel " + filteredtotal.get(j).id + "-------");
+			System.out.println("star: " + filteredtotal.get(j).star);
+			System.out.println("locality: " + filteredtotal.get(j).locality);
+			System.out.println("street: " + filteredtotal.get(j).street);
+			System.out.println("Single room[price: " + filteredtotal.get(j).singleRoomPrice + ", quantity: " + filteredtotal.get(j).singleRoomNum + "]");
+			System.out.println("Double room[price: " + filteredtotal.get(j).doubleRoomPrice + ", quantity: " + filteredtotal.get(j).doubleRoomNum + "]");
+			System.out.println("Quad room[price: " + filteredtotal.get(j).quadRoomPrice + ", quantity: " + filteredtotal.get(j).quadRoomNum + "]");
+			System.out.println("average price: " + filteredtotal.get(j).avgprice);
+			System.out.println(" ");
 		}
 				
 		return filteredtotal;
@@ -104,8 +118,9 @@ public class ResultPageController {
 	@RequestMapping(path = "/GetAllHotel", produces = "application/json; charset=UTF-8")
     @ResponseBody
     public List<ResultHotel> GetAllHotel() {
-		List<Hotel> hotel = Global.db.getAllHotel(this.checkin_date, this.checkout_date, this.location, this.person);
+		List<Hotel> hotel =Global.db.getAllHotel(this.checkin_date, this.checkout_date, this.location, this.person);
 		List<ResultHotel> resultHotel = new ArrayList<>();
+		hotel=sort_star_LtoH(hotel);
 		for (int i = 0; i < hotel.size(); i++) {
 			int numofSingle = this.person % 4 % 2;
 			int numofDouble = this.person % 4 / 2;
@@ -197,17 +212,22 @@ public class ResultPageController {
 			}
 			addHotel.avgprice = numofSingle * priceofSingle + numofDouble * priceofDouble + numofQuad * priceofQuad;
 			resultHotel.add(addHotel);
+			
 			/*
-			System.out.println("-------Hotel " + resultHotel.get(i).id + "-------");
-			System.out.println("star: " + resultHotel.get(i).star);
-			System.out.println("locality: " + resultHotel.get(i).locality);
-			System.out.println("street: " + resultHotel.get(i).street);
-			System.out.println("Single room[price: " + resultHotel.get(i).singleRoomPrice + ", quantity: " + resultHotel.get(i).singleRoomNum + "]");
-			System.out.println("Double room[price: " + resultHotel.get(i).doubleRoomPrice + ", quantity: " + resultHotel.get(i).doubleRoomNum + "]");
-			System.out.println("Quad room[price: " + resultHotel.get(i).quadRoomPrice + ", quantity: " + resultHotel.get(i).quadRoomNum + "]");
-			System.out.println("average price: " + resultHotel.get(i).avgprice);
-			System.out.println(" ");
-			*/
+			 * System.out.println("-------Hotel " + resultHotel.get(i).id + "-------");
+			 * System.out.println("star: " + resultHotel.get(i).star);
+			 * System.out.println("locality: " + resultHotel.get(i).locality);
+			 * System.out.println("street: " + resultHotel.get(i).street);
+			 * System.out.println("Single room[price: " + resultHotel.get(i).singleRoomPrice
+			 * + ", quantity: " + resultHotel.get(i).singleRoomNum + "]");
+			 * System.out.println("Double room[price: " + resultHotel.get(i).doubleRoomPrice
+			 * + ", quantity: " + resultHotel.get(i).doubleRoomNum + "]");
+			 * System.out.println("Quad room[price: " + resultHotel.get(i).quadRoomPrice +
+			 * ", quantity: " + resultHotel.get(i).quadRoomNum + "]");
+			 * System.out.println("average price: " + resultHotel.get(i).avgprice);
+			 * System.out.println(" ");
+			 */
+			
 		}	
 		System.out.println("successful searching" );
         return resultHotel;
