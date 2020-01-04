@@ -160,7 +160,8 @@
     });
     $('#checkin_date, #checkout_date').datepicker({
       'format': 'd MM, yyyy',
-      'autoclose': true
+      'autoclose': true,
+      'startDate': '+0d'
     });
     $('#m_time').timepicker();
   };
@@ -208,6 +209,16 @@
     });
   
   };
+  
+
+  $("#checkin_date").change(function(){
+	  var endbegin = $("#checkin_date").datepicker("getDate");
+	  endbegin.setDate(endbegin.getDate()+1);
+	  $("#checkout_date").datepicker("setStartDate",endbegin);
+  });
+
+
+  
 
 
 })(jQuery);
