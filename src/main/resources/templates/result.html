@@ -23,35 +23,39 @@
 
         <!-- Theme Style -->
         <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/my.css">
+        <link rel="stylesheet" href="./css/login.css">
     </head>
     <body>
 
         <header class="site-header js-site-header">
             <div class="container-fluid">
-                <div class="row align-items-center">
-                    <div class="col-6 col-lg-4 site-logo" data-aos="fade"><a href="index.html">Sogo Hotel</a></div>
-                    <div class="col-6 col-lg-8">
+                <div class="row align-items-center justify-content-between">
+                <div class="col-6 col-lg-4 site-logo" data-aos="fade"><a href="./index.html">ESOE Hotel Booking</a></div>
+                <div class="col-6 col-lg-4 mr d-flex mr-lg-4" data-aos="fade" th:if="${loginInfo.islogin} == False"><button type="button" class="btn btn-primary ml-auto" data-toggle="modal" data-target="#loginModal">Sign In</button></div>
+                <!-- Button trigger modal -->
 
+                <div class="col-6 col-lg-8" th:if="${loginInfo.islogin} == True">
+                    <div class="site-menu-toggle js-site-menu-toggle"  data-aos="fade">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
 
-                        <div class="site-menu-toggle js-site-menu-toggle"  data-aos="fade">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                        <!-- END menu-toggle -->
-
+                    <div>
                         <div class="site-navbar js-site-navbar">
                             <nav role="navigation">
                                 <div class="container">
                                     <div class="row full-height align-items-center">
                                         <div class="col-md-6 mx-auto">
                                             <ul class="list-unstyled menu">
-                                                <li><a href="index.html">Home</a></li>
-                                                <li><a href="rooms.html">Rooms</a></li>
-                                                <li><a href="about.html">About</a></li>
-                                                <li class="active"><a href="events.html">Events</a></li>
-                                                <li><a href="contact.html">Contact</a></li>
-                                                <li><a href="reservation.html">Reservation</a></li>
+                                                <p>Welcome <span th:text="${loginInfo.account.name}">James Chu</span></p>
+                                                <li class="active"><a href="./index.html">Home</a></li>
+                                                <li><a href="/ordermanagement.html">Manage My Order</a></li>
+                                                <li><a href="/hotelmanagement.html">Manage My hotel</a></li>
+                                                <li><a href="/hotelordermanagement.html">Manage My hotel Order</a></li>
+                                                <li><a href="/accountmanagement.html">Manage My Account</a></li>
+                                                <li><a href="/signout">Sign Out</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -61,28 +65,23 @@
                     </div>
                 </div>
             </div>
+            </div>
         </header>
         <!-- END head -->
 
-        <section class="site-hero inner-page overlay" style="background-image: url(images/hero_4.jpg)" data-stellar-background-ratio="0.5">
+        <section class="site-hero inner-page overlay nothomepage" style="background-image: url(images/hero_4.jpg)" data-stellar-background-ratio="0.5">
             <div class="container">
-                <div class="row site-hero-inner justify-content-center align-items-center">
+                <div class="row site-hero-inner justify-content-center align-items-end nothomepage">
                     <div class="col-md-10 text-center" data-aos="fade">
-                        <h1 class="heading mb-3">Events</h1>
+                        <h1 class="heading mb-3" style="font-size: 40px;">Search Result</h1>
                         <ul class="custom-breadcrumbs mb-4">
                             <li><a href="index.html">Home</a></li>
                             <li>&bullet;</li>
-                            <li>Events</li>
+                            <li>Search Result</li>
                         </ul>
                     </div>
                 </div>
             </div>
-
-            <a class="mouse smoothscroll" href="#next">
-                <div class="mouse-icon">
-                    <span class="mouse-wheel"></span>
-                </div>
-            </a>
         </section>
         <!-- END section -->
 
@@ -261,26 +260,114 @@
             </div>
         </footer>
 
-        <script src="js/jquery-3.3.1.min.js"></script>
-        <script src="js/jquery-migrate-3.0.1.min.js"></script>
-        <script src="js/popper.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/owl.carousel.min.js"></script>
-        <script src="js/jquery.stellar.min.js"></script>
-        <script src="js/jquery.fancybox.min.js"></script>
+        <!-- Modal -->
+        <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content frame">
 
 
-        <script src="js/aos.js"></script>
+                    <div class="modal-body form">
+                        <div class="">
+                            <ul class="tab-group">
+                                <li class="tab active"><a href="#signup">Sign Up</a></li>
+                                <li class="tab"><a href="#login">Log In</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div id="signup">   
+                                    <h2>Sign Up for Free</h2>
+                                    <form action="#" th:action="@{/signup}" method="post">
+                                        <div class="top-row">
+                                            <div class="field-wrap">
+                                                <label>
+                                                    First Name<span class="req">*</span>
+                                                </label>
+                                                <input type="text" name="firstname" required autocomplete="off"  />
+                                            </div>
 
-        <script src="js/bootstrap-datepicker.js"></script> 
-        <script src="js/jquery.timepicker.min.js"></script> 
+                                            <div class="field-wrap">
+                                                <label>
+                                                    Last Name<span class="req">*</span>
+                                                </label>
+                                                <input type="text" name="lastname" required autocomplete="off"  />
+                                            </div>
+                                        </div>
+                                        <div class="field-wrap">
+                                            <label>
+                                                Email Address<span class="req">*</span>
+                                            </label>
+                                            <input type="email" name="email" required autocomplete="off"  />
+                                        </div>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/sprintf/1.1.2/sprintf.min.js"></script> 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/sprintf/1.1.2/sprintf.min.js.map"></script> 
+                                        <div class="field-wrap">
+                                            <label>
+                                                Set A Password<span class="req">*</span>
+                                            </label>
+                                            <input type="password" name="passwd" required autocomplete="off"  />
+                                        </div>
+
+                                        <button type="submit" class="button button-block"/>Get Started</button>
+
+                                    </form>
+
+                                </div>
+
+                                <div id="login">   
+                                    <h2>Welcome Back!</h2>
+
+                                    <form  action="#" th:action="@{/login}"  method="post">
+
+                                        <div class="field-wrap">
+                                            <label>
+                                                Email Address<span class="req">*</span>
+                                            </label>
+                                            <input type="email" name="email" required autocomplete="off"  />
+                                        </div>
+
+                                        <div class="field-wrap">
+                                            <label>
+                                                Password<span class="req">*</span>
+                                            </label>
+                                            <input type="password" name="passwd" required autocomplete="off"  />
+                                        </div>
+                                        <!-- <p class="forgot"><a href="#">Forgot Password?</a></p>  -->
+
+
+                                        <button class="button button-block"/>Log In</button>
+
+                                    </form>
+
+                                </div>
+
+                            </div><!-- tab-content -->
+
+                        </div> <!-- /form -->
+
+                    </div>
+                </div>
+            </div>
+
+
+            <script src="js/jquery-3.3.1.min.js"></script>
+            <script src="js/jquery-migrate-3.0.1.min.js"></script>
+            <script src="js/popper.min.js"></script>
+            <script src="js/bootstrap.min.js"></script>
+            <script src="js/owl.carousel.min.js"></script>
+            <script src="js/jquery.stellar.min.js"></script>
+            <script src="js/jquery.fancybox.min.js"></script>
+
+
+            <script src="js/aos.js"></script>
+
+            <script src="js/bootstrap-datepicker.js"></script> 
+            <script src="js/jquery.timepicker.min.js"></script> 
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/sprintf/1.1.2/sprintf.min.js"></script> 
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/sprintf/1.1.2/sprintf.min.js.map"></script> 
 
 
 
-        <script src="js/main.js"></script>
-        <script src="js/result.js"></script>
+            <script src="./js/login.js"></script>
+            <script src="js/main.js"></script>
+            <script src="js/result.js"></script>
     </body>
 </html>

@@ -91,7 +91,7 @@
       <div class="container">
         <div class="row justify-content-center text-center">
           <div class="col-md-7">
-            <h2 class="heading" data-aos="fade">台北 民生東路一段28號</h2>
+              <h2 class="heading" data-aos="fade"><span th:text="${hotelInfo.locality}">台北</span> <span th:text="${hotelInfo.street}">民生東路一段28號</span></h2>
             <p data-aos="fade">所有客房均設有地毯、電熱水壺和辦公桌。私人衛浴內配有淋浴設施。24 小時櫃台提供行李寄存服務。飯店也提供洗衣和乾洗服務。萬華區是購物、街頭小吃、夜市的絕佳選擇。此區為台北的人氣推薦區域（依據真實住客評語）情侶特別喜歡這個位置－並給他們的雙人旅行住宿體驗 8.4 分</p>
           </div>
         </div>
@@ -111,7 +111,7 @@
                             </figure>
                             <div class="p-3 text-center room-info">
                                 <h2>Single Room</h2>
-                                <span class="text-uppercase letter-spacing-1">90$ / per night</span>
+                                <span class="text-uppercase letter-spacing-1" th:text="${hotelInfo.rooms[0].price}">0$</span><span class="text-uppercase letter-spacing-1"> / per night</span>
                                 <div class="my-3">
                                     Select rooms: <input type="number" id="numofSingle" name="numofSingle"  style="display:inline; width:auto;" class="form-control" value=0 required>
                                 </div>
@@ -124,7 +124,8 @@
                             </figure>
                             <div class="p-3 text-center room-info">
                                 <h2>Double Room</h2>
-                                <span class="text-uppercase letter-spacing-1">120$ / per night</span>
+                                <span class="text-uppercase letter-spacing-1" th:text="${hotelInfo.rooms[1].price}">0$</span><span class="text-uppercase letter-spacing-1"> / per night</span>
+
                                 <div class="my-3">
                                     Select rooms: <input type="number" id="numofDouble" name="numofDouble"  style="display:inline; width:auto;" class="form-control" value=0 required>
                                 </div>
@@ -137,7 +138,7 @@
                             </figure>
                             <div class="p-3 text-center room-info">
                                 <h2>Quad Room</h2>
-                                <span class="text-uppercase letter-spacing-1">250$ / per night</span>
+                                <span class="text-uppercase letter-spacing-1" th:text="${hotelInfo.rooms[2].price}">0$</span><span class="text-uppercase letter-spacing-1"> / per night</span>
                                 <div class="my-3">
                                     Select rooms: <input type="number" id="numofQuad" name="numofQuad"  style="display:inline; width:auto;" class="form-control" value=0 required>
                                 </div>

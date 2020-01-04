@@ -27,57 +27,59 @@
         <link rel="stylesheet" href="./css/login.css">
 
         <script  type="text/javascript">
-        	var msg = "[[${msg}]]";
-        	console.log(msg);
-            if(msg == "0")
-                alert("Login Success!");
-            else if(msg == "1")
-            	alert("Email or Password Incorrect!");
-            else if(msg == "2")
-            	alert("Sign up success, you can login now!");
-            else if(msg == "3")
-            	alert("Sign up failed, please try again!");
-            else if(msg == "4")
-            	alert("Logout Success!");
-            else if(msg == "5")
-            	alert("Logout failed, please try again!");
+            var msg = "[[${msg}]]";
+console.log(msg);
+if(msg == "0")
+    alert("Login Success!");
+else if(msg == "1")
+    alert("Email or Password Incorrect!");
+else if(msg == "2")
+    alert("Sign up success, you can login now!");
+else if(msg == "3")
+    alert("Sign up failed, please try again!");
+else if(msg == "4")
+    alert("Logout Success!");
+else if(msg == "5")
+    alert("Logout failed, please try again!");
         </script>
 
     </head>
     <body>
 
         <header class="site-header js-site-header">
-            <div class="row align-items-center justify-content-between">
-                <div class="col-6 col-lg-4 site-logo" data-aos="fade"><a href="./index.html">ESOE Hotel Booking</a></div>
-                <div class="col-6 col-lg-4 mr d-flex mr-lg-4" data-aos="fade" th:if="${loginInfo.islogin} == False"><button type="button" class="btn btn-primary ml-auto" data-toggle="modal" data-target="#loginModal">Sign In</button></div>
-                <!-- Button trigger modal -->
+            <div class="container-fluid">
+                <div class="row align-items-center justify-content-between">
+                    <div class="col-6 col-lg-4 site-logo" data-aos="fade"><a href="./index.html">ESOE Hotel Booking</a></div>
+                    <div class="col-6 col-lg-4 mr d-flex mr-lg-4" data-aos="fade" th:if="${loginInfo.islogin} == False"><button type="button" class="btn btn-primary ml-auto" data-toggle="modal" data-target="#loginModal">Sign In</button></div>
+                    <!-- Button trigger modal -->
 
-                <div class="col-6 col-lg-8" th:if="${loginInfo.islogin} == True">
-                    <div class="site-menu-toggle js-site-menu-toggle"  data-aos="fade">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
+                    <div class="col-6 col-lg-8" th:if="${loginInfo.islogin} == True">
+                        <div class="site-menu-toggle js-site-menu-toggle"  data-aos="fade">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
 
-                    <div>
-                        <div class="site-navbar js-site-navbar">
-                            <nav role="navigation">
-                                <div class="container">
-                                    <div class="row full-height align-items-center">
-                                        <div class="col-md-6 mx-auto">
-                                            <ul class="list-unstyled menu">
-                                                <p>Welcome <span th:text="${loginInfo.account.name}">James Chu</span></p>
-                                                <li class="active"><a href="./index.html">Home</a></li>
-                                                <li><a href="/ordermanagement.html">Manage My Order</a></li>
-                                                <li><a href="/hotelmanagement.html">Manage My hotel</a></li>
-                                                <li><a href="/hotelordermanagement.html">Manage My hotel Order</a></li>
-                                                <li><a href="/accountmanagement.html">Manage My Account</a></li>
-                                                <li><a href="/signout">Sign Out</a></li>
-                                            </ul>
+                        <div>
+                            <div class="site-navbar js-site-navbar">
+                                <nav role="navigation">
+                                    <div class="container">
+                                        <div class="row full-height align-items-center">
+                                            <div class="col-md-6 mx-auto">
+                                                <ul class="list-unstyled menu">
+                                                    <p>Welcome <span th:text="${loginInfo.account.name}">James Chu</span></p>
+                                                    <li class="active"><a href="./index.html">Home</a></li>
+                                                    <li><a href="/ordermanagement.html">Manage My Order</a></li>
+                                                    <li><a href="/hotelmanagement.html">Manage My hotel</a></li>
+                                                    <li><a href="/hotelordermanagement.html">Manage My hotel Order</a></li>
+                                                    <li><a href="/accountmanagement.html">Manage My Account</a></li>
+                                                    <li><a href="/signout">Sign Out</a></li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </nav>
+                                </nav>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -308,7 +310,7 @@
             </div>
         </footer>
 
-        
+
 
         <!-- Modal -->
         <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -379,8 +381,8 @@
                                             </label>
                                             <input type="password" name="passwd" required autocomplete="off"  />
                                         </div>
-										<!-- <p class="forgot"><a href="#">Forgot Password?</a></p>  -->
-                                        
+                                        <!-- <p class="forgot"><a href="#">Forgot Password?</a></p>  -->
+
 
                                         <button class="button button-block"/>Log In</button>
 
@@ -396,22 +398,22 @@
                 </div>
             </div>
             <script src="./js/jquery-3.3.1.min.js"></script>
-        <script src="./js/jquery-migrate-3.0.1.min.js"></script>
-        <script src="./js/popper.min.js"></script>
-        <script src="./js/bootstrap.min.js"></script>
-        <script src="./js/owl.carousel.min.js"></script>
-        <script src="./js/jquery.stellar.min.js"></script>
-        <script src="./js/jquery.fancybox.min.js"></script>
+            <script src="./js/jquery-migrate-3.0.1.min.js"></script>
+            <script src="./js/popper.min.js"></script>
+            <script src="./js/bootstrap.min.js"></script>
+            <script src="./js/owl.carousel.min.js"></script>
+            <script src="./js/jquery.stellar.min.js"></script>
+            <script src="./js/jquery.fancybox.min.js"></script>
 
 
-        <script src="./js/aos.js"></script>
+            <script src="./js/aos.js"></script>
 
-        <script src="./js/bootstrap-datepicker.js"></script> 
-        <script src="./js/jquery.timepicker.min.js"></script> 
+            <script src="./js/bootstrap-datepicker.js"></script> 
+            <script src="./js/jquery.timepicker.min.js"></script> 
 
 
-        <script src="./js/login.js"></script>
-        <script src="./js/main.js"></script>
-        
+            <script src="./js/login.js"></script>
+            <script src="./js/main.js"></script>
+
     </body>
 </html>

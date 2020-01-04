@@ -16,7 +16,8 @@ public class HotelDetailController {
     public String getDetailHotel(@RequestParam int id, Model model) {
     	System.out.println("rooms.html id: " + id);
     	
-    	Hotel result = Global.db.getHotel(id);    	
+    	Hotel result = Global.db.getHotel(id); 
+    	model.addAttribute("hotelInfo", result);
     	System.out.println(result);
         return "rooms";                        
     }

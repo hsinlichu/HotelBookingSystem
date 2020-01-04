@@ -2,6 +2,7 @@ package hotel.booking.controller;
 
 import java.util.*;
 
+import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,9 @@ import hotel.booking.container.*;
 
 @Controller
 public class ResultPageController {  
+	@Resource(name = "loginInfoSession")
+	LoginInfo loginInfo;
+	
 	public String checkin_date;
 	public String checkout_date;
 	public String location;
@@ -25,7 +29,8 @@ public class ResultPageController {
 	
 	@RequestMapping(value="/result", method=RequestMethod.POST)
     public String getIssues(@RequestParam String checkin_date, @RequestParam String checkout_date, @RequestParam String location, @RequestParam int person, Model model) {
-    	System.out.println("Resultpage" + checkin_date+" "+checkout_date+" "+location+""+person);
+		model.addAttribute("loginInfo", loginInfo);
+		System.out.println("Resultpage" + checkin_date+" "+checkout_date+" "+location+""+person);
 
     	this.checkin_date = dateChangeType(checkin_date);
     	this.checkout_date = dateChangeType(checkout_date);
@@ -37,6 +42,7 @@ public class ResultPageController {
 
 	@RequestMapping(value="/result", method=RequestMethod.GET)
     public String getfilter(@RequestParam int star, @RequestParam int pricefrom, @RequestParam int priceto, Model model) {
+		model.addAttribute("loginInfo", loginInfo);
     	System.out.println("Resultpage");
     	System.out.println(star+"\n"+pricefrom+"\n"+priceto+"\n");
     	

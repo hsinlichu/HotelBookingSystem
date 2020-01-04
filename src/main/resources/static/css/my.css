@@ -1,0 +1,4 @@
+.nothomepage, .nothomepage:before{
+    height: 30vh !important;
+    min-height: 100px !important;
+}
