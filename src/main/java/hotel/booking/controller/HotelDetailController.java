@@ -14,10 +14,10 @@ import hotel.booking.container.Hotel;
 public class HotelDetailController {           
 	@RequestMapping(value={"rooms.html", "rooms"}, method=RequestMethod.GET, params = {"id"})
     public String getDetailHotel(@RequestParam int id, Model model) {
-    	System.out.println("id: " + id);
+    	System.out.println("rooms.html id: " + id);
     	
     	Hotel result = Global.db.getHotel(id);    	
-    	System.out.println("get hotel " + id );
+    	System.out.println(result);
         return "rooms";                        
     }
 }

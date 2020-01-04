@@ -65,8 +65,10 @@ public class LoginController {
 		loginInfo.account = null;
 		int msg = 0;
 		model.addAttribute("loginInfo", loginInfo);
-		if (loginInfo.islogin == true) {
-			System.out.println(" logout successfully.");
+		
+		
+		if (loginInfo.islogin == false) {
+			System.out.println("logout successfully.");
 			msg = 4;
 		}
 		else
