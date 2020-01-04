@@ -213,15 +213,20 @@ public class ResultPageController {
 			addHotel.avgprice = numofSingle * priceofSingle + numofDouble * priceofDouble + numofQuad * priceofQuad;
 			resultHotel.add(addHotel);
 			
-			System.out.println("-------Hotel " + resultHotel.get(i).id + "-------");
-			System.out.println("star: " + resultHotel.get(i).star);
-			System.out.println("locality: " + resultHotel.get(i).locality);
-			System.out.println("street: " + resultHotel.get(i).street);
-			System.out.println("Single room[price: " + resultHotel.get(i).singleRoomPrice + ", quantity: " + resultHotel.get(i).singleRoomNum + "]");
-			System.out.println("Double room[price: " + resultHotel.get(i).doubleRoomPrice + ", quantity: " + resultHotel.get(i).doubleRoomNum + "]");
-			System.out.println("Quad room[price: " + resultHotel.get(i).quadRoomPrice + ", quantity: " + resultHotel.get(i).quadRoomNum + "]");
-			System.out.println("average price: " + resultHotel.get(i).avgprice);
-			System.out.println(" ");
+			/*
+			 * System.out.println("-------Hotel " + resultHotel.get(i).id + "-------");
+			 * System.out.println("star: " + resultHotel.get(i).star);
+			 * System.out.println("locality: " + resultHotel.get(i).locality);
+			 * System.out.println("street: " + resultHotel.get(i).street);
+			 * System.out.println("Single room[price: " + resultHotel.get(i).singleRoomPrice
+			 * + ", quantity: " + resultHotel.get(i).singleRoomNum + "]");
+			 * System.out.println("Double room[price: " + resultHotel.get(i).doubleRoomPrice
+			 * + ", quantity: " + resultHotel.get(i).doubleRoomNum + "]");
+			 * System.out.println("Quad room[price: " + resultHotel.get(i).quadRoomPrice +
+			 * ", quantity: " + resultHotel.get(i).quadRoomNum + "]");
+			 * System.out.println("average price: " + resultHotel.get(i).avgprice);
+			 * System.out.println(" ");
+			 */
 			
 		}	
 		System.out.println("successful searching" );
