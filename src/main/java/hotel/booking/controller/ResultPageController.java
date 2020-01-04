@@ -62,14 +62,12 @@ public class ResultPageController {
 	
 
 	public List<ResultHotel> FilteredHotel(List<ResultHotel> search,int star,int downfloor,int upfloor){//create new list to store totalprice within downfloor price and upfloor price
-
+		if(upfloor == -1) upfloor = 100000000;
 		List<ResultHotel> filteredtotal=new ArrayList<>();
 		for(int i=0;i<search.size();i++) {
-			if(search.get(i).star==star) {
-			if(search.get(i).avgprice>=downfloor&&search.get(i).avgprice<=upfloor)
-			filteredtotal.add(search.get(i));
-			
-		}
+			if(star == 0 || search.get(i).star==star) {
+				if(search.get(i).avgprice>=downfloor&&search.get(i).avgprice<=upfloor) filteredtotal.add(search.get(i));
+			}
 		}
 		for(int j=0;j<filteredtotal.size();j++) {
 			System.out.println("-------Hotel " + filteredtotal.get(j).id + "-------");
@@ -126,6 +124,7 @@ public class ResultPageController {
     @ResponseBody
     public List<ResultHotel> GetAllHotel() {
 		List<Hotel> hotel =Global.db.getAllHotel(this.checkin_date, this.checkout_date, this.location, this.person);
+		
 		List<ResultHotel> resultHotel = new ArrayList<>();
 		
 		if(sortmethod == 0)                         //sort method
@@ -153,15 +152,15 @@ public class ResultPageController {
 			for(int j = 0; j < roomslist.size(); j++) {          //take Room list
 				if(roomslist.get(j).type.equals("Single")) {
 					priceofSingle = roomslist.get(j).price;
-					leftofSingle = roomslist.get(j).quantity;
+					leftofSingle = Global.db.roomLeft(roomslist.get(j), this.checkin_date, this.checkout_date);
 				}
 				if(roomslist.get(j).type.equals("Double")) {
 					priceofDouble = roomslist.get(j).price;
-					leftofDouble = roomslist.get(j).quantity;
+					leftofDouble = Global.db.roomLeft(roomslist.get(j), this.checkin_date, this.checkout_date);
 				}
 				if(roomslist.get(j).type.equals("Quad")){
 					priceofQuad = roomslist.get(j).price;
-					leftofQuad = roomslist.get(j).quantity;
+					leftofQuad = Global.db.roomLeft(roomslist.get(j), this.checkin_date, this.checkout_date);
 				}
 			}
 			
