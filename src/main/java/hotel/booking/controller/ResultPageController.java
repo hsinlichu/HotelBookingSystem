@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import hotel.booking.Global;
 import hotel.booking.container.*;
 
+import java.util.Date;
+import java.text.*;
+import java.util.concurrent.TimeUnit;
+
 @Controller
 public class ResultPageController {  
 	@Resource(name = "loginInfoSession")
@@ -43,8 +47,31 @@ public class ResultPageController {
     	loginInfo.search_dateout = this.checkout_date;
     	loginInfo.search_location = this.location;
     	loginInfo.search_person = this.person;
+    	loginInfo.datedifference = dateDifference(this.checkin_date, this.checkout_date);
     	model.addAttribute("loginInfo", loginInfo);
         return "result";                       
+	}
+	
+	public long dateDifference(String from, String to) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
+	    Date firstDate = null;
+		try {
+			firstDate = sdf.parse(from);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    Date secondDate = null;
+		try {
+			secondDate = sdf.parse(to);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	 
+	    long diffInMillies = Math.abs(secondDate.getTime() - firstDate.getTime());
+	    long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+		return diff;
 	}
 
 	@RequestMapping(value="/result", method=RequestMethod.GET)

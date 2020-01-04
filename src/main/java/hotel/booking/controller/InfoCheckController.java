@@ -26,7 +26,7 @@ public class InfoCheckController {
 	List<Order> order;
 	
 	@RequestMapping(value="/confirmation", method=RequestMethod.POST)
-    public String infoCheck(@RequestParam int numofSingle, @RequestParam int numofDouble, @RequestParam int numofQuad, @RequestParam int totalprice, Model model) {
+    public String infoCheck(@RequestParam int numofSingle, @RequestParam int numofDouble, @RequestParam int numofQuad, @RequestParam int totalprice, @RequestParam int singledayprice, @RequestParam int staydays, Model model) {
 		System.out.println("Confirmation: " + loginInfo.search_datein+" "+loginInfo.search_dateout+" "+loginInfo.search_location+" "+loginInfo.search_person);
 		System.out.println("Select hotel id:" + loginInfo.select_hotel_id);
 		Hotel selecthotel = Global.db.getHotel(loginInfo.select_hotel_id); 
@@ -39,7 +39,9 @@ public class InfoCheckController {
 			model.addAttribute("numofSingle", numofSingle);
 			model.addAttribute("numofDouble", numofDouble);
 			model.addAttribute("numofQuad", numofQuad);
+			model.addAttribute("staydays", staydays);
 			model.addAttribute("totalprice", totalprice);
+			model.addAttribute("singledayprice", singledayprice);
 	    	model.addAttribute("loginInfo", loginInfo);
 	        return "confirmation";    
 		}

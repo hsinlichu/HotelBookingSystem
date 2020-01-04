@@ -12,8 +12,9 @@
     modify();
     $("#reservebutton").attr("disabled", true); //default
     var onceChange = function(){
-    	var total =  $("#numofSingle").val() * $("#singleprice").text() + $("#numofDouble").val() * $("#doubleprice").text() + $("#numofQuad").val() * $("#quadprice").text(); 
-    	$("#totalprice").attr("value", total);
+    	var singledaytotal =  ($("#numofSingle").val() * $("#singleprice").text() + $("#numofDouble").val() * $("#doubleprice").text() + $("#numofQuad").val() * $("#quadprice").text()); 
+    	$("#singledayprice").attr("value", singledaytotal);
+    	$("#totalprice").attr("value", $("#staydays").val() * singledaytotal);
 
         var bookroom = parseInt($("#numofSingle").val()) +  parseInt($("#numofDouble").val()) + parseInt($("#numofQuad").val()); 
         //console.log(bookroom);

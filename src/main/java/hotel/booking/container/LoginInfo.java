@@ -15,6 +15,7 @@ public class LoginInfo {
 	public String search_location;
 	public int search_person;
 	public int select_hotel_id;
+	public long datedifference;
 	
 	@Bean
 	@SessionScope

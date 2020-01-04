@@ -12,3 +12,4 @@ database/hotel.db
 ### Compiled class file
 *.class
 /bin/
+*~
