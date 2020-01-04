@@ -22,9 +22,7 @@ public class CustomerOrderController {
     	return Orderlist;
     }
     public boolean deleteCustomerOrder(Order deleteOrder){
-    	Order order=deleteOrder;
-    	Global.db.cancelOrder(order);
-    	return true;
+    	return Global.db.cancelOrder(deleteOrder);
     }
 
 }

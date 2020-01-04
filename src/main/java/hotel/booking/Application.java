@@ -77,8 +77,14 @@ public class Application {
 		selected_rooms.get(0).quantity = 5;
 		selected_rooms.get(1).quantity = 5;
 		selected_rooms.get(2).quantity = 5;
-		Order order = new Order("2019/10/24", "2019/10/25", selected_rooms);
+
+		Order order = new Order("2019/10/24", "2019/10/25", selected_rooms.get(0));
 		System.out.println(Global.db.addCustomerOrder(account, order)); 
+		order = new Order("2019/10/24", "2019/10/25", selected_rooms.get(1));
+		System.out.println(Global.db.addCustomerOrder(account, order)); 
+		order = new Order("2019/10/24", "2019/10/25", selected_rooms.get(2));
+		System.out.println(Global.db.addCustomerOrder(account, order)); 
+
 		System.out.println(Global.db.getHotelOwner(1)); 
 		System.out.println(account); 
 		Account new_account = Global.db.updateAccount(account, "abc", "test123@gmail.com", "password");
