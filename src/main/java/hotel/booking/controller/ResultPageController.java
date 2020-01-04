@@ -168,10 +168,6 @@ public class ResultPageController {
 			hotel = sort_star_HtoL(hotel);
 		else if(sortmethod == 1)
 			hotel = sort_star_LtoH(hotel);
-		else if(sortmethod == 2)
-			hotel = sort_star_HtoL(hotel);
-		else if(sortmethod == 3)
-			hotel = sort_star_LtoH(hotel);
 		
 		for (int i = 0; i < hotel.size(); i++) {    //turn Hotel to ResultHotel
 			int numofSingle = this.person % 4 % 2;
@@ -282,6 +278,10 @@ public class ResultPageController {
 			
 		}	
 		System.out.println("successful searching" );
+		if(sortmethod == 2)
+			resultHotel = sort_price_HtoL(resultHotel);
+		else if(sortmethod == 3)
+			resultHotel = sort_price_LtoH(resultHotel);
 		resultHotel = FilteredHotel(resultHotel, star, price_from, price_to);
         return resultHotel;
     }
