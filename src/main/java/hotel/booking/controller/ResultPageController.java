@@ -121,6 +121,42 @@ public class ResultPageController {
 		return tmp;
 		
 	}
+	public static List<ResultHotel> sort_price_LtoH(List<ResultHotel> search) {
+		List<ResultHotel> tmp = search;
+		ResultHotel swap =new ResultHotel();
+		boolean check = true;
+		while (check) {
+			check = false;
+			for (int i = 0; i < tmp.size()-1; i++) {
+				if (tmp.get(i).avgprice > tmp.get(i+1).avgprice) {
+					swap = tmp.get(i);
+					tmp.set(i, tmp.get(i+1));
+					tmp.set(i+1, swap);
+					check = true;
+				}
+			}
+		}
+		return tmp;
+		
+	}
+	public static List<ResultHotel> sort_price_HtoL(List<ResultHotel> search) {
+		List<ResultHotel> tmp = search;
+		ResultHotel swap =new ResultHotel();
+		boolean check = true;
+		while (check) {
+			check = false;
+			for (int i = 0; i < tmp.size()-1; i++) {
+				if (tmp.get(i).avgprice < tmp.get(i+1).avgprice) {
+					swap = tmp.get(i);
+					tmp.set(i, tmp.get(i+1));
+					tmp.set(i+1, swap);
+					check = true;
+				}
+			}
+		}
+		return tmp;
+		
+	}
 	
 	@RequestMapping(path = "/GetAllHotel", produces = "application/json; charset=UTF-8")
     @ResponseBody
