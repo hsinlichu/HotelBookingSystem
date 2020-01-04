@@ -23,7 +23,7 @@ import hotel.booking.container.Room;
 public class InfoCheckController {     
 	@Resource(name = "loginInfoSession")
 	LoginInfo loginInfo;
-	Order order;
+	List<Order> order;
 	
 	@RequestMapping(value="/confirmation", method=RequestMethod.POST)
     public String infoCheck(@RequestParam int numofSingle, @RequestParam int numofDouble, @RequestParam int numofQuad, @RequestParam int totalprice, Model model) {
@@ -46,7 +46,7 @@ public class InfoCheckController {
 		                    
     }
     
-    public Order bookCheck(Hotel hotel, String dateIn, String dateOut, int numofSingle, int numofDouble, int numofQuad) {
+    public List<Order> bookCheck(Hotel hotel, String dateIn, String dateOut, int numofSingle, int numofDouble, int numofQuad) {
     	// Given a hotel and dateIn~dateOut, and the number of room the user want to book, 
         // this function will check if the desired room are available, and create an order for you.
         // (If not all rooms are available, it will return null.)
@@ -63,18 +63,16 @@ public class InfoCheckController {
     	}
     	if(available = true) {
     		List<Room> orderRoomlist = new ArrayList<>();
-    		Room single_room = new Room(roomlist.get(0).id, roomlist.get(0).type, roomlist.get(0).price, numofSingle);
-    		Room double_room = new Room(roomlist.get(1).id, roomlist.get(1).type, roomlist.get(1).price, numofDouble);
-    		Room quad_room = new Room(roomlist.get(2).id, roomlist.get(2).type, roomlist.get(2).price, numofQuad);
-    		orderRoomlist.add(single_room);
-    		orderRoomlist.add(double_room);
-    		orderRoomlist.add(quad_room);
-            Order order = new Order(dateIn, dateOut, orderRoomlist);
-            return order;
+            List<Order> orders = new ArrayList<>();
+            orders.add(new Order(numofSingle, dateIn, dateOut, roomlist.get(0)));
+            orders.add(new Order(numofDouble, dateIn, dateOut, roomlist.get(1)));
+            orders.add(new Order(numofQuad, dateIn, dateOut, roomlist.get(2)));
+            return orders;
     	}else{
             return null;
         }
     }
+
     @RequestMapping(value="/bookcomplete")
     public String confirmOrder() {
     	int msg;
@@ -91,9 +89,10 @@ public class InfoCheckController {
 		newurl += ("?msg=" + msg);
     	return newurl;
     }
-    public boolean bookComplete(Account account, Order order) {
+    
+    public boolean bookComplete(Account account, List<Order> orders) {
         // Place an order. Return true if success, false if failed. 
-    	return Global.db.addCustomerOrder(account, order); 
+    	return Global.db.addCustomerOrder(account, orders); 
     }
 
 }

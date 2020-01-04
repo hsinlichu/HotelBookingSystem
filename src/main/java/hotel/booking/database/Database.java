@@ -285,23 +285,26 @@ public class Database {
 	
 	
 	public Boolean addCustomerOrder(Account account, Order order){
-		for(Room room: order.selected_rooms){
-			if(room.quantity > this.roomLeft(room, order.dateIn, order.dateOut)) return false;
-		}
-		for(Room room: order.selected_rooms){
-
-			HashMap<String, String> attr = new HashMap<>();
-			Account roomOwner = this.getRoomOwner(room);
-			attr.put("account_id", Integer.toString(account.id));
-			attr.put("room_id", Integer.toString(room.id));
-			attr.put("quantity", Integer.toString(room.quantity));
-			attr.put("dateIn", order.dateIn);
-			attr.put("dateOut", order.dateOut);
-			if(roomOwner != null) attr.put("owner_id", Integer.toString(roomOwner.id));
-			this.insert("Order", attr);
- 
-		}
+		// Check if the room is available during the date
+		if(order.quantity > this.roomLeft(order.room, order.dateIn, order.dateOut)) return false;
+		// Insert an order
+		HashMap<String, String> attr = new HashMap<>();
+		Account roomOwner = this.getRoomOwner(order.room);
+		attr.put("account_id", Integer.toString(account.id));
+		attr.put("room_id", Integer.toString(order.room.id));
+		attr.put("quantity", Integer.toString(order.quantity));
+		attr.put("dateIn", order.dateIn);
+		attr.put("dateOut", order.dateOut);
+		if(roomOwner != null) attr.put("owner_id", Integer.toString(roomOwner.id));
+		this.insert("Order", attr);
 		return true;
+	}
+	public Boolean addCustomerOrder(Account account, List<Order> orders){
+		boolean result = true;
+		for(Order order: orders){
+			result &= this.addCustomerOrder(account, order); 
+		}
+		return result;
 	}
 
 	public List<Order> getCustomerOrder(int account_id){
@@ -311,10 +314,7 @@ public class Database {
 		List<Order> orders = new ArrayList<Order>();
 		for(HashMap<String, String> result: results){
 			Room room = getRoom(Integer.parseInt(result.get("room_id")));
-			room.quantity = Integer.parseInt(result.get("quantity"));
-			List<Room> rooms = new ArrayList<Room>();
-			rooms.add(room);
-			Order order = new Order(Integer.parseInt(result.get("id")), result.get("dateIn"), result.get("dateOut"), rooms);
+			Order order = new Order(Integer.parseInt(result.get("id")), result.get("dateIn"), result.get("dateOut"), room);
 			orders.add(order);
 		}
 		return orders;
@@ -327,13 +327,21 @@ public class Database {
 		List<Order> orders = new ArrayList<Order>();
 		for(HashMap<String, String> result: results){
 			Room room = getRoom(Integer.parseInt(result.get("room_id")));
-			room.quantity = Integer.parseInt(result.get("quantity"));
-			List<Room> rooms = new ArrayList<Room>();
-			rooms.add(room);
-			Order order = new Order(Integer.parseInt(result.get("id")), result.get("dateIn"), result.get("dateOut"), rooms);
+			Order order = new Order(Integer.parseInt(result.get("id")), Integer.parseInt(result.get("quantity")), result.get("dateIn"), result.get("dateOut"), room);
 			orders.add(order);
 		}
 		return orders;
+	}
+
+	public Order getOrder(int order_id){
+		HashMap<String, String> attr = new HashMap<>();
+		attr.put("id", Integer.toString(order_id));
+		List<HashMap<String, String>> results = this.select("Order", attr);
+		if(results.size() == 0) return null;
+		HashMap<String, String> result = results.get(0);
+		Room room = this.getRoom(Integer.parseInt(result.get("room_id")));
+		Order order = new Order(Integer.parseInt(result.get("id")), Integer.parseInt(result.get("quantity")), result.get("dateIn"), result.get("dateOut"), room);
+		return order;
 	}
 
 	public boolean cancelOrder(Order order){
@@ -341,6 +349,27 @@ public class Database {
 		attr.put("id", Integer.toString(order.id));
 		if(this.delete("Order", attr)) return true;
 		else return false;
+	}
+
+	public boolean modifyOrder(Order order){
+		// Check if the room is available during the date
+		Order old_order = this.getOrder(order.id);
+		//System.out.println("check");
+		if(old_order == null) return false;
+		if(old_order.dateIn == order.dateIn && old_order.dateOut == order.dateOut && old_order.quantity == order.quantity) return true;
+		int room_left = this.roomLeft(order.room, order.dateIn, order.dateOut);
+		if(old_order.dateIn == order.dateIn && old_order.dateOut == old_order.dateOut) room_left += old_order.quantity;
+		//System.out.println("check");
+		if(order.quantity > room_left) return false;
+		// Insert an order
+		HashMap<String, String> attr = new HashMap<>();
+		HashMap<String, String> cond_attr = new HashMap<String, String>();
+		attr.put("quantity", Integer.toString(order.quantity));
+		attr.put("dateIn", order.dateIn);
+		attr.put("dateOut", order.dateOut);
+		cond_attr.put("id", Integer.toString(order.id));
+		//System.out.println("check");
+		return this.update("Order", attr, cond_attr); 
 	}
 
 	public int roomOccupied(Room room, String dateIn, String dateOut){
