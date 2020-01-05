@@ -54,6 +54,7 @@
            onSuccess: function(data, textStatus, jqXHR) {
                 console.log('onSuccess(data, textStatus, jqXHR)');
                 console.log(data);
+                alert(data["msg"]);
                 console.log(textStatus);
                 console.log(jqXHR);
             },
@@ -62,7 +63,7 @@
                 console.log(jqXHR);
                 console.log(textStatus);
                 console.log(errorThrown);
-                alert("Room Unavilable! Page reloaging..");
+                alert(errorThrown);
                 location.reload();
             },
             onAlways: function() {

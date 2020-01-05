@@ -26,10 +26,10 @@ public class ResultPageController {
 	public String checkin_date;
 	public String checkout_date;
 	public String location;
-	public int person;
+	public int person; 
 	private int star = 0;
-	private int price_from = -1;
-	private int price_to = -1;
+	private int price_from = 0;
+	private int price_to = 10000000;
 	private int sortmethod = -1;     //0->star HtoL, 1->star LtoH, 2->price HtoL, 3->price LtoH
 
 	
@@ -49,6 +49,10 @@ public class ResultPageController {
     	loginInfo.search_person = this.person;
     	loginInfo.datedifference = dateDifference(this.checkin_date, this.checkout_date);
     	model.addAttribute("loginInfo", loginInfo);
+    	model.addAttribute("sort_method", this.sortmethod);
+    	model.addAttribute("star", this.star);
+    	model.addAttribute("price_from", this.price_from);
+    	model.addAttribute("price_to", this.price_to);
         return "result";                       
 	}
 	
@@ -77,21 +81,47 @@ public class ResultPageController {
 	@RequestMapping(value="/result", method=RequestMethod.GET)
     public String getfilter(@RequestParam int star, @RequestParam int pricefrom, @RequestParam int priceto, Model model) {
 		model.addAttribute("loginInfo", loginInfo);
+		model.addAttribute("sort_method", this.sortmethod);
+		
     	System.out.println("Resultpage");
     	System.out.println(star+"\n"+pricefrom+"\n"+priceto+"\n");
     	
     	this.star = star;
     	this.price_from = pricefrom;
     	this.price_to = priceto;
-    	
+    	model.addAttribute("star", this.star);
+    	model.addAttribute("price_from", this.price_from);
+    	model.addAttribute("price_to", this.price_to);
         return "result";              
 	}
 
 	@RequestMapping(value="/result", method=RequestMethod.GET, params = {"sort_method"})
     public String sort(@RequestParam String sort_method, Model model) {
 		model.addAttribute("loginInfo", loginInfo);
+		model.addAttribute("star", this.star);
+		model.addAttribute("price_from", this.price_from);
+    	model.addAttribute("price_to", this.price_to);
     	System.out.println("Resultpage");
     	System.out.println(sort_method);
+    	switch(sort_method){
+    		case "Star_HtoL": 
+    			this.sortmethod = 0;
+    			break;
+    		case "Star_LtoH": 
+    			this.sortmethod = 1;
+    			break;
+    		case "Price_HtoL": 
+    			this.sortmethod = 2;
+    			break;
+    		case "Price_LtoH": 
+    			this.sortmethod = 3;
+    			break;
+    		default:
+    			this.sortmethod = -1;
+    			break;
+
+    	}
+    	model.addAttribute("sort_method", this.sortmethod);
     	
         return "result";              
 	}

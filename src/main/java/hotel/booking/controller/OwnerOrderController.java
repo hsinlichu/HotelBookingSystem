@@ -52,6 +52,19 @@ public class OwnerOrderController {
 		System.out.println("editOwnerOrder");
         AjaxResponseBody result = new AjaxResponseBody();
         System.out.println(id+action);
+        Order modifyOrder = Global.db.getOrder(id);
+        boolean execute = false;
+        
+        if(action.equals("delete")) {
+        	execute = deleteOwnerOrder(modifyOrder);
+        }
+        
+        if(execute = false) {
+        	result.setMsg("delete failed!");
+        }
+        else {
+        	result.setMsg("delete successfully!");
+        }
 
         //If error, just return a 400 bad request, along with the error message
         //return ResponseEntity.badRequest().body(result);

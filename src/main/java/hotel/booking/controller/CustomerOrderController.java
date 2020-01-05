@@ -49,19 +49,19 @@ public class CustomerOrderController {
 	
 	@RequestMapping(value="/editorder", method=RequestMethod.POST)
     public ResponseEntity<?> getSearchResultViaAjax(
-    		@Valid @RequestBody @RequestParam(required = true) int id, @Valid @RequestBody @RequestParam(required = false) String Quantity, 
+    		@Valid @RequestBody @RequestParam(required = true) int id, @Valid @RequestBody @RequestParam(required = false) String quantity, 
     		@Valid @RequestBody @RequestParam(required = false) String dateIn, @Valid @RequestBody @RequestParam(required = false) String dateOut,
     		@Valid @RequestBody @RequestParam(required = false) String action) {
 		System.out.println("editorder");
         AjaxResponseBody result = new AjaxResponseBody();
-        System.out.println(id+Quantity+dateIn+dateOut+action);
+        System.out.println(id+quantity+dateIn+dateOut+action);
         Order modifyOrder = Global.db.getOrder(id);
         boolean execute = false;
-        String message = reasonable(dateIn, dateOut, Quantity);
+        String message = reasonable(dateIn, dateOut, quantity);
         
         if(message == null) {
         	if(action.equals("edit")) {
-            	execute = modifyCustomerOrder(modifyOrder, Quantity, dateIn, dateOut);
+            	execute = modifyCustomerOrder(modifyOrder, quantity, dateIn, dateOut);
             }
             else if(action.equals("delete")) {
             	execute = deleteCustomerOrder(modifyOrder);
@@ -81,7 +81,7 @@ public class CustomerOrderController {
         //If error, just return a 400 bad request, along with the error message
         //return ResponseEntity.badRequest().body(result);
         return ResponseEntity.ok(result);
-	}
+	} 
 
     public boolean deleteCustomerOrder(Order deleteOrder){
     	return Global.db.cancelOrder(deleteOrder);
@@ -89,7 +89,8 @@ public class CustomerOrderController {
     
     public boolean modifyCustomerOrder(Order modifyOrder,String Quantity, String datein, String dateout) {   //modify -> re getCustomer
     	if(Quantity != null) {
-    		modifyOrder.quantity = Integer.valueOf(Quantity);
+    		System.out.println("quantity" + Quantity);
+    		modifyOrder.quantity = Integer.parseInt(Quantity);
     		System.out.println("change quantity");
     	}
     	if(datein != null) {
@@ -103,6 +104,7 @@ public class CustomerOrderController {
     	else {
     		System.out.println("change failed");
     	}
+    	System.out.println(modifyOrder);
     	return Global.db.modifyOrder(modifyOrder);
     }
     
