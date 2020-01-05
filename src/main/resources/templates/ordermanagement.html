@@ -10,7 +10,6 @@
         <meta name="description" content="" />
         <meta name="keywords" content="" />
         <meta name="author" content="" />
-        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=|Roboto+Sans:400,700|Playfair+Display:400,700">
 
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/animate.css">
@@ -75,11 +74,11 @@
             <div class="container">
                 <div class="row site-hero-inner justify-content-center align-items-end nothomepage">
                     <div class="col-md-10 text-center" data-aos="fade">
-                        <h1 class="heading mb-3" style="font-size: 40px;">Search Result</h1>
+                        <h1 class="heading mb-3" style="font-size: 40px;">Oder Management</h1>
                         <ul class="custom-breadcrumbs mb-4">
                             <li><a href="index.html">Home</a></li>
                             <li>&bullet;</li>
-                            <li>Search Result</li>
+                            <li>Manage My Order</li>
                         </ul>
                     </div>
                 </div>
@@ -87,88 +86,39 @@
         </section>
         <!-- END section -->
 
-        <section class="section blog-post-entry bg-light" id="next">
+        <section class="section contact-section py-5" id="next">
             <div class="container">
-
-                <div class="row">
-
-                    <div class="col-lg-2 col-12  mb-5">
-                        <h5>Sort</h5>
-                        <form action="/result" method="get" id="sort">
-                            <select name="sort_method" id="sort_method" onchange="this.form.submit()">
-                               <option value="None" selected>None</option> 
-                               <option value="Star_LtoH">Star (Low -> High)</option> 
-                               <option value="Star_HtoL">Star (High -> Low)</option> 
-                               <option value="Price_LtoH">Price (Low -> High)</option> 
-                               <option value="Price_HtoL">Price (High -> Low)</option> 
-                            </select>
-                        </form>
-                        <br>
-
-
-                        <h5>Filter</h5>
-                        <form action="/result" method="get" id="filter">
-                            <label for="star" class="mt-3">Star</label><br>
-                            <input type="radio" name="star" value="5">  5 star<br>
-                            <input type="radio" name="star" value="4">  4 star<br>
-                            <input type="radio" name="star" value="3">  3 star<br>
-                            <input type="radio" name="star" value="3">  2 star<br>
-                            <input type="radio" name="star" value="3">  1 star<br>
-                            <input type="radio" name="star" value="0" checked>  None<br>
-
-                            <label for="pricefrom" class="mt-3">Price From:</label>
-                            <input type="number" class="form-control" name="pricefrom" id="pricefrom" style="height:auto;" required>
-                            <label for="priceto" class="mt-3">Price To:</label>
-                            <input type="number" class="form-control" name="priceto" id="priceto" style="height:auto;" required>
-                            <input type="submit" value="Filter" class="mt-3 btn btn-primary text-white">
-                        </form>
-                        <br>
-
-                    </div>
-                    <div class="col-lg-10 col-12 mb-5">
-                        <div class="post" data-aos="fade-up" data-aos-delay="100">
-
-                            <div class="media media-custom d-block mb-4 h-100">
-                                <a href="rooms?id=1" class="mb-4 d-block">
-                                    <div class="row py-2">
-                                        <div class="col-lg-4 col-12 align-self-center">
-                                            <img src="images/img_1.jpg" width="100%" alt="Image placeholder">
-                                        </div>
-                                        <div class="col-lg-5 col-12 align-self-center">
-                                            <div class="media-body">
-                                                <span class="meta-post"> 5 <span class="fa fa-star text-primary"></span></span>
-                                                <h2 class="mt-0 mb-3">Loading...</h2>
-                                                <span>Single Room Price: Loading...</span></br>
-                        <span>Double Room Price: Loading...</span></br>
-                            <span>Quad Room Price: Loading...</span></br>
-                            <span>TWD: Loading...</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-
-                            
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="row" data-aos="fade">
-                    <div class="col-12 mx-auto">
-                        <div class="custom-pagination">
-                            <ul class="list-unstyled">
-                                <li class="active"><span>1</span></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><span>...</span></li>
-                                <li><a href="#">30</a></li>
-                            </ul>
-                        </div>
+                <div class="row  justify-content-center">
+                    <div class="col-md-12" data-aos="fade-up" data-aos-delay="100">
+                        <table class="table table-striped" id="wholeordertable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">DateIn</th>
+                                    <th scope="col">DateOut</th>
+                                    <th scope="col">Room Type</th>
+                                    <th scope="col">Room Price</th>
+                                    <th scope="col">Room Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ordertable">
+                                <tr>
+                                    <th scope="row">Loading...</th>
+                                    <td>Loading...</td>
+                                    <td>Loading...</td>
+                                    <td>Loading...</td>
+                                    <td>Loading...</td>
+                                    <td>Loading...</td>
+                                    <td>Loading...</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </section>
+
 
 
 
@@ -179,7 +129,7 @@
                         <h2 class="text-white font-weight-bold">A Best Place To Stay. Reserve Now!</h2>
                     </div>
                     <div class="col-12 col-md-6 text-center text-md-right" data-aos="fade-up" data-aos-delay="200">
-                        <a href="reservation.html" class="btn btn-outline-white-primary py-3 text-white px-5">Reserve Now</a>
+                        <a href="index.html" class="btn btn-outline-white-primary py-3 text-white px-5">Reserve Now</a>
                     </div>
                 </div>
             </div>
@@ -342,10 +292,13 @@
             <script src="https://cdnjs.cloudflare.com/ajax/libs/sprintf/1.1.2/sprintf.min.js"></script> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/sprintf/1.1.2/sprintf.min.js.map"></script> 
 
+            <script src="js/jquery.tabledit.min.js"></script>
 
 
-            <script src="./js/login.js"></script>
+
+
             <script src="js/main.js"></script>
-            <script src="js/result.js"></script>
+            <script src="./js/login.js"></script>
+            <script src="./js/ordermanagement.js"></script>
     </body>
 </html>
