@@ -63,7 +63,7 @@
                 console.log(errorThrown);
                 alert(errorThrown);
                 //alert("Edit Error! Page reloading..");
-                //location.reload();
+                location.reload();
             },
             onAlways: function() {
                 console.log('onAlways()');
