@@ -107,6 +107,39 @@ public class MyHotelController {
     		@RequestParam int quadprice, @RequestParam int quadnum,
     		Model model) {
 		
+		int maxHotelId = Global.db.maxID("Hotel");
+		int maxRoomId = Global.db.maxID("Room");
+		Room singleroom = null;
+		Room doubleroom = null;
+		Room quadroom = null;
+		singleroom.id = maxHotelId + 1;
+		singleroom.price = singleprice;
+		singleroom.quantity = singlenum;
+		singleroom.type = "Single";
+		
+		doubleroom.id = maxHotelId + 2;
+		doubleroom.price = doubleprice;
+		doubleroom.quantity = doublenum;
+		doubleroom.type = "Double";
+		
+		quadroom.id = maxHotelId + 3;
+		quadroom.price = quadprice;
+		quadroom.quantity = quadnum;
+		quadroom.type = "Quad";
+		
+		List<Room> roomslist = new ArrayList<>();;
+		roomslist.add(singleroom);
+		roomslist.add(doubleroom);
+		roomslist.add(quadroom);
+		
+		Hotel newHotel = null;
+		newHotel.id = maxHotelId + 1;
+		newHotel.locality = address;
+		newHotel.star = star;
+		newHotel.street = street;
+		newHotel.rooms = roomslist;
+		
+		Global.db.addHotel(loginInfo.account, newHotel);
 		
     	System.out.println("newhotel");
     	System.out.println(star+" "+address+" "+street+" "+singleprice+" "+singlenum+" "+doubleprice+" "+doublenum+" "+quadprice+" "+quadnum);
