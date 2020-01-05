@@ -30,6 +30,7 @@ public class Application {
 		// } 
 		// // Add new account 
 		// System.out.println("Add new account");
+		System.out.println(Global.db.addAccount("Test", "test@gmail.com", "test"));
 		System.out.println(Global.db.addAccount("TaipeiManager", "a@gmail.com", "a"));
 		System.out.println(Global.db.addAccount("TaichungManager", "b@gmail.com", "b"));
 		System.out.println(Global.db.addAccount("KaohsiungManager", "c@gmail.com", "c"));

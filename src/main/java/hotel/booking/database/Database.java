@@ -408,6 +408,7 @@ public class Database {
 		//System.out.println(old_order);
 		//System.out.println(order);
 		if(dateIn_old.compareTo(dateIn) <= 0 && dateOut_old.compareTo(dateOut) >= 0) room_left += old_order.quantity;
+		else return false;
 		//System.out.println("check");
 		//System.out.println(room_left);
 		if(order.quantity > room_left) return false;
