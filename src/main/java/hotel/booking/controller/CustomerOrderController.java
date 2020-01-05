@@ -62,5 +62,8 @@ public class CustomerOrderController {
     public boolean deleteCustomerOrder(Order deleteOrder){
     	return Global.db.cancelOrder(deleteOrder);
     }
+    public boolean modifyCustomerOrder(Order order) {   //modify -> re getCustomer
+    	return Global.db.modifyOrder(order);
+    }
 
 }

@@ -314,7 +314,7 @@ public class Database {
 		List<Order> orders = new ArrayList<Order>();
 		for(HashMap<String, String> result: results){
 			Room room = getRoom(Integer.parseInt(result.get("room_id")));
-			Order order = new Order(Integer.parseInt(result.get("id")), result.get("dateIn"), result.get("dateOut"), room);
+			Order order = new Order(Integer.parseInt(result.get("id")), Integer.parseInt(result.get("quantity")), result.get("dateIn"), result.get("dateOut"), room);
 			orders.add(order);
 		}
 		return orders;
@@ -605,7 +605,7 @@ public class Database {
 		try(Connection conn = this.connect()) {
 			Statement stmt = conn.createStatement();
 			// pstmt.executeUpdate();
-			ResultSet rs = stmt.executeQuery(sql);
+			ResultSet rs = stmt.executeQuery(sql); 
             
             List<HashMap<String, String>> results = new ArrayList<HashMap<String, String>>();
             // loop through the result set
