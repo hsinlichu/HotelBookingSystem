@@ -107,25 +107,18 @@ public class MyHotelController {
     		@RequestParam int quadprice, @RequestParam int quadnum,
     		Model model) {
 		
-		int maxHotelId = Global.db.maxID("Hotel");
-		int maxRoomId = Global.db.maxID("Room");
-		System.out.println(maxHotelId);
-		System.out.println(maxRoomId);
 		
 		Room singleroom = new Room();
 		Room doubleroom = new Room();
 		Room quadroom = new Room();
-		singleroom.id = maxHotelId + 1;
 		singleroom.price = singleprice;
 		singleroom.quantity = singlenum;
 		singleroom.type = "Single";
 		
-		doubleroom.id = maxHotelId + 2;
 		doubleroom.price = doubleprice;
 		doubleroom.quantity = doublenum;
 		doubleroom.type = "Double";
 		
-		quadroom.id = maxHotelId + 3;
 		quadroom.price = quadprice;
 		quadroom.quantity = quadnum;
 		quadroom.type = "Quad";
@@ -136,7 +129,6 @@ public class MyHotelController {
 		roomslist.add(quadroom);
 		
 		Hotel newHotel = new Hotel();
-		newHotel.id = maxHotelId + 1;
 		newHotel.locality = address;
 		newHotel.star = star;
 		newHotel.street = street;
