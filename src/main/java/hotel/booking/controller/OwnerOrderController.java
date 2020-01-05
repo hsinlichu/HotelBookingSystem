@@ -37,7 +37,10 @@ public class OwnerOrderController {
     public List<Order> getOwnerOrder(){
 		System.out.println("getOwnerOrder");
     	List<Order> Orderlist=Global.db.getOwnerOrder(loginInfo.account.id);
-    	System.out.println(Orderlist);
+    	for(Order order: Orderlist){
+            order.room.price *= order.quantity; 
+        }
+    	//System.out.println(Orderlist);
     	return Orderlist;
     }
 

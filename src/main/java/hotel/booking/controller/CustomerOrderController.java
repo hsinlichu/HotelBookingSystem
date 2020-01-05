@@ -39,10 +39,11 @@ public class CustomerOrderController {
     public List<Order> getCustomerOrder(){
 		System.out.println("GetAllOrder");
     	List<Order> Orderlist=Global.db.getCustomerOrder(loginInfo.account.id);
-    	System.out.println(Orderlist);
-    	
-    	
-    	
+        for(Order order: Orderlist){
+            order.room.price *= order.quantity; 
+        }
+    	//System.out.println(Orderlist);
+
     	return Orderlist;
     }
     
