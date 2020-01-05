@@ -30,24 +30,25 @@ public class Application {
 		// } 
 		// // Add new account 
 		// System.out.println("Add new account");
-		// System.out.println(Global.db.addAccount("owner1", "owner1@gmail.com", "password1"));
-		// System.out.println(Global.db.addAccount("owner2", "owner2@gmail.com", "password2"));
-		// System.out.println(Global.db.addAccount("owner3", "owner3@gmail.com", "password3"));
-		// System.out.println(Global.db.addAccount("user1", "user1@gmail.com", "password1"));
-		// System.out.println(Global.db.addAccount("user2", "user2@gmail.com", "password2"));
-		// System.out.println(Global.db.addAccount("user3", "user3@gmail.com", "password3"));
-		// System.out.println(Global.db.addAccount("user4", "user4@gmail.com", "password4"));
-		// System.out.println(Global.db.addAccount("user5", "user5@gmail.com", "password5"));
-		// System.out.println(Global.db.addAccount("user6", "user6@gmail.com", "password6"));
-		// System.out.println(Global.db.addAccount("user7", "user7@gmail.com", "password7"));
-		// System.out.println(Global.db.addAccount("test", "test@gmail.com", "password"));
+		System.out.println(Global.db.addAccount("TaipeiManager", "a@gmail.com", "a"));
+		System.out.println(Global.db.addAccount("TaichungManager", "b@gmail.com", "b"));
+		System.out.println(Global.db.addAccount("KaohsiungManager", "c@gmail.com", "c"));
 
 		
 		// // Login with account  
 		// System.out.println("Login with account");
-		// Account account1 = Global.db.verifyAccount("owner1@gmail.com", "password1");
-		// Account account2 = Global.db.verifyAccount("owner2@gmail.com", "password2");
-		// Account account3 = Global.db.verifyAccount("owner3@gmail.com", "password3");
+		Account owner1 = Global.db.verifyAccount("a@gmail.com", "a");
+		Account owner2 = Global.db.verifyAccount("b@gmail.com", "b");
+		Account owner3 = Global.db.verifyAccount("c@gmail.com", "c");
+		List<Hotel> hotels = Global.db.getAllHotel();
+		int count = 0;
+		for(Hotel hotel: hotels){
+			int remain = count / 500;
+			if(remain == 0) Global.db.setHotelOwner(hotel, owner1);
+			else if(remain == 1) Global.db.setHotelOwner(hotel, owner2);
+			else if(remain == 2) Global.db.setHotelOwner(hotel, owner3);
+			count++;
+		}
 
 		
 		// // Set hotel owner
@@ -120,6 +121,6 @@ public class Application {
 		// System.out.println(Global.db.getOrder(4));
 		// System.out.println(Global.db.modifyOrder(orders.get(2)));
 		
-	} 
+	}  
 
 }
