@@ -90,8 +90,26 @@ public class ResultPageController {
 	@RequestMapping(value="/result", method=RequestMethod.GET, params = {"sort_method"})
     public String sort(@RequestParam String sort_method, Model model) {
 		model.addAttribute("loginInfo", loginInfo);
+		model.addAttribute("sort_method", sort_method);
     	System.out.println("Resultpage");
     	System.out.println(sort_method);
+    	switch(sort_method){
+    		case "Star_HtoL": 
+    			this.sortmethod = 0;
+    			break;
+    		case "Star_LtoH": 
+    			this.sortmethod = 1;
+    			break;
+    		case "Price_HtoL": 
+    			this.sortmethod = 2;
+    			break;
+    		case "Price_LtoH": 
+    			this.sortmethod = 3;
+    			break;
+    		default:
+    			this.sortmethod = -1;
+    			break;
+    	}
     	
         return "result";              
 	}
