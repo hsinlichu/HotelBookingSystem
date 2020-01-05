@@ -11,7 +11,7 @@
             <td>%(dateIn)s</td>
             <td>%(dateOut)s</td>
             <td>%(room.type)s</td>
-            <td>%(room.quantity)s</td>
+            <td>%(quantity)s</td>
             <td>%(room.price)s</td>
         </tr>
         `;
