@@ -96,11 +96,11 @@
                         <h5>Sort</h5>
                         <form action="/result" method="get" id="sort">
                             <select name="sort_method" id="sort_method" onchange="this.form.submit()">
-                               <option value="None" th:selected='${sort_method=="None"}'>None</option> 
-                               <option value="Star_LtoH" th:selected='${sort_method=="Star_LtoH"}'>Star (Low -> High)</option> 
-                               <option value="Star_HtoL" th:selected='${sort_method=="Star_HtoL"}'>Star (High -> Low)</option> 
-                               <option value="Price_LtoH" th:selected='${sort_method=="Price_LtoH"}'>Price (Low -> High)</option> 
-                               <option value="Price_HtoL" th:selected='${sort_method=="Price_HtoL"}'>Price (High -> Low)</option> 
+                               <option value="None" th:selected='${sort_method==-1}'>None</option> 
+                               <option value="Star_LtoH" th:selected='${sort_method==1}'>Star (Low -> High)</option> 
+                               <option value="Star_HtoL" th:selected='${sort_method==0}'>Star (High -> Low)</option> 
+                               <option value="Price_LtoH" th:selected='${sort_method==3}'>Price (Low -> High)</option> 
+                               <option value="Price_HtoL" th:selected='${sort_method==2}'>Price (High -> Low)</option> 
                             </select>
                         </form>
                         <br>
@@ -109,17 +109,17 @@
                         <h5>Filter</h5>
                         <form action="/result" method="get" id="filter">
                             <label for="star" class="mt-3">Star</label><br>
-                            <input type="radio" name="star" value="5">  5 star<br>
-                            <input type="radio" name="star" value="4">  4 star<br>
-                            <input type="radio" name="star" value="3">  3 star<br>
-                            <input type="radio" name="star" value="3">  2 star<br>
-                            <input type="radio" name="star" value="3">  1 star<br>
-                            <input type="radio" name="star" value="0" checked>  None<br>
+                            <input type="radio" name="star" value="5" th:checked='${star==5}'>  5 star<br>
+                            <input type="radio" name="star" value="4" th:checked='${star==4}'>  4 star<br>
+                            <input type="radio" name="star" value="3" th:checked='${star==3}'>  3 star<br>
+                            <input type="radio" name="star" value="2" th:checked='${star==2}'>  2 star<br>
+                            <input type="radio" name="star" value="1" th:checked='${star==1}'>  1 star<br>
+                            <input type="radio" name="star" value="0" th:checked='${star==0}'>  None<br>
 
                             <label for="pricefrom" class="mt-3">Price From:</label>
-                            <input type="number" class="form-control" name="pricefrom" id="pricefrom" style="height:auto;" required>
+                            <input type="number" class="form-control" name="pricefrom" id="pricefrom" style="height:auto;" th:value="${price_from}">
                             <label for="priceto" class="mt-3">Price To:</label>
-                            <input type="number" class="form-control" name="priceto" id="priceto" style="height:auto;" required>
+                            <input type="number" class="form-control" name="priceto" id="priceto" style="height:auto;" th:value="${price_to}">
                             <input type="submit" value="Filter" class="mt-3 btn btn-primary text-white">
                         </form>
                         <br>
