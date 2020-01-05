@@ -49,12 +49,14 @@
            onSuccess: function(data, textStatus, jqXHR) {
                 console.log('onSuccess(data, textStatus, jqXHR)');
                 console.log(data);
+                alert(data["msg"]);
                 console.log(textStatus);
                 console.log(jqXHR);
             },
             onFail: function(jqXHR, textStatus, errorThrown) {
                 console.log('onFail(jqXHR, textStatus, errorThrown)');
                 console.log(jqXHR);
+                alert(errorThrown);
                 console.log(textStatus);
                 console.log(errorThrown);
                 //location.reload();
