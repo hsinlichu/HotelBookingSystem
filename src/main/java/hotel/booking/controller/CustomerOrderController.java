@@ -47,17 +47,17 @@ public class CustomerOrderController {
 	
 	@RequestMapping(value="/editorder", method=RequestMethod.POST)
     public ResponseEntity<?> getSearchResultViaAjax(
-    		@Valid @RequestBody @RequestParam(required = true) int id, @Valid @RequestBody @RequestParam(required = false) String Quantity, 
+    		@Valid @RequestBody @RequestParam(required = true) int id, @Valid @RequestBody @RequestParam(required = false) String quantity, 
     		@Valid @RequestBody @RequestParam(required = false) String dateIn, @Valid @RequestBody @RequestParam(required = false) String dateOut,
     		@Valid @RequestBody @RequestParam(required = false) String action) {
 		System.out.println("editorder");
         AjaxResponseBody result = new AjaxResponseBody();
-        System.out.println(id+Quantity+dateIn+dateOut+action);
+        System.out.println(id+quantity+dateIn+dateOut+action);
         Order modifyOrder = Global.db.getOrder(id);
         boolean execute = false;
         
         if(action.equals("edit")) {
-        	execute = modifyCustomerOrder(modifyOrder, Quantity, dateIn, dateOut);
+        	execute = modifyCustomerOrder(modifyOrder, quantity, dateIn, dateOut);
         }
         else if(action.equals("delete")) {
         	execute = deleteCustomerOrder(modifyOrder);
