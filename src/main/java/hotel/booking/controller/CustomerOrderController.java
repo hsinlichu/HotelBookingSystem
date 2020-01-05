@@ -80,7 +80,8 @@ public class CustomerOrderController {
     }
     public boolean modifyCustomerOrder(Order modifyOrder,String Quantity, String datein, String dateout) {   //modify -> re getCustomer
     	if(Quantity != null) {
-    		modifyOrder.quantity = Integer.valueOf(Quantity);
+    		System.out.println("quantity" + Quantity);
+    		modifyOrder.quantity = Integer.parseInt(Quantity);
     		System.out.println("change quantity");
     	}
     	if(datein != null) {
@@ -94,6 +95,7 @@ public class CustomerOrderController {
     	else {
     		System.out.println("change failed");
     	}
+    	System.out.println(modifyOrder);
     	return Global.db.modifyOrder(modifyOrder);
     }
 
