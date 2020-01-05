@@ -63,7 +63,7 @@ public class CustomerOrderController {
         	execute = deleteCustomerOrder(modifyOrder);
         }
         
-        if(execute = false) {
+        if(execute == false) {
         	result.setMsg("edit failed!");
         }
         else {
@@ -73,7 +73,7 @@ public class CustomerOrderController {
         //If error, just return a 400 bad request, along with the error message
         //return ResponseEntity.badRequest().body(result);
         return ResponseEntity.ok(result);
-	}
+	} 
 
     public boolean deleteCustomerOrder(Order deleteOrder){
     	return Global.db.cancelOrder(deleteOrder);

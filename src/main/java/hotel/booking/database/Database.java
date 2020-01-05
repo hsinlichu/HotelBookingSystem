@@ -356,7 +356,7 @@ public class Database {
 		Order old_order = this.getOrder(order.id);
 		//System.out.println("check");
 		if(old_order == null) return false;
-		if(old_order.dateIn == order.dateIn && old_order.dateOut == order.dateOut && old_order.quantity == order.quantity) return true;
+		if(old_order.dateIn.equals(order.dateIn) && old_order.dateOut.equals(order.dateOut) && old_order.quantity == order.quantity) return true;
 		int room_left = this.roomLeft(order.room, order.dateIn, order.dateOut);
 		//System.out.println(old_order);
 		//System.out.println(order);
