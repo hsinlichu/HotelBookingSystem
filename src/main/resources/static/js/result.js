@@ -10,7 +10,7 @@
             <a href="rooms?id=%(id)s" class="mb-4 d-block">
                 <div class="row py-2">
                     <div class="col-lg-4 col-12 align-self-center">
-                        <img src="images/img_1.jpg" width="100%%" alt="Image placeholder">
+                        <img src="images/room_picture/room_%(pic)s.jpg" width="100%%" alt="Image placeholder">
                     </div>
                     <div class="col-lg-5 col-12 align-self-center">
                         <div class="media-body">
@@ -28,6 +28,8 @@
         `;
         var i;
         for(i = 0;i < data.length; ++i){
+        	data[i]["pic"] = Math.floor(Math.random()*23 +1);
+        	console.log(data[i]["pic"]);
             var tmp = sprintf(template, data[i]);
             $("div.post").append(tmp);
         }
