@@ -109,9 +109,12 @@ public class MyHotelController {
 		
 		int maxHotelId = Global.db.maxID("Hotel");
 		int maxRoomId = Global.db.maxID("Room");
-		Room singleroom = null;
-		Room doubleroom = null;
-		Room quadroom = null;
+		System.out.println(maxHotelId);
+		System.out.println(maxRoomId);
+		
+		Room singleroom = new Room();
+		Room doubleroom = new Room();
+		Room quadroom = new Room();
 		singleroom.id = maxHotelId + 1;
 		singleroom.price = singleprice;
 		singleroom.quantity = singlenum;
@@ -132,15 +135,15 @@ public class MyHotelController {
 		roomslist.add(doubleroom);
 		roomslist.add(quadroom);
 		
-		Hotel newHotel = null;
+		Hotel newHotel = new Hotel();
 		newHotel.id = maxHotelId + 1;
 		newHotel.locality = address;
 		newHotel.star = star;
 		newHotel.street = street;
 		newHotel.rooms = roomslist;
 		
-		Global.db.addHotel(loginInfo.account, newHotel);
-		
+		boolean execute = Global.db.addHotel(loginInfo.account, newHotel);
+		System.out.println(execute);
     	System.out.println("newhotel");
     	System.out.println(star+" "+address+" "+street+" "+singleprice+" "+singlenum+" "+doubleprice+" "+doublenum+" "+quadprice+" "+quadnum);
     	
