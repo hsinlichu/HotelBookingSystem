@@ -110,7 +110,10 @@ public class CustomerOrderController {
     
     public static String reasonable(String datein, String dateout, String Quantity) {
     	String message = null;
-    	int quantity = Integer.valueOf(Quantity);
+    	int quantity = 0;
+    	if(Quantity != null) {
+    		quantity = Integer.valueOf(Quantity);
+    	}
     	int dateinYear = Integer.valueOf(datein.substring(0, 3));
     	int dateinMonth = Integer.valueOf(datein.substring(5, 6));;
     	int dateinDay = Integer.valueOf(datein.substring(8, 9));;
@@ -156,7 +159,7 @@ public class CustomerOrderController {
     		message = "please enter date in correct format!(use /)";
     		System.out.println(datein + datein.substring(7, 8));
     	}
-    	else if(quantity <= 0) {
+    	else if(quantity <= 0 || Quantity.equals("")) {
     		message = "please enter correct quantity!";
     	}
     	

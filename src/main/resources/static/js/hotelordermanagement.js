@@ -59,7 +59,7 @@
                 alert(errorThrown);
                 console.log(textStatus);
                 console.log(errorThrown);
-                //location.reload();
+                location.reload();
             },
             onAlways: function() {
                 console.log('onAlways()');
