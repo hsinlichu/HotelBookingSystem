@@ -55,7 +55,7 @@ public class CustomerOrderController {
     		@Valid @RequestBody @RequestParam(required = false) String action) {
 		System.out.println("editorder");
         AjaxResponseBody result = new AjaxResponseBody();
-        System.out.println(id+quantity+dateIn+dateOut+action);
+        System.out.println(id + " " + quantity + " " + dateIn + " " + dateOut + " " + action);
         Order modifyOrder = Global.db.getOrder(id);
         boolean execute = false;
         String message = reasonable(dateIn, dateOut, quantity);
@@ -90,7 +90,6 @@ public class CustomerOrderController {
     
     public boolean modifyCustomerOrder(Order modifyOrder,String Quantity, String datein, String dateout) {   //modify -> re getCustomer
     	if(Quantity != null) {
-    		System.out.println("quantity" + Quantity);
     		modifyOrder.quantity = Integer.parseInt(Quantity);
     		System.out.println("change quantity");
     	}
@@ -153,9 +152,9 @@ public class CustomerOrderController {
     	if(datein.length() > 10 || dateout.length() > 10) {
     		message = "please enter correct date!";
     	}
-    	else if(datein.substring(4, 5).equals("/") == false || datein.substring(6, 7).equals("/") == false) {
+    	else if(datein.substring(4, 5).equals("/") == false || datein.substring(7, 8).equals("/") == false) {
     		message = "please enter date in correct format!(use /)";
-    		System.out.println(datein + datein.substring(6, 7));
+    		System.out.println(datein + datein.substring(7, 8));
     	}
     	else if(quantity <= 0) {
     		message = "please enter correct quantity!";
