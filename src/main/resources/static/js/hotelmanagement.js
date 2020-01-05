@@ -52,6 +52,7 @@
            onSuccess: function(data, textStatus, jqXHR) {
                 console.log('onSuccess(data, textStatus, jqXHR)');
                 console.log(data);
+                alert(data["msg"]);
                 console.log(textStatus);
                 console.log(jqXHR);
             },
@@ -60,8 +61,9 @@
                 console.log(jqXHR);
                 console.log(textStatus);
                 console.log(errorThrown);
+                alert(errorThrown);
                 //alert("Edit Error! Page reloading..");
-                //location.reload();
+                location.reload();
             },
             onAlways: function() {
                 console.log('onAlways()');
