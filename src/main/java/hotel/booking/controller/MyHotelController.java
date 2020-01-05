@@ -36,8 +36,23 @@ public class MyHotelController {
     public boolean addHotel(Account account,Hotel hotel) {
     	return Global.db.addHotel(account, hotel);
     }
-    public boolean modifyHotel(Hotel hotel) {
-    	return Global.db.modifyHotel(hotel);
+    public boolean modifyHotel(Hotel modifyhotel,String star,String locality,String street) {
+    	if(star != null) {
+    		modifyhotel.star = Integer.valueOf(star);
+    		System.out.println("change star");
+    	}
+    	if(locality != null) {
+    		modifyhotel.locality = locality;
+    		System.out.println("change locality");
+    	}
+    	if(street != null) {
+    		modifyhotel.street = street;
+    		System.out.println("change street");
+    	}
+    	else {
+    		System.out.println("change failed");
+    	}
+    	return Global.db.modifyHotel(modifyhotel);
     }
     public boolean modifyRoom(Room room) {
     	return Global.db.modifyRoom(room);
@@ -70,6 +85,19 @@ public class MyHotelController {
 		System.out.println("editMyhotel");
         AjaxResponseBody result = new AjaxResponseBody();
         System.out.println(id+star+locality+street+action);
+        Hotel modifyHotel = Global.db.getHotel(id);
+        boolean execute = false;
+        
+        if(action.equals("edit")) {
+        	execute = modifyHotel(modifyHotel, star, locality, street);
+        }
+        
+        if(execute = false) {
+        	result.setMsg("edit failed!");
+        }
+        else {
+        	result.setMsg("edit successfully!");
+        }
 
         //If error, just return a 400 bad request, along with the error message
         //return ResponseEntity.badRequest().body(result);
