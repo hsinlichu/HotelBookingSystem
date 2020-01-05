@@ -20,7 +20,7 @@ public class HotelDetailController {
 	
 	@RequestMapping(value={"rooms.html", "rooms"}, method=RequestMethod.GET, params = {"id"})
     public String getDetailHotel(@RequestParam int id, Model model) {
-		System.out.println("getDetailHotel: " + loginInfo.search_datein+" "+loginInfo.search_dateout+" "+loginInfo.search_location+" "+loginInfo.search_person);
+		System.out.println("getDetailHotel: " + loginInfo.search_datein+" "+loginInfo.search_dateout+" "+loginInfo.search_location+" "+loginInfo.search_person+" "+loginInfo.datedifference);
     	System.out.println("rooms.html id: " + id);
     	loginInfo.select_hotel_id = id;
     	

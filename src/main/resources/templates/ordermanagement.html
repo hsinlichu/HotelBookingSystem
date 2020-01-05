@@ -10,7 +10,6 @@
         <meta name="description" content="" />
         <meta name="keywords" content="" />
         <meta name="author" content="" />
-        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=|Roboto+Sans:400,700|Playfair+Display:400,700">
 
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/animate.css">
@@ -75,11 +74,11 @@
             <div class="container">
                 <div class="row site-hero-inner justify-content-center align-items-end nothomepage">
                     <div class="col-md-10 text-center" data-aos="fade">
-                        <h1 class="heading mb-3" style="font-size: 40px;">Your Oder</h1>
+                        <h1 class="heading mb-3" style="font-size: 40px;">Oder Management</h1>
                         <ul class="custom-breadcrumbs mb-4">
                             <li><a href="index.html">Home</a></li>
                             <li>&bullet;</li>
-                            <li>Your Oder</li>
+                            <li>Manage My Order</li>
                         </ul>
                     </div>
                 </div>
@@ -90,75 +89,31 @@
         <section class="section contact-section py-5" id="next">
             <div class="container">
                 <div class="row  justify-content-center">
-                    <div class="col-md-7" data-aos="fade-up" data-aos-delay="100">
-
-                        <form action="/bookcomplete" method="get" class="bg-white p-md-5 p-4 mb-5 border">
-                            <div class="row">
-                                <div class="col-md-6 form-group">
-                                    <label for="name">Name</label>
-                                    <input type="text" id="name" class="form-control " th:value="${loginInfo.account.name}" disabled>
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="email">Email</label>
-                                    <input type="text" id="email" class="form-control " th:value="${loginInfo.account.email}" disabled>
-                                </div>
-
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 form-group">
-                                    <label for="name">Date In</label>
-                                    <input type="text" id="datein" class="form-control " th:value="${loginInfo.search_datein}" disabled>
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="email">Date Out</label>
-                                    <input type="text" id="dateout" class="form-control " th:value="${loginInfo.search_dateout}" disabled>
-                                </div>
-
-                            </div>
-
-                            <div class="row mb-4  justify-content-center">
-                                <div class="col-md-12 form-group">
-                                    <label for="email">Hotel Location</label>
-                                    <input type="text" id="address" class="form-control" th:value="${selecthotel.locality} + ${selecthotel.street}" disabled>
-                                </div>
-
-                            </div>
-
-
-
-                            <div class="row mb-4  justify-content-center">
-                                <div class="col-md-4 form-group">
-                                    <label for="numofSingle">Single Room (<span>200</span>)</label>
-                                    <input type="number" id="numofSingle" class="form-control" th:value="${numofSingle}" disabled>
-                                </div>
-                                <div class="col-md-4 form-group">
-                                    <label for="numofDouble">Double Room (<span>200</span>)</label>
-                                    <input type="number" id="numofDouble" class="form-control" th:value="${numofDouble}" disabled>
-                                </div>
-                                <div class="col-md-4 form-group">
-                                    <label for="numofQuad">Quad Room (<span>200</span>)</label>
-                                    <input type="number" id="numofQuad" class="form-control" th:value="${numofQuad}" disabled>
-                                </div>
-
-                            </div>
-                            <div class="row  justify-content-center">
-                                <div class="col-md-4 form-group">
-                                    <label for="totalprice">Single Day Price: </label>
-                                    <input type="number" id="singledayprice" name="singledayprice" class="form-control" th:value="${singledayprice}" disabled>
-                                </div>
-                                <div class="col-md-4 form-group">
-                                    <label for="totalprice">Booking Days: </label>
-                                    <input type="number" id="staydays" name="staydays" class="form-control" th:value="${staydays}" disabled>
-                                </div>
-                                <div class="col-md-4 form-group">
-                                    <label for="totalprice">Total Price: </label>
-                                    <input type="number" id="totalprice" name="totalprice" class="form-control" th:value="${totalprice}" disabled>
-                                </div>
-                            </div>
-                            <a href="/bookcomplete" class="mt-3 btn btn-primary text-white ">Confirm Order</a>
-                            <a href="/index" class="mt-3 btn btn-primary text-white ">Cancel Order</a>
-                        </form>
-
+                    <div class="col-md-12" data-aos="fade-up" data-aos-delay="100">
+                        <table class="table table-striped" id="wholeordertable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">DateIn</th>
+                                    <th scope="col">DateOut</th>
+                                    <th scope="col">Room Type</th>
+                                    <th scope="col">Room Price</th>
+                                    <th scope="col">Room Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ordertable">
+                                <tr>
+                                    <th scope="row">Loading...</th>
+                                    <td>Loading...</td>
+                                    <td>Loading...</td>
+                                    <td>Loading...</td>
+                                    <td>Loading...</td>
+                                    <td>Loading...</td>
+                                    <td>Loading...</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -174,7 +129,7 @@
                         <h2 class="text-white font-weight-bold">A Best Place To Stay. Reserve Now!</h2>
                     </div>
                     <div class="col-12 col-md-6 text-center text-md-right" data-aos="fade-up" data-aos-delay="200">
-                        <a href="reservation.html" class="btn btn-outline-white-primary py-3 text-white px-5">Reserve Now</a>
+                        <a href="index.html" class="btn btn-outline-white-primary py-3 text-white px-5">Reserve Now</a>
                     </div>
                 </div>
             </div>
@@ -334,9 +289,16 @@
             <script src="js/bootstrap-datepicker.js"></script> 
             <script src="js/jquery.timepicker.min.js"></script> 
 
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/sprintf/1.1.2/sprintf.min.js"></script> 
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/sprintf/1.1.2/sprintf.min.js.map"></script> 
+
+            <script src="js/jquery.tabledit.min.js"></script>
+
+
 
 
             <script src="js/main.js"></script>
             <script src="./js/login.js"></script>
+            <script src="./js/ordermanagement.js"></script>
     </body>
 </html>

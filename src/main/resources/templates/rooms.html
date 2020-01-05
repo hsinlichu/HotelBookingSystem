@@ -10,7 +10,6 @@
         <meta name="description" content="" />
         <meta name="keywords" content="" />
         <meta name="author" content="" />
-        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=|Roboto+Sans:400,700|Playfair+Display:400,700">
 
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/animate.css">
@@ -27,6 +26,7 @@
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/my.css">
         <link rel="stylesheet" href="./css/login.css">
+
     </head>
     <body>
 
@@ -104,43 +104,43 @@
                 <div class="container">
 
                     <form action="/confirmation" method="post">
-                        <div class="row">
-                            <div class="col-md-6 col-lg-4 mb-5" data-aos="fade-up">
+                        <div class="row justify-content-center">
+                            <div class="col-md-6 col-lg-4 mb-3" id="singlecol" data-aos="fade-up">
                                 <figure class="img-wrap">
-                                    <img src="images/img_1.jpg" alt="Free website template" class="img-fluid mb-3">
+                                    <img id="singleimg" src="images/img_1.jpg" alt="Free website template" class="img-fluid mb-3">
                                 </figure>
                                 <div class="p-3 text-center room-info">
                                     <h2>Single Room</h2>
                                     <span class="text-uppercase letter-spacing-1" th:text="${hotelInfo.rooms[0].price}" id="singleprice">0</span><span class="text-uppercase letter-spacing-1"> / per night</span>
                                     <div class="my-3">
-                                        Select rooms: <input type="number" id="numofSingle" name="numofSingle"  style="display:inline; width:auto;" class="form-control" value=0 required>
+                                        Select rooms: <input type="number" id="numofSingle" name="numofSingle"  style="display:inline; width:auto;" class="form-control" min="0" value=0 required>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-md-6 col-lg-4 mb-5" data-aos="fade-up">
+                            <div class="col-md-6 col-lg-4 mb-3" id="singlecol" data-aos="fade-up">
                                 <figure class="img-wrap">
-                                    <img src="images/img_2.jpg" alt="Free website template" class="img-fluid mb-3">
+                                    <img id="doubleimg" src="images/img_2.jpg" alt="Free website template" class="img-fluid mb-3">
                                 </figure>
                                 <div class="p-3 text-center room-info">
                                     <h2>Double Room</h2>
                                     <span class="text-uppercase letter-spacing-1" th:text="${hotelInfo.rooms[1].price}" id="doubleprice">0</span><span class="text-uppercase letter-spacing-1"> / per night</span>
 
                                     <div class="my-3">
-                                        Select rooms: <input type="number" id="numofDouble" name="numofDouble"  style="display:inline; width:auto;" class="form-control" value=0 required>
+                                        Select rooms: <input type="number" id="numofDouble" name="numofDouble"  style="display:inline; width:auto;" class="form-control" min="0" value=0 required>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-md-6 col-lg-4 mb-5" data-aos="fade-up">
+                            <div class="col-md-6 col-lg-4 mb-3" id="quadcol" data-aos="fade-up">
                                 <figure class="img-wrap">
-                                    <img src="images/img_3.jpg" alt="Free website template" class="img-fluid mb-3">
+                                    <img id="quadimg" src="images/img_3.jpg" alt="Free website template" class="img-fluid mb-3">
                                 </figure>
                                 <div class="p-3 text-center room-info">
                                     <h2>Quad Room</h2>
                                     <span class="text-uppercase letter-spacing-1" th:text="${hotelInfo.rooms[2].price}" id="quadprice">0</span><span class="text-uppercase letter-spacing-1"> / per night</span>
                                     <div class="my-3">
-                                        Select rooms: <input type="number" id="numofQuad" name="numofQuad"  style="display:inline; width:auto;" class="form-control" value=0 required>
+                                        Select rooms: <input type="number" id="numofQuad" name="numofQuad"  style="display:inline; width:auto;" class="form-control" min="0" value=0 required>
                                     </div>
                                 </div>
                             </div>
@@ -148,12 +148,25 @@
 
                         </div>
                         <div class="row justify-content-center">
-                            <div class="col-md-6 col-lg-3 text-center">
-                                Current Total Price: <input type="number" id="totalprice" name="totalprice"  style="display:inline; width:auto;" class="form-control" value=0 readonly>
-                                <button class="mt-3 btn btn-primary btn-block text-white" th:if="${loginInfo.islogin} == False" disabled>Please Login First!</button>
-                                <button class="mt-3 btn btn-primary btn-block text-white" th:if="${loginInfo.islogin} == True" >Reserve Now!</button>
+                            <div class="col-md-4 text-center">
+                                Single Day Price: <input type="number" id="singledayprice" name="singledayprice"  style="display:inline; width:auto;" class="form-control mb-2" value=0 readonly><br>
                             </div>
+                            <div class="col-md-4 text-center">
+                                Booking Days: <input type="number" id="staydays" name="staydays"  style="display:inline; width:auto;" class="form-control mb-2" th:value="${loginInfo.datedifference}" readonly><br>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                Total Price: <input type="number" id="totalprice" name="totalprice"  style="display:inline; width:auto;" class="form-control" value=0 readonly>
+                            </div>
+
+
                         </div>
+                        <div class="row justify-content-center">
+                            <div class="col-md-6 col-lg-3 text-center">
+                                <button class="mt-5 btn btn-primary btn-block text-white" th:if="${loginInfo.islogin} == False" disabled>Please Login First!</button>
+                                <button id="reservebutton" class="mt-5 btn btn-primary btn-block text-white" th:if="${loginInfo.islogin} == True" >Reserve Now!</button>
+                        </div>
+                        </div>
+
                     </form>
                 </div>
             </section>
