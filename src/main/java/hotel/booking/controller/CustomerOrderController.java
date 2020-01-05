@@ -152,9 +152,9 @@ public class CustomerOrderController {
     	if(datein.length() > 10 || dateout.length() > 10) {
     		message = "please enter correct date!";
     	}
-    	else if(datein.substring(4, 5).equals("/") == false || datein.substring(6, 7).equals("/") == false) {
+    	else if(datein.substring(4, 5).equals("/") == false || datein.substring(7, 8).equals("/") == false) {
     		message = "please enter date in correct format!(use /)";
-    		System.out.println(datein + datein.substring(6, 7));
+    		System.out.println(datein + datein.substring(7, 8));
     	}
     	else if(quantity <= 0) {
     		message = "please enter correct quantity!";
