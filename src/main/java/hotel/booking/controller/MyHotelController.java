@@ -64,12 +64,12 @@ public class MyHotelController {
     
 	@RequestMapping(value="/editMyhotel", method=RequestMethod.POST)
     public ResponseEntity<?> getSearchResultViaAjax(
-    		@Valid @RequestBody @RequestParam(required = true) int id, @Valid @RequestBody @RequestParam(required = false) String Quantity, 
-    		@Valid @RequestBody @RequestParam(required = false) String dateIn, @Valid @RequestBody @RequestParam(required = false) String dateOut,
+    		@Valid @RequestBody @RequestParam(required = true) int id, @Valid @RequestBody @RequestParam(required = false) String star, 
+    		@Valid @RequestBody @RequestParam(required = false) String locality, @Valid @RequestBody @RequestParam(required = false) String street,
     		@Valid @RequestBody @RequestParam(required = false) String action) {
 		System.out.println("editMyhotel");
         AjaxResponseBody result = new AjaxResponseBody();
-        System.out.println(id+Quantity+dateIn+dateOut+action);
+        System.out.println(id+star+locality+street+action);
 
         //If error, just return a 400 bad request, along with the error message
         //return ResponseEntity.badRequest().body(result);

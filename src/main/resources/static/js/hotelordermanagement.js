@@ -4,7 +4,7 @@
 
     $.getJSON('/getOwnerOrder', function (data) {
         //console.log(data);
-        //$("#ordertable tr").remove();
+        $("#ordertable tr").remove();
         var template = `
         <tr data-id="%(id)s">
             <td scope="row">%(id)s</td>
