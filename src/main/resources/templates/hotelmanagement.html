@@ -1,0 +1,302 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="icon" href="./images/esoelogo.png" type="image/x-icon"/>
+        <link rel="shortcut icon" href="./images/esoelogo.png" type="image/x-icon"/>
+        <title>ESOE Hotel Booking</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta name="author" content="" />
+
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/animate.css">
+        <link rel="stylesheet" href="css/owl.carousel.min.css">
+        <link rel="stylesheet" href="css/aos.css">
+        <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+        <link rel="stylesheet" href="css/jquery.timepicker.css">
+        <link rel="stylesheet" href="css/fancybox.min.css">
+
+        <link rel="stylesheet" href="fonts/ionicons/css/ionicons.min.css">
+        <link rel="stylesheet" href="fonts/fontawesome/css/font-awesome.min.css">
+
+        <!-- Theme Style -->
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/my.css">
+        <link rel="stylesheet" href="./css/login.css">
+    </head>
+    <body>
+
+        <header class="site-header js-site-header">
+            <div class="container-fluid">
+                <div class="row align-items-center justify-content-between">
+                    <div class="col-6 col-lg-4 site-logo" data-aos="fade"><a href="./index.html">ESOE Hotel Booking</a></div>
+                    <div class="col-6 col-lg-4 mr d-flex mr-lg-4" data-aos="fade" th:if="${loginInfo.islogin} == False"><button type="button" class="btn btn-primary ml-auto" data-toggle="modal" data-target="#loginModal">Sign In</button></div>
+                    <!-- Button trigger modal -->
+
+                    <div class="col-6 col-lg-8" th:if="${loginInfo.islogin} == True">
+                        <div class="site-menu-toggle js-site-menu-toggle"  data-aos="fade">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+
+                        <div>
+                            <div class="site-navbar js-site-navbar">
+                                <nav role="navigation">
+                                    <div class="container">
+                                        <div class="row full-height align-items-center">
+                                            <div class="col-md-6 mx-auto">
+                                                <ul class="list-unstyled menu">
+                                                    <p>Welcome <span th:text="${loginInfo.account.name}">James Chu</span></p>
+                                                    <li class="active"><a href="./index.html">Home</a></li>
+                                                    <li><a href="/ordermanagement.html">Manage My Order</a></li>
+                                                    <li><a href="/hotelmanagement.html">Manage My hotel</a></li>
+                                                    <li><a href="/hotelordermanagement.html">Manage My hotel Order</a></li>
+                                                    <li><a href="/accountmanagement.html">Manage My Account</a></li>
+                                                    <li><a href="/signout">Sign Out</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- END head -->
+
+        <section class="site-hero inner-page overlay nothomepage" style="background-image: url(images/hero_4.jpg)" data-stellar-background-ratio="0.5">
+            <div class="container">
+                <div class="row site-hero-inner justify-content-center align-items-end nothomepage">
+                    <div class="col-md-10 text-center" data-aos="fade">
+                        <h1 class="heading mb-3" style="font-size: 40px;">Hotel Oder Management</h1>
+                        <ul class="custom-breadcrumbs mb-4">
+                            <li><a href="index.html">Home</a></li>
+                            <li>&bullet;</li>
+                            <li>Manage My Hotel Order</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- END section -->
+
+        <section class="section contact-section py-5" id="next">
+            <div class="container">
+                <div class="row  justify-content-center">
+                    <div class="col-md-12" data-aos="fade-up" data-aos-delay="100">
+                        <table class="table table-striped" id="wholeordertable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">star</th>
+                                    <th scope="col">locality</th>
+                                    <th scope="col">street</th>
+                                    <th scope="col">Single Room Price</th>
+                                    <th scope="col">Single Room Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ordertable">
+                                <tr>
+                                    <th scope="row">Loading...</th>
+                                    <td>Loading...</td>
+                                    <td>Loading...</td>
+                                    <td>Loading...</td>
+                                    <td>Loading...</td>
+                                    <td>Loading...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+
+        <section class="section bg-image overlay" style="background-image: url('images/hero_4.jpg');">
+            <div class="container" >
+                <div class="row align-items-center">
+                    <div class="col-12 col-md-6 text-center mb-4 mb-md-0 text-md-left" data-aos="fade-up">
+                        <h2 class="text-white font-weight-bold">A Best Place To Stay. Reserve Now!</h2>
+                    </div>
+                    <div class="col-12 col-md-6 text-center text-md-right" data-aos="fade-up" data-aos-delay="200">
+                        <a href="index.html" class="btn btn-outline-white-primary py-3 text-white px-5">Reserve Now</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="section footer-section">
+            <div class="container">
+                <div class="row mb-4">
+                    <div class="col-md-3 mb-5">
+                        <ul class="list-unstyled link">
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Terms &amp; Conditions</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Rooms</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 mb-5">
+                        <ul class="list-unstyled link">
+                            <li><a href="#">The Rooms &amp; Suites</a></li>
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="#">Restaurant</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 mb-5 pr-md-5 contact-info">
+                        <!-- <li>198 West 21th Street, <br> Suite 721 New York NY 10016</li> -->
+                        <p><span class="d-block"><span class="ion-ios-location h5 mr-3 text-primary"></span>Address:</span> <span> 198 West 21th Street, <br> Suite 721 New York NY 10016</span></p>
+                        <p><span class="d-block"><span class="ion-ios-telephone h5 mr-3 text-primary"></span>Phone:</span> <span> (+1) 435 3533</span></p>
+                        <p><span class="d-block"><span class="ion-ios-email h5 mr-3 text-primary"></span>Email:</span> <span> info@domain.com</span></p>
+                    </div>
+                    <div class="col-md-3 mb-5">
+                        <p>Sign up for our newsletter</p>
+                        <form action="#" class="footer-newsletter">
+                            <div class="form-group">
+                                <input type="email" class="form-control" placeholder="Email...">
+                                <button type="submit" class="btn"><span class="fa fa-paper-plane"></span></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row pt-5">
+                    <p class="col-md-6 text-left">
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    </p>
+
+                    <p class="col-md-6 text-right social">
+                    <a href="#"><span class="fa fa-tripadvisor"></span></a>
+                    <a href="#"><span class="fa fa-facebook"></span></a>
+                    <a href="#"><span class="fa fa-twitter"></span></a>
+                    <a href="#"><span class="fa fa-linkedin"></span></a>
+                    <a href="#"><span class="fa fa-vimeo"></span></a>
+                    </p>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Modal -->
+        <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content frame">
+
+
+                    <div class="modal-body form">
+                        <div class="">
+                            <ul class="tab-group">
+                                <li class="tab active"><a href="#signup">Sign Up</a></li>
+                                <li class="tab"><a href="#login">Log In</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div id="signup">   
+                                    <h2>Sign Up for Free</h2>
+                                    <form action="#" th:action="@{/signup}" method="post">
+                                        <div class="top-row">
+                                            <div class="field-wrap">
+                                                <label>
+                                                    First Name<span class="req">*</span>
+                                                </label>
+                                                <input type="text" name="firstname" required autocomplete="off"  />
+                                            </div>
+
+                                            <div class="field-wrap">
+                                                <label>
+                                                    Last Name<span class="req">*</span>
+                                                </label>
+                                                <input type="text" name="lastname" required autocomplete="off"  />
+                                            </div>
+                                        </div>
+                                        <div class="field-wrap">
+                                            <label>
+                                                Email Address<span class="req">*</span>
+                                            </label>
+                                            <input type="email" name="email" required autocomplete="off"  />
+                                        </div>
+
+                                        <div class="field-wrap">
+                                            <label>
+                                                Set A Password<span class="req">*</span>
+                                            </label>
+                                            <input type="password" name="passwd" required autocomplete="off"  />
+                                        </div>
+
+                                        <button type="submit" class="button button-block"/>Get Started</button>
+
+                                    </form>
+
+                                </div>
+
+                                <div id="login">   
+                                    <h2>Welcome Back!</h2>
+
+                                    <form  action="#" th:action="@{/login}"  method="post">
+
+                                        <div class="field-wrap">
+                                            <label>
+                                                Email Address<span class="req">*</span>
+                                            </label>
+                                            <input type="email" name="email" required autocomplete="off"  />
+                                        </div>
+
+                                        <div class="field-wrap">
+                                            <label>
+                                                Password<span class="req">*</span>
+                                            </label>
+                                            <input type="password" name="passwd" required autocomplete="off"  />
+                                        </div>
+                                        <!-- <p class="forgot"><a href="#">Forgot Password?</a></p>  -->
+
+
+                                        <button class="button button-block"/>Log In</button>
+
+                                    </form>
+
+                                </div>
+
+                            </div><!-- tab-content -->
+
+                        </div> <!-- /form -->
+
+                    </div>
+                </div>
+            </div>
+
+
+            <script src="js/jquery-3.3.1.min.js"></script>
+            <script src="js/jquery-migrate-3.0.1.min.js"></script>
+            <script src="js/popper.min.js"></script>
+            <script src="js/bootstrap.min.js"></script>
+            <script src="js/owl.carousel.min.js"></script>
+            <script src="js/jquery.stellar.min.js"></script>
+            <script src="js/jquery.fancybox.min.js"></script>
+
+
+            <script src="js/aos.js"></script>
+
+            <script src="js/bootstrap-datepicker.js"></script> 
+            <script src="js/jquery.timepicker.min.js"></script> 
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/sprintf/1.1.2/sprintf.min.js"></script> 
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/sprintf/1.1.2/sprintf.min.js.map"></script> 
+
+            <script src="js/jquery.tabledit.min.js"></script>
+
+
+
+
+            <script src="js/main.js"></script>
+            <script src="./js/login.js"></script>
+            <script src="./js/hotelmanagement.js"></script>
+    </body>
+</html>
