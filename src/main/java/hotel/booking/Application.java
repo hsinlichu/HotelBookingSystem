@@ -86,9 +86,9 @@ public class Application {
 		// System.out.println(account); 
 		// Account new_account = Global.db.updateAccount(account, "abc", "test123@gmail.com", "password");
 		// System.out.println(new_account);
-		// //List<Order> orders = Global.db.getCustomerOrder(12);
-		// List<Order> orders = Global.db.getOwnerOrder(1);
-		// System.out.println(orders);
+		List<Order> orders = Global.db.getCustomerOrder(13);
+		//List<Order> orders = Global.db.getOwnerOrder(1);
+		System.out.println(orders);
 		// //System.out.println(Global.db.cancelOrder(orders.get(0))); 
 
 		// account = Global.db.verifyAccount("owner1@gmail.com", "password1");
