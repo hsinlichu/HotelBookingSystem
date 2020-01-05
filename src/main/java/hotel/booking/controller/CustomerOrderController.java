@@ -54,7 +54,7 @@ public class CustomerOrderController {
     		@Valid @RequestBody @RequestParam(required = false) String action) {
 		System.out.println("editorder");
         AjaxResponseBody result = new AjaxResponseBody();
-        System.out.println(id+quantity+dateIn+dateOut+action);
+        System.out.println(id + " " + quantity + " " + dateIn + " " + dateOut + " " + action);
         Order modifyOrder = Global.db.getOrder(id);
         boolean execute = false;
         String message = reasonable(dateIn, dateOut, quantity);
@@ -89,7 +89,6 @@ public class CustomerOrderController {
     
     public boolean modifyCustomerOrder(Order modifyOrder,String Quantity, String datein, String dateout) {   //modify -> re getCustomer
     	if(Quantity != null) {
-    		System.out.println("quantity" + Quantity);
     		modifyOrder.quantity = Integer.parseInt(Quantity);
     		System.out.println("change quantity");
     	}
