@@ -25,10 +25,6 @@ import hotel.booking.container.Room;
 @Controller
 public class MyHotelController {               
 	       
-    public String getIssues(Model model) {
-    	System.out.println("Resultpage");
-        return "  ";                        
-    }
     public List<Hotel> getMyHotel(Account account){
     	List<Hotel> Hotellist=Global.db.getHotelsOfOwner(account);
     	return Hotellist;
@@ -102,6 +98,21 @@ public class MyHotelController {
         //If error, just return a 400 bad request, along with the error message
         //return ResponseEntity.badRequest().body(result);
         return ResponseEntity.ok(result);
+	}
+	
+	@RequestMapping(value="/newhotel", method=RequestMethod.POST)
+    public String newhotel(@RequestParam int star, @RequestParam String address, @RequestParam String street,
+    		@RequestParam int singleprice, @RequestParam int singlenum,
+    		@RequestParam int doubleprice, @RequestParam int doublenum,
+    		@RequestParam int quadprice, @RequestParam int quadnum,
+    		Model model) {
+		
+		
+    	System.out.println("newhotel");
+    	System.out.println(star+" "+address+" "+street+" "+singleprice+" "+singlenum+" "+doubleprice+" "+doublenum+" "+quadprice+" "+quadnum);
+    	
+    	
+        return "redirect:/hotelmanagement";              
 	}
     
 
