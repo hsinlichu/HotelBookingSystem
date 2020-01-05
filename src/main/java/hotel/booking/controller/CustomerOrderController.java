@@ -53,6 +53,22 @@ public class CustomerOrderController {
 		System.out.println("editorder");
         AjaxResponseBody result = new AjaxResponseBody();
         System.out.println(id+Quantity+dateIn+dateOut+action);
+        Order modifyOrder = Global.db.getOrder(id);
+        boolean execute = false;
+        
+        if(action.equals("edit")) {
+        	execute = modifyCustomerOrder(modifyOrder, Quantity, dateIn, dateOut);
+        }
+        else if(action.equals("delete")) {
+        	execute = deleteCustomerOrder(modifyOrder);
+        }
+        
+        if(execute = false) {
+        	result.setMsg("edit failed!");
+        }
+        else {
+        	result.setMsg("edit successfully!");
+        }
 
         //If error, just return a 400 bad request, along with the error message
         //return ResponseEntity.badRequest().body(result);
@@ -62,8 +78,23 @@ public class CustomerOrderController {
     public boolean deleteCustomerOrder(Order deleteOrder){
     	return Global.db.cancelOrder(deleteOrder);
     }
-    public boolean modifyCustomerOrder(Order order) {   //modify -> re getCustomer
-    	return Global.db.modifyOrder(order);
+    public boolean modifyCustomerOrder(Order modifyOrder,String Quantity, String datein, String dateout) {   //modify -> re getCustomer
+    	if(Quantity != null) {
+    		modifyOrder.quantity = Integer.valueOf(Quantity);
+    		System.out.println("change quantity");
+    	}
+    	if(datein != null) {
+    		modifyOrder.dateIn = datein;
+    		System.out.println("change datein");
+    	}
+    	if(dateout != null) {
+    		modifyOrder.dateOut = dateout;
+    		System.out.println("change dateout");
+    	}
+    	else {
+    		System.out.println("change failed");
+    	}
+    	return Global.db.modifyOrder(modifyOrder);
     }
 
 }

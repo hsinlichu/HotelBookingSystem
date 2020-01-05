@@ -2,17 +2,17 @@
 
     'use strict';
 
-    $.getJSON('/getOwnerOrder', function (data) {
-        //console.log(data);
-        //$("#ordertable tr").remove();
+    $.getJSON('/getMyhotel', function (data) {
+        console.log(data);
+        $("#ordertable tr").remove();
         var template = `
         <tr data-id="%(id)s">
             <td scope="row">%(id)s</td>
-            <td>%(dateIn)s</td>
-            <td>%(dateOut)s</td>
-            <td>%(room.type)s</td>
-            <td>%(quantity)s</td>
-            <td>%(room.price)s</td>
+            <td>%(star)s</td>
+            <td>%(locality)s</td>
+            <td>%(street)s</td>
+            <td>%(room[0].price)s</td>
+            <td>%(room[0].quantity)s</td>
         </tr>
         `;
         var i;
@@ -23,9 +23,9 @@
         }
         
         $("#wholeordertable").Tabledit({
-            url: '/editOwnerOrder',
+            url: '/editorder',
             deleteButton: true,
-            editButton: false,
+            editButton: true,
             restoreButton: false,
             buttons: {
                 delete: {
@@ -36,14 +36,19 @@
                 confirm: {
                     class: 'btn btn-sm btn-default',
                     html: 'Are you sure?'
-                }
-                
+                },
+                edit: {
+                    class: 'btn btn-sm btn-success',
+                    html: 'EDIT',
+                    action: 'edit'
+                },
             },
             
             columns: {
             	
               identifier: [0, "id"],
               editable: [
+            	  [1, 'quantity'], [2, 'dateIn'], [3, 'dateOut'], [6, 'room_quntity']
               ]
             },
            onSuccess: function(data, textStatus, jqXHR) {
@@ -57,7 +62,8 @@
                 console.log(jqXHR);
                 console.log(textStatus);
                 console.log(errorThrown);
-                //location.reload();
+                alert("Room Unavilable! Page reloaging..");
+                location.reload();
             },
             onAlways: function() {
                 console.log('onAlways()');

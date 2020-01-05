@@ -8,12 +8,11 @@
         var template = `
         <tr data-id="%(id)s">
             <td scope="row">%(id)s</td>
-            <td>%(quantity)s</td>
             <td>%(dateIn)s</td>
             <td>%(dateOut)s</td>
             <td>%(room.type)s</td>
+            <td>%(quantity)s</td>
             <td>%(room.price)s</td>
-            <td>%(room.quantity)s</td>
         </tr>
         `;
         var i;
@@ -49,7 +48,7 @@
             	
               identifier: [0, "id"],
               editable: [
-            	  [1, 'quantity'], [2, 'dateIn'], [3, 'dateOut'], [6, 'room_quntity']
+            	  [1, 'dateIn'], [2, 'dateOut'], [4, 'quantity']
               ]
             },
            onSuccess: function(data, textStatus, jqXHR) {
