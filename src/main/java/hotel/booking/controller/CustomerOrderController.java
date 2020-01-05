@@ -1,5 +1,7 @@
 package hotel.booking.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javax.annotation.Resource;
@@ -52,35 +54,41 @@ public class CustomerOrderController {
     		@Valid @RequestBody @RequestParam(required = false) String action) {
 		System.out.println("editorder");
         AjaxResponseBody result = new AjaxResponseBody();
-        System.out.println(id+quantity+dateIn+dateOut+action);
+        System.out.println(id + " " + quantity + " " + dateIn + " " + dateOut + " " + action);
         Order modifyOrder = Global.db.getOrder(id);
         boolean execute = false;
+        String message = reasonable(dateIn, dateOut, quantity);
         
-        if(action.equals("edit")) {
-        	execute = modifyCustomerOrder(modifyOrder, quantity, dateIn, dateOut);
-        }
-        else if(action.equals("delete")) {
-        	execute = deleteCustomerOrder(modifyOrder);
-        }
-        
-        if(execute = false) {
-        	result.setMsg("edit failed!");
+        if(message == null) {
+        	if(action.equals("edit")) {
+            	execute = modifyCustomerOrder(modifyOrder, quantity, dateIn, dateOut);
+            }
+            else if(action.equals("delete")) {
+            	execute = deleteCustomerOrder(modifyOrder);
+            }
+            
+            if(execute = false) {
+            	result.setMsg("edit failed!");
+            }
+            else {
+            	result.setMsg("edit successfully!");
+            }
         }
         else {
-        	result.setMsg("edit successfully!");
+        	result.setMsg(message);
         }
 
         //If error, just return a 400 bad request, along with the error message
         //return ResponseEntity.badRequest().body(result);
         return ResponseEntity.ok(result);
-	}
+	} 
 
     public boolean deleteCustomerOrder(Order deleteOrder){
     	return Global.db.cancelOrder(deleteOrder);
     }
+    
     public boolean modifyCustomerOrder(Order modifyOrder,String Quantity, String datein, String dateout) {   //modify -> re getCustomer
     	if(Quantity != null) {
-    		System.out.println("quantity" + Quantity);
     		modifyOrder.quantity = Integer.parseInt(Quantity);
     		System.out.println("change quantity");
     	}
@@ -98,5 +106,62 @@ public class CustomerOrderController {
     	System.out.println(modifyOrder);
     	return Global.db.modifyOrder(modifyOrder);
     }
+    
+    public static String reasonable(String datein, String dateout, String Quantity) {
+    	String message = null;
+    	int quantity = Integer.valueOf(Quantity);
+    	int dateinYear = Integer.valueOf(datein.substring(0, 3));
+    	int dateinMonth = Integer.valueOf(datein.substring(5, 6));;
+    	int dateinDay = Integer.valueOf(datein.substring(8, 9));;
+    	int dateoutYear = Integer.valueOf(datein.substring(0, 3));;
+    	int dateoutMonth = Integer.valueOf(datein.substring(5, 6));;
+    	int dateoutDay = Integer.valueOf(datein.substring(8, 9));;
+    	boolean oddinMonth = true;
+    	boolean oddoutMonth = true;
+    	
+    	if(dateinMonth == 2 || dateinMonth == 4 || dateinMonth == 6 || dateinMonth == 8 || dateinMonth == 10 || dateinMonth == 12) {
+    		oddinMonth = false;
+    	}
+    	if(dateoutMonth == 2 || dateoutMonth == 4 || dateoutMonth == 6 || dateoutMonth == 8 || dateoutMonth == 10 || dateoutMonth == 12) {
+    		oddoutMonth = false;
+    	}
+    	
+	  try{
+		     java.text.SimpleDateFormat dFormat = new SimpleDateFormat("yyyy/MM/dd");  
+		     dFormat.setLenient(false);
+
+		     java.util.Date d = dFormat.parse(datein);
+		     System.out.println("datein ok");
+		   }catch(ParseException e){
+		    message = "please enter correct date";
+		   }
+	  
+	  try{
+		     java.text.SimpleDateFormat dFormat = new SimpleDateFormat("yyyy/MM/dd");  
+		     dFormat.setLenient(false);
+		    
+		     java.util.Date d = dFormat.parse(dateout);
+		     System.out.println("dateout ok");
+		   }catch(ParseException e){
+		    message = "please enter correct date";
+	   
+		   }
+    	
+    	
+    	if(datein.length() > 10 || dateout.length() > 10) {
+    		message = "please enter correct date!";
+    	}
+    	else if(datein.substring(4, 5).equals("/") == false || datein.substring(7, 8).equals("/") == false) {
+    		message = "please enter date in correct format!(use /)";
+    		System.out.println(datein + datein.substring(7, 8));
+    	}
+    	else if(quantity <= 0) {
+    		message = "please enter correct quantity!";
+    	}
+    	
+    	return message;
+    }
 
 }
+
+
