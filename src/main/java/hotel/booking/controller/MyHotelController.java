@@ -108,6 +108,34 @@ public class MyHotelController {
     		Model model) {
 		
 		
+		Room singleroom = new Room();
+		Room doubleroom = new Room();
+		Room quadroom = new Room();
+		singleroom.price = singleprice;
+		singleroom.quantity = singlenum;
+		singleroom.type = "Single";
+		
+		doubleroom.price = doubleprice;
+		doubleroom.quantity = doublenum;
+		doubleroom.type = "Double";
+		
+		quadroom.price = quadprice;
+		quadroom.quantity = quadnum;
+		quadroom.type = "Quad";
+		
+		List<Room> roomslist = new ArrayList<>();;
+		roomslist.add(singleroom);
+		roomslist.add(doubleroom);
+		roomslist.add(quadroom);
+		
+		Hotel newHotel = new Hotel();
+		newHotel.locality = address;
+		newHotel.star = star;
+		newHotel.street = street;
+		newHotel.rooms = roomslist;
+		
+		boolean execute = Global.db.addHotel(loginInfo.account, newHotel);
+		System.out.println(execute);
     	System.out.println("newhotel");
     	System.out.println(star+" "+address+" "+street+" "+singleprice+" "+singlenum+" "+doubleprice+" "+doublenum+" "+quadprice+" "+quadnum);
     	
