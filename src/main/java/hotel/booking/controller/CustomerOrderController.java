@@ -15,14 +15,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import hotel.booking.Global;
 import hotel.booking.container.*;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
-import java.util.stream.Collectors;
+
 
 @Controller
 public class CustomerOrderController {         
