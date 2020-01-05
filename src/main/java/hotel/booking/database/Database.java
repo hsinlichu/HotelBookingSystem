@@ -496,7 +496,7 @@ public class Database {
 		return conn;
 	}
 	
-	private int maxID(String table) {
+	public int maxID(String table) {
 		//String sql = "INSERT INTO JsonHotel (star, locality, street_address) VALUES (1, 'Taipei', 'abc street');";
 
 		String sql = "SELECT MAX(id) FROM " + "`" + table + "`" ;
