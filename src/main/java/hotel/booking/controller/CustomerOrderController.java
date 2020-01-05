@@ -58,26 +58,24 @@ public class CustomerOrderController {
         System.out.println(id + " " + quantity + " " + dateIn + " " + dateOut + " " + action);
         Order modifyOrder = Global.db.getOrder(id);
         boolean execute = false;
-        String message = reasonable(dateIn, dateOut, quantity);
         
-        if(message == null) {
-        	if(action.equals("edit")) {
-            	execute = modifyCustomerOrder(modifyOrder, quantity, dateIn, dateOut);
-            }
-            else if(action.equals("delete")) {
-            	execute = deleteCustomerOrder(modifyOrder);
-            }
-            
-            if(execute == false) {
-            	result.setMsg("edit failed!");
-            }
-            else {
-            	result.setMsg("edit successfully!");
-            }
+        if(action.equals("delete")) {
+        	execute = deleteCustomerOrder(modifyOrder);
         }
-        else {
-        	result.setMsg(message);
+        else if(action.equals("edit")) {
+        	String message = reasonable(dateIn, dateOut, quantity);
+        	if(message == null) {
+        		execute = modifyCustomerOrder(modifyOrder, quantity, dateIn, dateOut);
+        	}
+        	else {
+        		result.setMsg(message);
+        	}
         }
+        
+        if(execute == true) {
+        	result.setMsg("edit successfully!");
+        }
+        
 
         //If error, just return a 400 bad request, along with the error message
         //return ResponseEntity.badRequest().body(result);
