@@ -136,7 +136,13 @@ public class Database {
 		attr.put("locality", hotel.locality);
 		attr.put("street_address", hotel.street);
 		attr.put("owner_id", Integer.toString(account.id));
-		if(this.insert("Hotel", attr)) return true;
+		if(this.insert("Hotel", attr)){
+			hotel.id = this.maxID("Hotel");
+			for(Room room: hotel.rooms){
+				this.addRoom(room, hotel);
+			}
+			return true;
+		}
 		else return false;
 	}
 
@@ -199,6 +205,15 @@ public class Database {
 		cond_attr.put("id", Integer.toString(room.id));
 		if(this.update("Room", attr, cond_attr)) return true;
 		else return false;
+	}
+
+	public boolean addRoom(Room room, Hotel hotel){
+		HashMap<String, String> attr = new HashMap<String, String>();
+		attr.put("type", room.type);
+		attr.put("price", Integer.toString(room.price));
+		attr.put("quantity", Integer.toString(room.quantity));
+		attr.put("hotel_id", Integer.toString(hotel.id));
+		return this.insert("Room", attr);
 	}
 
 	public Boolean setHotelOwner(Hotel hotel, Account account) {
@@ -496,7 +511,7 @@ public class Database {
 		return conn;
 	}
 	
-	public int maxID(String table) {
+	private int maxID(String table) {
 		//String sql = "INSERT INTO JsonHotel (star, locality, street_address) VALUES (1, 'Taipei', 'abc street');";
 
 		String sql = "SELECT MAX(id) FROM " + "`" + table + "`" ;
