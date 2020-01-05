@@ -68,7 +68,7 @@ public class CustomerOrderController {
             	execute = deleteCustomerOrder(modifyOrder);
             }
             
-            if(execute = false) {
+            if(execute == false) {
             	result.setMsg("edit failed!");
             }
             else {

@@ -5,6 +5,9 @@ import java.io.File;
 import java.io.InputStreamReader;
 import java.io.FileInputStream;
 import java.util.*;
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.sql.*;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
@@ -356,11 +359,40 @@ public class Database {
 		Order old_order = this.getOrder(order.id);
 		//System.out.println("check");
 		if(old_order == null) return false;
-		if(old_order.dateIn.equals(order.dateIn) && old_order.dateOut.equals(order.dateOut) && old_order.quantity == order.quantity) return true;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		Date dateIn_old = null;
+		try {
+			dateIn_old = sdf.parse(old_order.dateIn);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        Date dateIn = null;
+		try {
+			dateIn = sdf.parse(order.dateIn);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        Date dateOut_old = null;
+		try {
+			dateOut_old = sdf.parse(old_order.dateOut);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        Date dateOut = null;
+		try {
+			dateOut = sdf.parse(order.dateOut);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(old_order.dateIn.equals(order.dateIn) && old_order.dateOut.equals(old_order.dateOut) && old_order.quantity == order.quantity) return true;
 		int room_left = this.roomLeft(order.room, order.dateIn, order.dateOut);
 		//System.out.println(old_order);
 		//System.out.println(order);
-		if(old_order.dateIn.equals(order.dateIn) && old_order.dateOut.equals(old_order.dateOut)) room_left += old_order.quantity;
+		if(dateIn_old.compareTo(dateIn) <= 0 && dateOut_old.compareTo(dateOut) >= 0) room_left += old_order.quantity;
 		//System.out.println("check");
 		//System.out.println(room_left);
 		if(order.quantity > room_left) return false;

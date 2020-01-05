@@ -8,6 +8,7 @@
 
 
 database/hotel.db
+database/hotel.db*
 
 ### Compiled class file
 *.class
