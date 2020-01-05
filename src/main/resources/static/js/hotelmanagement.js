@@ -11,8 +11,6 @@
             <td>%(star)s</td>
             <td>%(locality)s</td>
             <td>%(street)s</td>
-            <td>%(room[0].price)s</td>
-            <td>%(room[0].quantity)s</td>
         </tr>
         `;
         var i;
@@ -23,8 +21,8 @@
         }
         
         $("#wholeordertable").Tabledit({
-            url: '/editorder',
-            deleteButton: true,
+            url: '/editMyhotel',
+            deleteButton: false,
             editButton: true,
             restoreButton: false,
             buttons: {
@@ -48,7 +46,7 @@
             	
               identifier: [0, "id"],
               editable: [
-            	  [1, 'quantity'], [2, 'dateIn'], [3, 'dateOut'], [6, 'room_quntity']
+            	  [1, 'star'], [2, 'locality'], [3, 'street'],
               ]
             },
            onSuccess: function(data, textStatus, jqXHR) {
@@ -62,8 +60,8 @@
                 console.log(jqXHR);
                 console.log(textStatus);
                 console.log(errorThrown);
-                alert("Room Unavilable! Page reloaging..");
-                location.reload();
+                //alert("Edit Error! Page reloading..");
+                //location.reload();
             },
             onAlways: function() {
                 console.log('onAlways()');
