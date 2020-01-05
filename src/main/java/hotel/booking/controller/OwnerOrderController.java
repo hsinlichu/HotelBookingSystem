@@ -47,12 +47,11 @@ public class OwnerOrderController {
     
 	@RequestMapping(value="/editOwnerOrder", method=RequestMethod.POST)
     public ResponseEntity<?> getSearchResultViaAjax(
-    		@Valid @RequestBody @RequestParam(required = true) int id, @Valid @RequestBody @RequestParam(required = false) String Quantity, 
-    		@Valid @RequestBody @RequestParam(required = false) String dateIn, @Valid @RequestBody @RequestParam(required = false) String dateOut,
+    		@Valid @RequestBody @RequestParam(required = true) int id,
     		@Valid @RequestBody @RequestParam(required = false) String action) {
 		System.out.println("editOwnerOrder");
         AjaxResponseBody result = new AjaxResponseBody();
-        System.out.println(id+Quantity+dateIn+dateOut+action);
+        System.out.println(id+action);
 
         //If error, just return a 400 bad request, along with the error message
         //return ResponseEntity.badRequest().body(result);

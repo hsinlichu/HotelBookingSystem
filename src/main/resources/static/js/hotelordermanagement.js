@@ -4,16 +4,15 @@
 
     $.getJSON('/getOwnerOrder', function (data) {
         //console.log(data);
-        $("#ordertable tr").remove();
+        //$("#ordertable tr").remove();
         var template = `
         <tr data-id="%(id)s">
             <td scope="row">%(id)s</td>
-            <td>%(quantity)s</td>
             <td>%(dateIn)s</td>
             <td>%(dateOut)s</td>
             <td>%(room.type)s</td>
+            <td>%(quantity)s</td>
             <td>%(room.price)s</td>
-            <td>%(room.quantity)s</td>
         </tr>
         `;
         var i;
@@ -26,7 +25,7 @@
         $("#wholeordertable").Tabledit({
             url: '/editOwnerOrder',
             deleteButton: true,
-            editButton: true,
+            editButton: false,
             restoreButton: false,
             buttons: {
                 delete: {
@@ -37,12 +36,8 @@
                 confirm: {
                     class: 'btn btn-sm btn-default',
                     html: 'Are you sure?'
-                },
-                edit: {
-                    class: 'btn btn-sm btn-success',
-                    html: 'EDIT',
-                    action: 'edit'
-                },
+                }
+                
             },
             
             columns: {
@@ -62,8 +57,7 @@
                 console.log(jqXHR);
                 console.log(textStatus);
                 console.log(errorThrown);
-                alert("Room Unavilable! Page reloaging..");
-                location.reload();
+                //location.reload();
             },
             onAlways: function() {
                 console.log('onAlways()');
