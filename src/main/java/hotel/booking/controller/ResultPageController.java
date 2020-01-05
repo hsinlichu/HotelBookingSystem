@@ -26,7 +26,7 @@ public class ResultPageController {
 	private int star = 0;
 	private int price_from = -1;
 	private int price_to = -1;
-	private int sortmethod = 0;     //0->star HtoL, 1->star LtoH, 2->price HtoL, 3->price LtoH
+	private int sortmethod = -1;     //0->star HtoL, 1->star LtoH, 2->price HtoL, 3->price LtoH
 
 	
 	@RequestMapping(value="/result", method=RequestMethod.POST)
@@ -56,6 +56,15 @@ public class ResultPageController {
     	this.star = star;
     	this.price_from = pricefrom;
     	this.price_to = priceto;
+    	
+        return "result";              
+	}
+
+	@RequestMapping(value="/result", method=RequestMethod.GET, params = {"sort_method"})
+    public String sort(@RequestParam String sort_method, Model model) {
+		model.addAttribute("loginInfo", loginInfo);
+    	System.out.println("Resultpage");
+    	System.out.println(sort_method);
     	
         return "result";              
 	}
