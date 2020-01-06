@@ -55,6 +55,7 @@
                 alert(data["msg"]);
                 console.log(textStatus);
                 console.log(jqXHR);
+                location.reload();
             },
             onFail: function(jqXHR, textStatus, errorThrown) {
                 console.log('onFail(jqXHR, textStatus, errorThrown)');

@@ -75,6 +75,9 @@ public class CustomerOrderController {
         if(execute == true) {
         	result.setMsg("edit successfully!");
         }
+        else{
+        	result.setMsg("edit failed!");
+        }
         
 
         //If error, just return a 400 bad request, along with the error message
